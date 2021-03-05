@@ -27,6 +27,10 @@ from .utils import (
 )
 from . import data
 
+# needed to prepare the data for the formater
+from lxml import etree
+import html
+
 # For BibTeX export
 from .formatter import bibtex_encode, bibtex_make_entry
 
@@ -241,7 +245,20 @@ class Paper:
           - html:  Convert XML tags into valid HTML tags
           - latex: Convert XML tags into LaTeX commands
         """
-        return self.formatter(self.get("xml_title"), form)
+        title = self.get("xml_title")
+        #The latex formater needs html-escaped symbols, otherwhise the build
+        #will fail.
+        if form=="latex" and not title==None:
+            title = etree.tostring(title).decode()
+            title = title.replace("\"", "\\\"")
+            start = title.find(">")+1
+            end = title.rfind("<")
+            newtitle = title[0:start]
+            newtitle += html.escape(title[start:end])
+            newtitle += title[end:]
+            title = newtitle
+            title = etree.fromstring(title)
+        return self.formatter(title, form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.

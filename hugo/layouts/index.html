@@ -23,24 +23,26 @@
   {{ end }}
 
   <div class="col-12 col-xl-2">
-    <h2 class="pl-2 pb-2">Welcome to the ACL Anthology!</h2>
+    <h2 class="pl-2 pb-2">Welcome to the IR Anthology!</h2>
 
     <aside class="card acl-greeting font-weight-light mb-3">
       <div class="card-body">
-        The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
+        The IR Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
       </div>
+      <!--
       <div class="card-body">
         <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> to receive announcements and updates to the Anthology.
       </div>
+      -->
     </aside>
-
+    <!--
     <aside class="alert alert-info acl-news mb-3" role="alert">
-      <!-- The news message pulls from content/_index.md -->
       {{ if (gt (time .PublishDate).Year 2018) }}
       <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
       {{ end }}
       {{ .Content }}
     </aside>
+    -->
 
     <div class="row mb-3">
       {{ if (fileExists "/data-export/anthology.bib.gz") }}

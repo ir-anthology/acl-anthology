@@ -4,7 +4,7 @@
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
-    <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
+    <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ trim (replace (replace (replace (replace (replace (replace (replace (replace (replace (replace $person.last "0" "") "1" "") "2" "") "3" "") "4" "") "5" "") "6" "") "7" "") "8" "") "9" "") " " }}</span>
   </h2>
   {{ with $person.comment }}
   <p class="font-weight-light text-muted">{{.}}</p>

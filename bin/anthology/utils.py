@@ -357,6 +357,9 @@ def indent(elem, level=0, internal=False):
         elif not elem.tail or not elem.tail.strip():
             elem.tail = "\n" + level * "  "
 
+pdfRegex = re.compile("\\.pdf$")
+def url_is_pdf(url):
+    return bool(pdfRegex.search(url))
 
 def parse_element(xml_element):
     attrib = {}
@@ -410,12 +413,9 @@ def parse_element(xml_element):
             # Set the URL (canonical / landing page for Anthology)
             value = infer_url(element.text)
 
-            # Add a PDF link with, converting relative URLs to canonical ones
-            attrib["pdf"] = (
-                element.text
-                if urlparse(element.text).netloc
-                else data.ANTHOLOGY_PDF.format(element.text)
-            )
+            # Add a PDF link, if the url points to a pdf-file.
+            if url_is_pdf(element.text):
+                attrib["pdf"] = element.text
 
         if tag in data.LIST_ELEMENTS:
             try:

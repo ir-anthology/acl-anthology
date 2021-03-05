@@ -1,5 +1,5 @@
 ---
-Title: ACL Anthology
+Title: IR Anthology
 date: "2019-03-09"
 css_container: container-fluid
 layout: "index_flex"

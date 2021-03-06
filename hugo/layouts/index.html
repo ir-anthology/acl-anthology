@@ -27,13 +27,8 @@
 
     <aside class="card acl-greeting font-weight-light mb-3">
       <div class="card-body">
-        The IR Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
+        The IR Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval and natural language processing.
       </div>
-      <!--
-      <div class="card-body">
-        <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> to receive announcements and updates to the Anthology.
-      </div>
-      -->
     </aside>
     <!--
     <aside class="alert alert-info acl-news mb-3" role="alert">
@@ -45,12 +40,9 @@
     -->
 
     <div class="row mb-3">
-      {{ if (fileExists "/data-export/anthology.bib.gz") }}
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-        <a class="btn btn-block btn-info" href="{{ "/anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+        The DBLP dataset is the foundation for the IR-Anthology. <a href="https://dblp.uni-trier.de/xml/">Click here to download the DBLP dataset.</a> to receive announcements and updates to the Anthology.
       </div>
-      {{ end }}
       <div class="col-6 col-xl-12 mb-2">
         <a class="btn btn-block btn-warning" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
       </div>

@@ -211,7 +211,10 @@ class AnthologyIndex:
             for w in slugify(paper.get_title("plain")).split("-")
             if not self._is_stopword(w, paper)
         ]
-        bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        try:
+            bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        except IndexError:
+            bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), slugify(paper.get_title("plain")))
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
                 bibkey += "-{}".format(title.pop(0))

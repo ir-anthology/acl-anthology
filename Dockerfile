@@ -10,8 +10,6 @@ ADD . /home/build-user/ir-anthology
 WORKDIR /home/build-user/ir-anthology
 RUN chown -R build-user:build-user /home/build-user/ \
 && runuser -u build-user -- python3 -m venv venv \
-&& runuser -u build-user -- bash -c ". \"venv/bin/activate\"" \
-&& runuser -u build-user -- pip3 install wheel Cython \
-&& runuser -u build-user -- pip3 install -r bin/requirements.txt
+&& runuser -u build-user -- bash -c ". \"venv/bin/activate\" &&  pip3 install wheel Cython && pip3 install -r bin/requirements.txt"
 
 ENTRYPOINT ["bash", "-c", "bin/docker_entrypoint.sh"]

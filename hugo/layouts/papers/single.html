@@ -216,6 +216,12 @@
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
+      <a class="btn btn-secondary" href="https://academic.microsoft.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
+        <span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      </a>
+      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
+        <span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      </a>
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "attachment_repr.html" . -}}</span>

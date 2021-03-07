@@ -21,7 +21,7 @@
 #   this makes sure that all required packages are installed.
 
 SHELL = /bin/sh
-ANTHOLOGYHOST := "https://iranthology.webis.de"
+ANTHOLOGYHOST := "https://ir.webis.de"
 ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 

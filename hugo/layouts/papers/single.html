@@ -149,6 +149,8 @@
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="https://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dt>DBLP:</dt>
+      <dd>{{ with $paper.dblp }}<a href="https://dblp.org/rec/{{ . }}.html" title="DBLP entry">{{ . }}</a>{{ end }}</dd>
       {{ range $paper.award }}
       <dt>Award:</dt>
       <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
@@ -159,13 +161,14 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
+      {{ with $paper.dblp }}
       <dt class="acl-button-row">DBLP bib files:</dt>
       <dd class="acl-button-row">
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ $paper.dblp }}.bib?param=1">BibTeX</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ $paper.dblp }}.ris">RIS</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ $paper.dblp }}.nt">RDF N-Triples</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ $paper.dblp }}.rdf">RDF/XML</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ $paper.dblp }}.xml">XML</a>
+        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.bib?param=1">BibTeX</a>
+        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.ris">RIS</a>
+        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.nt">RDF N-Triples</a>
+        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.rdf">RDF/XML</a>
+        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.xml">XML</a>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
           <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
@@ -178,6 +181,7 @@
         {{ end }}
         -->
       </dd>
+      {{ end }}
 
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>

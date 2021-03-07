@@ -16,7 +16,7 @@
 {{ end }}
 
 {{ define "main" }}
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="width:80%;margin-left: 7%;">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
     {{ $.Scratch.Add "paper_count" (len .) }}
@@ -56,7 +56,7 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
@@ -107,7 +107,7 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
+    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
@@ -138,9 +138,9 @@
         {{ end }}
       {{ end }}
       </tbody>
+    </table>
     <!-- currently all venues are either a conference of a journal -->
     <!-- 
-    </table>
     <h6>Others</h6>
     {{/* Others */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}

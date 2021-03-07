@@ -13,6 +13,8 @@
       {{ $paper.title_html | safeHTML }}
     {{ end }}
   </h2>
+
+  <!-- This part is commented out, because right now we do not identify the volume/overview-paper. Thus this part is right dead weight. It will be reenable in future version.
   {{ with $paper.editor }}
   <p class="lead">
     {{ $len := (len .) }}
@@ -23,11 +25,11 @@
   {{ end }}
 
   <hr />
-
+  
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
-    <!-- To avoid cluttering this template with Bootstrap classes, the styling
-    for this list is defined in assets/css/_papers.scss -->
+    !-- To avoid cluttering this template with Bootstrap classes, the styling
+    for this list is defined in assets/css/_papers.scss --
     <dl>
       <dt>Anthology ID:</dt>
       <dd>{{ $anthology_id }}</dd>
@@ -70,12 +72,12 @@
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
-      <!--
+      !--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
-      -->
+      --
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
       {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
@@ -97,7 +99,7 @@
     </dl>
     </div>
 
-    <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
+    !-- Most of the styling for this block is set in _papers.scss to avoid clutter --
     <div class="acl-paper-link-block">
       {{ with $paper.pdf }}
       <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
@@ -115,6 +117,8 @@
       </a>
     </div>
   </div>
+  -->
+
   <hr />
 
   {{ if $paper.has_abstracts }}

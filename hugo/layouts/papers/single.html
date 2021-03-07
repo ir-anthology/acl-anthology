@@ -220,11 +220,11 @@
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
-      <a class="btn btn-secondary" href="https://academic.microsoft.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
-        <span class="pl-sm-2 d-none d-sm-inline">MSA Search</span>
+      <a class="btn btn-secondary" href="https://academic.microsoft.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Microsoft Academic Search">
+        <img style="max-width:100%;max-height:100%;" src="/images/mas-logo.png"></img><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
-      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
-        <span class="pl-sm-2 d-none d-sm-inline">SeS Search</span>
+      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
+        <img style="max-width:100%;max-height:100%;" src="/images/sems-logo.png"></img><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">

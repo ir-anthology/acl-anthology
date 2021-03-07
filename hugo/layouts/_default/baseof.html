@@ -14,7 +14,7 @@
     <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
     {{ hugo.Generator }}
-    <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
+    <link href="{{ "favicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
 
     {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
     {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}

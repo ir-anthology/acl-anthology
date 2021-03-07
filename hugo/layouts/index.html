@@ -86,15 +86,16 @@
         </tr>
         {{ end }}
         {{ end }}
-        {{/* SIGs */}}
+        {{/* Societies */}}
         <tr class="text-center border-left border-right">
-          <th scope="row">SIGs</th>
+          <th scope="row">Societies</th>
           <td class="border-left" colspan="{{ len $all_years }}">
-          {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
-          {{ $len := len $sig_pages }}
-          {{ range $index, $page := $sig_pages}}
-            <a href="{{ $page.RelPermalink }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
-          {{ end }}
+            <a href="https://sigir.org/">ACM SIGIR</a> | 
+            <a href="https://irsg.bcs.org/">BCS IRSG</a> | 
+            <a href="http://www.clef-initiative.eu/">CLEF Initiative</a> | 
+            <a href="https://fg-retrieval.gi.de/">GI FGIR</a> | 
+            <a href="http://fire.irsi.res.in">IRSI FIRE</a> |  
+            <a href="https://www.ismir.net/">ISMIR</a>
           </td>
         </tr>
       </tbody>

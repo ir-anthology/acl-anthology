@@ -7,9 +7,12 @@
       pdf
     </a>
     {{- end -}}
-    {{- if (fileExists (printf "/data-export/%s.bib" .Params.anthology_id)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    <a class="badge badge-secondary align-middle mr-1" href="https://dblp.org/rec/{{ $paper.dblp }}.bib?param=1" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
+    </a>
+    {{- with $paper.doi -}}
+    <a class="badge badge-secondary align-middle mr-1" href="https://dx.doi.org/{{ . }}" data-toggle="tooltip" data-placement="top" title="Open at doi.org">
+      doi
     </a>
     {{- end -}}
     {{- with $paper.abstract_html -}}

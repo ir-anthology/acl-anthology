@@ -35,22 +35,37 @@
   <link rel="canonical" href="{{ $paper.url }}" />
 {{ end }}
 
-{{ define "javascript" }}
-<script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
-<script>
-  $( document ).ready(function() {
-      if (ClipboardJS.isSupported()) {
-          new ClipboardJS(".btn-clipboard");
-          $(".btn-clipboard").removeClass("d-none");
-      }
-  });
-</script>
-{{ end }}
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+<script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
+{{ with $paper.dblp }}
+  <script>
+    document.onreadystatechange = function () {
+      if (document.readyState == "complete") {
+        if (ClipboardJS.isSupported()) {
+          new ClipboardJS(".btn-clipboard", {
+            text: function(trigger) {
+              var xhttp = new XMLHttpRequest();
+              xhttp.open("GET", "https://dblp.org/rec/{{ . }}.bib?param=1", false);
+              xhttp.send();
+              if (xhttp.status === 200) {
+                return xhttp.responseText
+              }
+              throw "Error while loading the BibTex"
+            }
+          });
+          var list = document.getElementsByClassName("btn-clipboard")
+          for(i=0; i<list.length; i++){
+            list[i].classList.remove("d-none")
+          }
+        }
+      }
+    }
+  </script>
+{{ end }}
 <section id="main">
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -169,15 +184,13 @@
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.nt">RDF N-Triples</a>
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.rdf">RDF/XML</a>
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.xml">XML</a>
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
           <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
         {{ end }}
         {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
           <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
-        {{ end }}
-        {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
-          <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
         {{ end }}
         -->
       </dd>

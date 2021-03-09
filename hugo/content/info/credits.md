@@ -6,20 +6,20 @@ The IR Anthology project is a joint effort by people from the [Webis Group](http
 
 ### Webis Staff
 
-+ [Name](URL) (Affiliation) --- **Role**
-+ Alexander Bondarenko (Martin Luther University of Halle-Wittenberg)
++ Janek Bevendorff (Bauhaus-Universität Weimar)
++ Alexander Bondarenko (Martin-Luther-Universität Halle-Wittenberg)
++ Maik Fröbe (Martin-Luther-Universität Halle-Wittenberg)
++ Sebastian Günther (Martin-Luther-Universität Halle-Wittenberg)
++ Prof. Dr. Matthias Hagen (Martin-Luther-Universität Halle-Wittenberg)
++ Christian Kahmann (Leipzig University)
 + Dr. Andreas Niekler (Leipzig University)
-+ Prof. Dr. Benno Stein (Bauhaus University, Weimar)
-+ Janek Bevendorff (Bauhaus University, Weimar) --- **ChatonIR Search Development**
-+ Maik Fröbe (Martin Luther University of Halle-Wittenberg)
 + Jun.-Prof. Dr. Martin Potthast (Leipzig University)
-+ Prof. Dr. Matthias Hagen (Martin Luther University of Halle-Wittenberg)
-+ Dr. Michael Völske (Bauhaus University, Weimar)
-+ Sebastian Günther (Martin Luther University of Halle-Wittenberg)
++ Prof. Dr. Benno Stein (Bauhaus-Universität Weimar)
++ Dr. Michael Völske (Bauhaus-Universität Weimar)
 
 ### Student Assistants
 
-+ Jan Philipp Bittner (Martin Luther University of Halle-Wittenberg) --- **Site Development**
++ Jan Philipp Bittner (Martin-Luther-Universität Halle-Wittenberg) --- **Site Development**
 
 ### Acknowledgments
 

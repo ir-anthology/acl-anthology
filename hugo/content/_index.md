@@ -1,5 +1,5 @@
 ---
-Title: IR Anthology
+Title: The Information Retrieval Anthology
 date: "0001-01-01"
 css_container: container-fluid
 ---

@@ -147,7 +147,8 @@
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
-      {{ if (eq (len $volume.sigs) 0) }}
+      {{- $len := (len $volume.sigs) -}}
+      {{ if (eq $len 0) }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.sigs) -}}
@@ -188,6 +189,9 @@
       <dt>DBLP:</dt>
       <dd><a href="https://dblp.org/rec/{{ . }}.html" title="DBLP paper page">{{ . }}</a></dd>
       {{ end }}
+      {{ with $paper.pdf }}
+      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
       {{ range $paper.award }}
       <dt>Award:</dt>
       <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
@@ -216,10 +220,6 @@
         {{ end }}
         -->
       </dd>
-      {{ end }}
-
-      {{ with $paper.pdf }}
-      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
       {{ end }}
 
       {{ range $paper.attachment }}

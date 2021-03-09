@@ -57,7 +57,7 @@
           {{ range $all_years }}
           {{ $year := string . }}
           {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
+          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
             {{- with index $venue "volumes_by_year" $year -}}
             <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
             {{- end -}}
@@ -132,7 +132,7 @@
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.name }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}">
+          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1962" $year) "border-right" "" }}">
             {{ with index $venue "volumes_by_year" $year }}
             <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">
               {{- slicestr $year 2 4 -}}

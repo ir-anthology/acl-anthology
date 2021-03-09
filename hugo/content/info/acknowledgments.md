@@ -1,5 +1,5 @@
 ---
-Title: Credits
+Title: Acknowledgments
 ---
 
 The IR Anthology project is a joint effort by people from the [Webis Group](https://webis.de/).

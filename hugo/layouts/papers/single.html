@@ -148,6 +148,8 @@
         {{- end -}}
       </dd>
       {{- $len := (len $volume.sigs) -}}
+      <!-- right now we dont have any sigs annotated so this is hidden right now-->
+      <!--
       {{ if (eq $len 0) }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
@@ -159,6 +161,7 @@
         {{- end -}}
       </dd>
       {{ end }}
+      -->
       {{ end }}
 
       {{ with $paper.publisher }}

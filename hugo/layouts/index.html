@@ -141,7 +141,7 @@
             {{ if (not (isset (index $venue "volumes_by_year") $year)) }}
               {{ if (isset $event_exists_but_not_index $venue.slug) }}
                 {{ if (in (index $event_exists_but_not_index $venue.slug) $year) }}
-                  <span style="color:grey">{{ slicestr $year 2 4 }}</span>
+                  <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
                 {{ end }}
               {{ end }}
             {{ end }}

@@ -44,7 +44,7 @@
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="20">1989 and older</th>
+          <th class="border-left border-right" scope="col" colspan="19">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
@@ -76,7 +76,7 @@
         {{/* Societies */}}
         <tr class="border-left border-right">
           <th class="text-center" scope="row">Societies</th>
-          <td class="border-left" colspan="{{ len $all_years }}">
+          <td class="border-left border-right" colspan="{{ len $all_years }}">
             <a href="https://sigir.org/">ACM SIGIR</a> | 
             <a href="https://sigir.jp/">ACM SIGIR Tokyo</a> | 
             <a href="http://www.asso-aria.org/">ARIA</a> | 
@@ -95,7 +95,7 @@
         {{/* Schools */}}
         <tr class="border-left border-right">
           <th  class="text-center" scope="row">Schools</th>
-          <td class="border-left" colspan="{{ len $all_years }}">
+          <td class="border-left border-right" colspan="{{ len $all_years }}">
             <a href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a> | 
             <a href="http://www.asso-aria.org/earia/">EARIA</a> | 
             <a href="http://ims.dei.unipd.it/websites/essir/home.html">ESSIR</a> | 
@@ -108,7 +108,7 @@
     <h6>Journals</h6>
     {{/* Journals */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2021 -1 1962 }}
+    {{ $all_years := seq 2021 -1 1963 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
@@ -120,7 +120,7 @@
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="27">1989 and older</th>
+          <th class="border-left border-right" scope="col" colspan="27">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
@@ -132,7 +132,7 @@
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.name }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1962" $year) "border-right" "" }}">
+          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1963" $year) "border-right" "" }}">
             {{ with index $venue "volumes_by_year" $year }}
             <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">
               {{- slicestr $year 2 4 -}}

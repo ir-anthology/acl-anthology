@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $.Site.LanguageCode | default "en" }}">
+<html lang="{{ $.Site.LanguageCode | default "en" }}" style="height:100%">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,12 +25,13 @@
     {{ block "meta" . }}{{ end }}
   </head>
 
-  <body>
+  <body style="display: flex;flex-flow: column;height: 100%">
     {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
 
     <div id="main-container" class="{{ default "container" (index .Params "css_container") }}">
       {{ block "main" . }}{{ end }}
     </div>
+    <div style="flex-grow : 1;"></div>
     {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
 
     <!-- JavaScript used by Bootstrap -->

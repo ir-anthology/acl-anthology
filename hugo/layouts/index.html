@@ -26,24 +26,9 @@
     {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
-  <div class="col-12 col-xl-2">
-    <h2 class="pl-2 pb-2">Welcome to the IR Anthology!</h2>
-
-    <aside class="card acl-greeting font-weight-light mb-3">
-      <div class="card-body">
-        The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.
-      </div>
-    </aside>
-    <!--
-    <aside class="alert alert-info acl-news mb-3" role="alert">
-      {{ if (gt (time .PublishDate).Year 2018) }}
-      <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
-      {{ end }}
-      {{ .Content }}
-    </aside>
-    -->
-  </div><div class="col-12 col-xl-10 col-xl-width-auto">
+  <div class="col-12 col-xl-10 col-xl-width-auto">
     <main aria-role="main">
+    <p>The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
     <h6>Conferences</h6>
     {{/* Conferences */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}

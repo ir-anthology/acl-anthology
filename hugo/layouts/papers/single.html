@@ -113,21 +113,27 @@
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
       {{ end }}
 
+      {{- with $paper.parent_volume_id -}}
       <dt>Volume:</dt>
       <dd>
-        {{- with $paper.parent_volume_id -}}
         {{ $volume := index $.Site.Data.volumes . }}
         {{ $volume_page := printf "/volumes/%s.md" . }}
         <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
-        {{- end -}}
       </dd>
+      {{- end -}}
 
+      {{ with $paper.month }}
       <dt>Month:</dt>
-      <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.year }}
       <dt>Year:</dt>
-      <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.address }}
       <dt>Address:</dt>
-      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
 
       {{ with $paper.parent_volume_id }}
       {{ $volume := index $.Site.Data.volumes . }}
@@ -141,6 +147,7 @@
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
+      {{ if (eq (len $volume.sigs) 0) }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.sigs) -}}
@@ -151,21 +158,36 @@
         {{- end -}}
       </dd>
       {{ end }}
+      {{ end }}
 
+      {{ with $paper.publisher }}
       <dt>Publisher:</dt>
-      <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.note }}
       <dt>Note:</dt>
-      <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.pages }}
       <dt>Pages:</dt>
-      <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.language }}
       <dt>Language:</dt>
-      <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
+      <dd>{{ . }}</dd>
+      {{ end }}
+      {{ with $paper.url }}
       <dt>URL:</dt>
-      <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
+      <dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
+      {{ with $paper.doi }}
       <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="https://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dd><a href="https://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a></dd>
+      {{ end }}
+      {{ with $paper.dblp }}
       <dt>DBLP:</dt>
-      <dd>{{ with $paper.dblp }}<a href="https://dblp.org/rec/{{ . }}.html" title="DBLP paper page">{{ . }}</a>{{ end }}</dd>
+      <dd><a href="https://dblp.org/rec/{{ . }}.html" title="DBLP paper page">{{ . }}</a></dd>
+      {{ end }}
       {{ range $paper.award }}
       <dt>Award:</dt>
       <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>

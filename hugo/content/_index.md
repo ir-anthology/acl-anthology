@@ -3,7 +3,13 @@ Title: The Information Retrieval Anthology
 date: "0001-01-01"
 css_container: container-fluid
 ---
+<!-- 
 
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+
+-->
 <!-- To disable printing a date for the MOTD, set the "date" field above to some
 value before 2019. -->
 

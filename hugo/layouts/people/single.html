@@ -1,3 +1,10 @@
+{{/* 
+  
+  # This file has been modified by the Webis Group 
+  # to fit the needs of the IR Anthology. 
+  # The original is part of the ACL Anthology. 
+  
+*/}}
 {{ define "main" }}
 {{ $first_letter := slicestr .Params.name 0 1 }}
 {{ $person := index .Site.Data.people $first_letter .Params.name }}

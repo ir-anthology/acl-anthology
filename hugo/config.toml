@@ -1,4 +1,9 @@
-languageCode = "en-us"
+
+#
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+#
 title = "IR Anthology"
 disablePathToLower = true
 staticDir = ["static", "data-export"]

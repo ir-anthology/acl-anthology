@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+#
+# Copyright of the original file 2019 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

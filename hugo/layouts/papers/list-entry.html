@@ -1,3 +1,10 @@
+{{/* 
+  
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+  
+*/}}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
 <p class="d-sm-flex align-items-stretch">

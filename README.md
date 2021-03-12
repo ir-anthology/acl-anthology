@@ -1,81 +1,28 @@
-# ACL Anthology
+We present the IR Anthology, a corpus of information retrievalpublications accessible via a metadata browser and a full-text searchengine. Following the example of the well-known ACL Anthology, the IR Anthology serves as a hub for researchers interested ininformation retrieval. The IR Anthology project is a joint effort by people from the [Webis Group](https://webis.de/). 
 
-These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
-The official home of this repository is <https://github.com/acl-org/acl-anthology>.
+This repository contains the code for the build of the static website. To deploy the website you need to extract the meta data first. 
 
-## Generating the Anthology
+See https://github.com/ir-anthology/ir-anthology-stack for the full path from downloading the data to serving the static website.
 
-### Prerequisites
+### Webis Staff
 
-To build the Anthology website, you will need:
++ Janek Bevendorff (Bauhaus-Universität Weimar)
++ Alexander Bondarenko (Martin-Luther-Universität Halle-Wittenberg)
++ Maik Fröbe (Martin-Luther-Universität Halle-Wittenberg)
++ Sebastian Günther (Martin-Luther-Universität Halle-Wittenberg)
++ Prof. Dr. Matthias Hagen (Martin-Luther-Universität Halle-Wittenberg)
++ Christian Kahmann (Leipzig University)
++ Dr. Andreas Niekler (Leipzig University)
++ Jun.-Prof. Dr. Martin Potthast (Leipzig University)
++ Prof. Dr. Benno Stein (Bauhaus-Universität Weimar)
++ Dr. Michael Völske (Bauhaus-Universität Weimar)
 
-+ **Python 3.7** or higher
-+ Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
-+ [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
-  their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
-+ [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
-  non-BibTeX citation formats (not strictly required to build the website, but
-  without them you need to invoke the build steps manually as laid out in the
-  [detailed README](README_detailed.md))
-+ *optional*: If you install `libyaml-dev` and `Cython` before running `make`
-   the first time, the libyaml C library will be used instead of a python
-   implementation, speeding up the build.
+### Student Assistants
 
-### Building and deployment with GitHub
++ Jan Philipp Bittner (Martin-Luther-Universität Halle-Wittenberg) --- **Site Development**
 
-There is a GitHub actions action performing deployment directly from GitHub.  To use this, you need to
-define these variables in your repository settings (web interface: settings -> secrets):
+### Acknowledgments
 
-+ `PUBLISH_TARGET`: rsync will push the anthology to this target (e.g. `user@aclweb.org:anthology-static`)
-+ `PUBLISH_SSH_KEY`: the secret key in standard pem format for authentication (without a passphrase)
-+ `PUBLISH_ANTHOLOGYHOST`: The host which will serve the anthology later on (e.g. `https://www.aclweb.org`)
+Thanks to the **[dblp](https://dblp.uni-trier.de/)** computer science bibliography for providing their curated dataset as open data. It serves as the primary data source for meta information of this project.
 
-GitHub will then automatically build and deploy the current master whenever the master branch changes.
-
-### Cloning
-
-Clone the Anthology repo to your local machine:
-
-```bash
-$ git clone https://github.com/acl-org/acl-anthology
-```
-
-### Generating
-
-Provided you have correctly installed all requirements, building the website
-should be as simple running `make` from the directory to which
-you cloned the repo.
-
-The fully generated website will be in `build/anthology` afterwards.  If any errors
-occur during this step, you can consult the [detailed
-README](README_detailed.md) for more information on the individual steps
-performed to build the site.  You can see the resulting website by launching
-a local webserver with `make serve`, which will serve it at http://localhost:8000.
-
-Note that building the website is quite a resource-intensive process;
-particularly the last step, invoking Hugo, uses about 18~GB of system memory.
-Building the anthology takes about 10 minutes on a laptop with an SSD.
-
-(**Note:** This does *not* mean you need this amount of RAM in your system; in
-fact, the website builds fine on a laptop with 8 GB of RAM.  The system might
-temporarily slow down due to swapping, however.  The figure of approx. 18 GB is
-the maximum RAM usage reported when running `hugo --minify --stepAnalysis`.)
-
-The anthology can be viewed locally by running `hugo server` in the
-`hugo/` directory.  Note that it rebuilds the site and therefore takes
-about a minute to start.
-
-## Contributing
-
-If you'd like to contribute to the ACL Anthology, please take a look at:
-
-- our [Github issues page](https://github.com/acl-org/acl-anthology/issues)
-- the [detailed README](README_detailed.md) which contains more in-depth information about generating and modifying the website.
-
-## History
-
-This repo was originally wing-nus/acl and has been transferred over to acl-org as of 5 June 2017.
-
-## License
-
-The code for building the ACL Anthology is distributed under the [Apache License, v2.0](https://www.apache.org/licenses/LICENSE-2.0).
+Thanks to the **[ACL Anthology](https://www.aclweb.org/anthology/)** for releasing their software stack to build the ACL Anthology website, which we adapted to build the IR Anthology.

@@ -4,10 +4,10 @@ This repository contains the code for the build of the static website. To deploy
 
 See https://github.com/ir-anthology/ir-anthology-stack for the full path from downloading the data to serving the static website.
 
-### People
-
 The IR Anthology project has been initiated by the [Webis Group](https://webis.de/).
 Contributions from the IR community and beyond are welcome.
+
+### People
 
 + Janek Bevendorff (Bauhaus-Universität Weimar)
 + Jan Philipp Bittner (Martin-Luther-Universität Halle-Wittenberg)

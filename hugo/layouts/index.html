@@ -23,7 +23,7 @@
     <main aria-role="main">
     <p class="mb-4">The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
 
-    <h3>Conferences</h3>
+    <h4>Conferences</h4>
     {{/* Conferences */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1971 }}
@@ -98,7 +98,7 @@
       </tbody>
     </table>
 
-    <h3>Journals</h3>
+    <h4>Journals</h4>
     {{/* Journals */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1963 }}

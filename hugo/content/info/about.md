@@ -1,5 +1,5 @@
 ---
-Title: Acknowledgments
+Title: About the IR Anthology
 ---
 
 The IR Anthology project has been initiated by the [Webis Group](https://webis.de/).

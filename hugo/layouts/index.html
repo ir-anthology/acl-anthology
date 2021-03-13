@@ -27,13 +27,13 @@
 
 {{ define "main" }}
 {{ $event_exists_but_not_index := dict "airs_conf" (slice "2021" "2007") "cikm_conf" (slice "2021") "clef_conf" (slice "2021") "desires_conf" (slice "2021") "dir_conf" (slice "2000" "2001" "2002" "2003" "2005" "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2015" "2016" "2017" "2018" "2019" "2020" "2021") "ecir_conf" (slice "2000" "2001" "2021") "fire_conf" (slice "2012" "2021") "ictir_conf" (slice "2007" "2014" "2021") "ntcir_conf" (slice "2020") "sigir_conf" (slice "2021") "trec_conf" (slice "2020" "2021") "wsdm_conf" (slice "2021") "www_conf" (slice "2021") "sigir_journals" (slice "2019" "2020" "2021") "spire_conf" (slice "2021") "tist_journals" (slice "2021") "tois_journals" (slice "2021")}}
-<div class="row justify-content-center">
+<div class="justify-content-left">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
     {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
-  <div class="col-12 col-xl-10 col-xl-width-auto">
+  <div class="col-12 col-xl-width-auto">
     <main aria-role="main">
     <p>The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
     <h6>Conferences</h6>

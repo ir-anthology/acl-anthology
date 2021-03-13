@@ -7,7 +7,7 @@ See https://github.com/ir-anthology/ir-anthology-stack for the full path from do
 ### People
 
 The IR Anthology project has been initiated by the [Webis Group](https://webis.de/).
-Contributions from the the IR community and beyond are welcome.
+Contributions from the IR community and beyond are welcome.
 
 + Janek Bevendorff (Bauhaus-Universität Weimar)
 + Jan Philipp Bittner (Martin-Luther-Universität Halle-Wittenberg)

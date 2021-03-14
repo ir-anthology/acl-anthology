@@ -25,6 +25,10 @@ The IR Anthology is a grassroots initative run entirely by contributions from vo
 
 Contributions from the IR community and beyond are welcome.
 
+### Sponsors
+
+We welcome sponsorships to support future maintenance, development, and improvement of the IR Anthology. Please get in touch.
+
 ### Special Thanks
 
 Thanks to the **[dblp](https://dblp.uni-trier.de/)** computer science bibliography for providing their curated dataset as open data. It serves as the primary data source for the meta information of this project.

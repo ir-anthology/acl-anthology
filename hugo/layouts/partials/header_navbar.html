@@ -10,24 +10,11 @@
     <a class="navbar-brand" href=/anthology/>
       <span class="d-md-inline"><span style="color:#951515"><b>IR</b></span> Anthology</span>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <!--
-        <li class="nav-item">
-          <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="sr-only">(current)</span></a>
-        </li>
-        -->
-      </ul>
-      <form class="form-inline my-2 my-lg-0 input-group" action="https://ir.chatnoir.eu/?" method="get">
-        <input id="acl-search-box" class="form-control" name="q" type="search" placeholder="Search..." aria-label=Search>
-        <div class="input-group-append">
-          <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
-        </div>
-      </form>
-    </div>
+    <form class="form-inline input-group" style="min-width:250px;max-width:800px" action="https://ir.chatnoir.eu/?" method="get">
+      <input id="acl-search-box" class="form-control" name="q" type="search" placeholder="Full-text search..." aria-label=Search>
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
+      </div>
+    </form>
   </div>
 </nav>

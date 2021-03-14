@@ -29,7 +29,7 @@
     {{ $all_years := seq 2021 -1 1971 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
-    <table class="table table-hover table-sm table-responsive small text-nowrap mb-4" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <table class="table table-hover table-sm table-responsive small text-nowrap mb-4">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
@@ -105,7 +105,7 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <table class="table table-hover table-sm table-responsive small text-nowrap">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>

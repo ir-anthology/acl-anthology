@@ -12,7 +12,7 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
-<section id="main">
+<section id="main" class="col-12">
   <h2 id="title">
     {{ with $paper.pdf }}
       <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>

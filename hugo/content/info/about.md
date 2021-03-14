@@ -1,8 +1,6 @@
-We present the IR Anthology, a corpus of information retrieval publications accessible via a metadata browser and a full-text searchengine. Following the example of the well-known **[ACL Anthology](https://www.aclweb.org/anthology/)**, the IR Anthology serves as a hub for researchers interested in information retrieval.
-
-This repository contains the code for the build of the static website. To deploy the website you need to extract the meta data first. 
-
-See https://github.com/ir-anthology/ir-anthology-stack for the full path from downloading the data to serving the static website.
+---
+Title: About the IR Anthology
+---
 
 The IR Anthology project has been initiated by the [Webis Group](https://webis.de/).
 Contributions from the IR community and beyond are welcome.

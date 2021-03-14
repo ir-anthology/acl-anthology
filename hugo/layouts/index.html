@@ -21,19 +21,19 @@
 
   <div class="col-12 col-xl-width-auto">
     <main aria-role="main">
-    <p>The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
-    <h6>Conferences</h6>
+    <p class="mb-4">The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
+
+    <h4>Conferences</h4>
     {{/* Conferences */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1971 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
-
-    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <table class="table table-hover table-sm table-responsive small text-nowrap mb-4" style="display: block; overflow-x: auto; white-space: nowrap;">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="2">2021 &ndash; 2020</th>
+          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+          <th class="border-left" scope="col" colspan="2">2020ff</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
@@ -98,7 +98,7 @@
       </tbody>
     </table>
 
-    <h6>Journals</h6>
+    <h4>Journals</h4>
     {{/* Journals */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1963 }}
@@ -108,8 +108,8 @@
     <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="2">2021 &ndash; 2020</th>
+          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+          <th class="border-left" scope="col" colspan="2">2020ff</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>

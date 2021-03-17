@@ -7,47 +7,33 @@
 */}}
 {{ define "javascript" }}
 <script>
-  // Makes the header expand to the width of the (fluid) main container
-  $(function () {
-      var resize_navbar = function() {
-          var width = 0;
-          $('#main-container .col-12').each(function() {
-              width += $(this).width();
-          });
-          $("#navbar-container").css("max-width", width);
-      };
-      $(window).resize(resize_navbar);
-      resize_navbar();
-  })
-</script>
-<script>
   document.title = "The Information Retrieval Anthology";
 </script>
 {{ end }}
 
 {{ define "main" }}
 {{ $event_exists_but_not_index := dict "airs_conf" (slice "2021" "2007") "cikm_conf" (slice "2021") "clef_conf" (slice "2021") "desires_conf" (slice "2021") "dir_conf" (slice "2000" "2001" "2002" "2003" "2005" "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2015" "2016" "2017" "2018" "2019" "2020" "2021") "ecir_conf" (slice "2000" "2001" "2021") "fire_conf" (slice "2012" "2021") "ictir_conf" (slice "2007" "2014" "2021") "ntcir_conf" (slice "2020") "sigir_conf" (slice "2021") "trec_conf" (slice "2020" "2021") "wsdm_conf" (slice "2021") "www_conf" (slice "2021") "sigir_journals" (slice "2019" "2020" "2021") "spire_conf" (slice "2021") "tist_journals" (slice "2021") "tois_journals" (slice "2021")}}
-<div class="row justify-content-center">
+<div class="justify-content-left">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
     {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
-  <div class="col-12 col-xl-10 col-xl-width-auto">
+  <div class="col-12 px-0 px-sm-3">
     <main aria-role="main">
-    <p>The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
-    <h6>Conferences</h6>
+    <p class="mb-4">The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
+
+    <h4>Conferences</h4>
     {{/* Conferences */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1971 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
-
-    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <table class="table table-hover table-sm table-responsive small text-nowrap mb-4">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="2">2021 &ndash; 2020</th>
+          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+          <th class="border-left" scope="col" colspan="2">2020ff</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
@@ -112,18 +98,18 @@
       </tbody>
     </table>
 
-    <h6>Journals</h6>
+    <h4>Journals</h4>
     {{/* Journals */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
     {{ $all_years := seq 2021 -1 1963 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive small text-nowrap" style="display: block; overflow-x: auto; white-space: nowrap;">
+    <table class="table table-hover table-sm table-responsive small text-nowrap">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="2">2021 &ndash; 2020</th>
+          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+          <th class="border-left" scope="col" colspan="2">2020ff</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>

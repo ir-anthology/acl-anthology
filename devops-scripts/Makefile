@@ -37,7 +37,7 @@ anthology:
 	[ -L $(data_symlink_path) ] || (echo "$$(tput setaf 3)you have to specify either 'example-data' or 'real-data' as a target BEFORE the target 'anthology'$$(tput setaf 7)" && exit 1)
 	cd .. && sudo docker build -t ir-anthology-builder .
 	mkdir -p $(cache_path)
-	cd $(cache_path) && ([ -d ir-anthology.github.io ] || git clone gitgithub.com:ir-anthology/ir-anthology.github.io.git) && (cd ir-anthology.github.io && git pull && rm -rf anthology assets resources static index.html)
+	cd $(cache_path) && ([ -d ir-anthology.github.io ] || git clone git@github.com:ir-anthology/ir-anthology.github.io.git) && (cd ir-anthology.github.io && git pull && rm -rf anthology assets resources static index.html)
 	sudo docker run -it --rm --mount type=bind,source=$(data_symlink_path),target=/home/build-user/ir-anthology/data --mount type=bind,source=$(web_path),target=/home/build-user/ir-anthology/build ir-anthology-builder
 	sudo docker run --rm -it --mount type=bind,source=$(web_path),target=/anthology-git ubuntu:20.04 /bin/bash -c "chown -R $$UID:$$UID /anthology-git/"
 	rm -f $(data_symlink_path)

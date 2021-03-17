@@ -28,8 +28,8 @@ real-data: .cache/real-data-from-dump
 .cache/real-data-from-dump:
 	mkdir -p $(cache_path) $(real_data_path)
 	cd $(cache_path) && ([ -d ir-anthology-data-collector ] || git clone https://github.com/ir-anthology/ir-anthology-data-collector.git) && (cd ir-anthology-data-collector && git pull)
-        cd $(cache_path)/ir-anthology-data-collector && sudo docker build -t ir-anthology-data-collector .
-        sudo docker run -it --rm --mount type=bind,source=$(real_data_path),target=/home/build-user/data ir-anthology-data-collector
+	cd $(cache_path)/ir-anthology-data-collector && sudo docker build -t ir-anthology-data-collector .
+	sudo docker run -it --rm --mount type=bind,source=$(real_data_path),target=/home/build-user/data ir-anthology-data-collector
 	touch .cache/real-data-from-dump
 
 .PHONY: anthology
@@ -48,5 +48,5 @@ local-server:
 	sudo docker run --rm --mount type=bind,source=$$(pwd)/local-webserver/nginx.site.conf,target=/etc/nginx/sites-enabled/default --mount type=bind,source=$(web_path),target=/var/www/html -p 8000:8000 ir-anthology-local-webserver
 
 .PHONY: deploy
-deploy: clean real-data anthology
+deploy: real-data anthology
 	cd $(web_path) && git add -A && git commit -m "refresh build" && git push

@@ -25,7 +25,7 @@
 # - all targets running python somewhere should have venv as a dependency.
 #   this makes sure that all required packages are installed.
 
-SHELL = /bin/sh
+SHELL = /bin/bash
 ANTHOLOGYHOST := "https://ir.webis.de"
 ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
@@ -76,11 +76,12 @@ site: bibtex mods endnote hugo sitemap
 sitemap: build/.sitemap
 
 build/.sitemap: venv/bin/activate build/.hugo
-	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
-	@rm -f build/anthology/sitemap_*.xml.gz
-	@gzip -9n build/anthology/sitemap_*.xml
-	@bin/create_sitemapindex.sh `ls build/anthology/ | grep 'sitemap_.*xml.gz'` > build/anthology/sitemapindex.xml
-	@touch build/.sitemap
+	if ((. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml) | grep -v "no need to split"); then \
+		rm -f build/anthology/sitemap_*.xml.gz; \
+		gzip -9n build/anthology/sitemap_*.xml; \
+		bin/create_sitemapindex.sh `ls build/anthology/ | grep 'sitemap_.*xml.gz'` > build/anthology/sitemapindex.xml; \
+		touch build/.sitemap; \
+	fi
 
 .PHONY: venv
 venv: venv/bin/activate
@@ -101,7 +102,7 @@ all: clean check site
 .PHONY: basedirs
 basedirs:
 	build/.basedirs
-
+.PHONY: build/.basedirs
 build/.basedirs:
 	@mkdir -p build/data-export
 	@mkdir -p build/content/papers

@@ -1,0 +1,14 @@
+example_conf:
+  acronym: EXAMPLE (Conference)
+  is_acl: false
+  is_conf: true
+  is_journal: false
+  is_toplevel: true
+  name: EXAMPLE
+example_journals:
+  acronym: EXAMPLE (Journal)
+  is_acl: false
+  is_conf: false
+  is_journal: true
+  is_toplevel: true
+  name: EXAMPLE

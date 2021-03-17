@@ -8,7 +8,7 @@
 {{ define "main" }}
 {{ $first_letter := slicestr .Params.name 0 1 }}
 {{ $person := index .Site.Data.people $first_letter .Params.name }}
-<section id="main">
+<section id="main" class="col-12">
   <h2 id="title">
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ trim (replace (replace (replace (replace (replace (replace (replace (replace (replace (replace $person.last "0" "") "1" "") "2" "") "3" "") "4" "") "5" "") "6" "") "7" "") "8" "") "9" "") " " }}</span>

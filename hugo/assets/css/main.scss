@@ -1,3 +1,6 @@
+// This file has been modified by the Webis Group 
+// to fit the needs of the IR Anthology. 
+// The original is part of the ACL Anthology. 
 
 $enable-gradients: true;
 
@@ -36,7 +39,7 @@ $theme-colors: map-merge(
 @import 'vendor/bootstrap/scss/transitions';
 // @import 'vendor/bootstrap/scss/dropdown';
 // @import 'vendor/bootstrap/scss/button-group';
-// @import 'vendor/bootstrap/scss/input-group';
+@import 'vendor/bootstrap/scss/input-group';
 // @import 'vendor/bootstrap/scss/custom-forms';
 @import 'vendor/bootstrap/scss/nav';
 @import 'vendor/bootstrap/scss/navbar';

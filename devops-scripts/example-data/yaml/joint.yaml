@@ -1,0 +1,6 @@
+example_conf:
+  2021:
+  - 2021.example_conf-default
+example_journals:
+  2021:
+  - 2021.example_journals-24

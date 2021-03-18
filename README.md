@@ -2,8 +2,13 @@ We present the IR Anthology, a corpus of information retrieval publications acce
 
 This repository contains the code for the build of the static website. To deploy the website you need to extract the meta data first. 
 
-See https://github.com/ir-anthology/ir-anthology-stack for the full path from downloading the data to serving the static website.
-
+To build the IR Anthology follow these steps:
+```bash
+git clone https://github.com/ir-anthology/ir-anthology.git
+cd ir-anthology/devops-scripts
+make real-data anthology local-server
+```
+A more detailed description is provided  in the README.MD [here](https://github.com/ir-anthology/ir-anthology/tree/master/devops-scripts/).
 ## Credits
 
 The IR Anthology is a grassroots initative run entirely by contributions from volunteers.

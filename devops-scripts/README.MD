@@ -18,7 +18,11 @@ The builder reads the data directory in the root direcoty of the repository. Dif
 - **deploy** runs the targets real-data anthology and then commits and pushed the changes in `.cache/ir-anthology.github.io`
 
 #### data independent layout changes
-If you make data independent layout changes, then ```make quick``` should cover your needs. You can always add files to the example-data to cover special cases. 
+If you make data independent layout changes, then 
+```
+make quick
+```
+should cover your needs. You can always add files to the example-data to cover special cases. 
 
 #### run local with real-data
 Before you push changes you should always have a look at the produced site with the real-data. Run 

@@ -8,7 +8,7 @@ git clone https://github.com/ir-anthology/ir-anthology.git
 cd ir-anthology/devops-scripts
 make real-data anthology local-server
 ```
-A more detailed description is provided  in the README.MD [here](https://github.com/ir-anthology/ir-anthology/tree/master/devops-scripts/).
+A more detailed description is provided  in [the README.MD of the devops-scripts folder](https://github.com/ir-anthology/ir-anthology/tree/master/devops-scripts/).
 ## Credits
 
 The IR Anthology is a grassroots initative run entirely by contributions from volunteers.

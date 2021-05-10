@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.cikm_conf">
+	<volume id="default" ingest-date="2021-3-17">
+		<meta>
+			<booktitle>EXAMPLE 2021 (Journal) Volume 24</booktitle>
+		</meta>
+		<paper id="1">
+			<title>A multi-view attention-based deep learning system for online deviant content detection.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>205-228</pages>
+			<doi>10.1007/s11280-020-00840-9</doi>
+			<url>https://doi.org/10.1007/s11280-020-00840-9</url>
+			<dblp>journals/www/LiangGYZWT21</dblp>
+		</paper>
+		<paper id="2">
+			<title>Solutions for concurrency conflict problem on Hyperledger Fabric.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>463-482</pages>
+			<doi>10.1007/s11280-020-00851-6</doi>
+			<url>https://doi.org/10.1007/s11280-020-00851-6</url>
+			<dblp>journals/www/XuCLXLZ21</dblp>
+		</paper>
+		<paper id="3">
+			<title>Temporal knowledge extraction from large-scale text corpus.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>135-156</pages>
+			<doi>10.1007/s11280-020-00836-5</doi>
+			<url>https://doi.org/10.1007/s11280-020-00836-5</url>
+			<dblp>journals/www/LiuHZ21</dblp>
+		</paper>
+		<paper id="4">
+			<title>RLINK: Deep reinforcement learning for user identity linkage.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>85-103</pages>
+			<doi>10.1007/s11280-020-00833-8</doi>
+			<url>https://doi.org/10.1007/s11280-020-00833-8</url>
+			<dblp>journals/www/LiCLSLLX21</dblp>
+		</paper>
+		<paper id="5">
+			<title>Guest editorial: WWWJ special issue of the 20th international conference on Web information systems engineering (WISE 2019).</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>347-349</pages>
+			<doi>10.1007/s11280-020-00853-4</doi>
+			<url>https://doi.org/10.1007/s11280-020-00853-4</url>
+			<dblp>journals/www/ChengMH21</dblp>
+		</paper>
+		<paper id="6">
+			<title>Parallel algorithms for parameter-free structural diversity search on graphs.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>397-417</pages>
+			<doi>10.1007/s11280-020-00843-6</doi>
+			<url>https://doi.org/10.1007/s11280-020-00843-6</url>
+			<dblp>journals/www/HuangHZX21</dblp>
+		</paper>
+		<paper id="7">
+			<title>Indexing and progressive top-k similarity retrieval of trajectories.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>51-83</pages>
+			<doi>10.1007/s11280-020-00831-w</doi>
+			<url>https://doi.org/10.1007/s11280-020-00831-w</url>
+			<dblp>journals/www/PliakisTM21</dblp>
+		</paper>
+		<paper id="8">
+			<title>Using context information to enhance simple question answering.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>249-277</pages>
+			<doi>10.1007/s11280-020-00842-7</doi>
+			<url>https://doi.org/10.1007/s11280-020-00842-7</url>
+			<dblp>journals/www/LiZCX21</dblp>
+		</paper>
+		<paper id="9">
+			<title>Handling conditional queries and data storage on Hyperledger Fabric efficiently.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>441-461</pages>
+			<doi>10.1007/s11280-020-00844-5</doi>
+			<url>https://doi.org/10.1007/s11280-020-00844-5</url>
+			<dblp>journals/www/YanCZLLZ21</dblp>
+		</paper>
+		<paper id="10">
+			<title>Constructing dummy query sequences to protect location privacy and query privacy in location-based services.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>25-49</pages>
+			<doi>10.1007/s11280-020-00830-x</doi>
+			<url>https://doi.org/10.1007/s11280-020-00830-x</url>
+			<dblp>journals/www/WuLSLCX21</dblp>
+		</paper>
+		<paper id="11">
+			<title>Existence identifications of unobserved paths in graph-based social networks.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>157-173</pages>
+			<doi>10.1007/s11280-020-00837-4</doi>
+			<url>https://doi.org/10.1007/s11280-020-00837-4</url>
+			<dblp>journals/www/WangNWLNWY21</dblp>
+		</paper>
+		<paper id="12">
+			<title>A survey of typical attributed graph queries.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>297-346</pages>
+			<doi>10.1007/s11280-020-00849-0</doi>
+			<url>https://doi.org/10.1007/s11280-020-00849-0</url>
+			<dblp>journals/www/WangLFYC21</dblp>
+		</paper>
+		<paper id="13">
+			<title>Why current differential privacy schemes are inapplicable for correlated data publishing?</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>1-23</pages>
+			<doi>10.1007/s11280-020-00825-8</doi>
+			<url>https://doi.org/10.1007/s11280-020-00825-8</url>
+			<dblp>journals/www/WangXJXZ21</dblp>
+		</paper>
+		<paper id="14">
+			<title>Reverse Approximate Nearest Neighbor Queries on Road Network.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>279-296</pages>
+			<doi>10.1007/s11280-020-00848-1</doi>
+			<url>https://doi.org/10.1007/s11280-020-00848-1</url>
+			<dblp>journals/www/LiHTC21</dblp>
+		</paper>
+		<paper id="15">
+			<title>An efficient multidimensional L<sub>∞ </sub> wavelet method and its application to approximate query processing.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>105-133</pages>
+			<doi>10.1007/s11280-020-00834-7</doi>
+			<url>https://doi.org/10.1007/s11280-020-00834-7</url>
+			<dblp>journals/www/GuoLLZWP21</dblp>
+		</paper>
+		<paper id="16">
+			<title>Robust rumor blocking problem with uncertain rumor sources in social networks.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>229-247</pages>
+			<doi>10.1007/s11280-020-00841-8</doi>
+			<url>https://doi.org/10.1007/s11280-020-00841-8</url>
+			<dblp>journals/www/ZhuGW21</dblp>
+		</paper>
+		<paper id="17">
+			<title>LoG: a locally-global model for entity disambiguation.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>351-373</pages>
+			<doi>10.1007/s11280-020-00845-4</doi>
+			<url>https://doi.org/10.1007/s11280-020-00845-4</url>
+			<dblp>journals/www/XinHLZ21</dblp>
+		</paper>
+		<paper id="18">
+			<title>Open-world knowledge graph completion with multiple interaction attention.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>419-439</pages>
+			<doi>10.1007/s11280-020-00847-2</doi>
+			<url>https://doi.org/10.1007/s11280-020-00847-2</url>
+			<dblp>journals/www/NiuFYLCLZ21</dblp>
+		</paper>
+		<paper id="19">
+			<title>Leveraging pointwise prediction with learning to rank for top-N recommendation.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>375-396</pages>
+			<doi>10.1007/s11280-020-00846-3</doi>
+			<url>https://doi.org/10.1007/s11280-020-00846-3</url>
+			<dblp>journals/www/ZhuCLG21</dblp>
+		</paper>
+		<paper id="20">
+			<title>Closed sequential pattern mining for sitemap generation.</title>
+			<author><first>TestF</first><last>TestL</last></author>
+			<pages>175-203</pages>
+			<doi>10.1007/s11280-020-00839-2</doi>
+			<url>https://doi.org/10.1007/s11280-020-00839-2</url>
+			<dblp>journals/www/CeciL21</dblp>
+		</paper>
+	</volume>
+</collection>

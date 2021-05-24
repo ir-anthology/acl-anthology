@@ -13,7 +13,7 @@ quick: example-data anthology local-server
 .PHONY: clean
 clean:
 	rm -rf $(cache_path) $(data_symlink_path)
-	sudo docker image rm -f ir-anthology ir-anthology-webserver ir-anthology-data-collector
+	sudo docker image rm -f ir-anthology ir-anthology-webserver ir-anthology-data-acquisition
 
 .PHONY: example-data
 example-data:
@@ -27,9 +27,9 @@ real-data: .cache/real-data-from-dump
 
 .cache/real-data-from-dump:
 	mkdir -p $(cache_path) $(real_data_path)
-	cd $(cache_path) && ([ -d ir-anthology-data-collector ] || git clone https://github.com/ir-anthology/ir-anthology-data-collector.git) && (cd ir-anthology-data-collector && git pull)
-	cd $(cache_path)/ir-anthology-data-collector && sudo docker build -t ir-anthology-data-collector .
-	sudo docker run -it --rm --mount type=bind,source=$(real_data_path),target=/home/build-user/data ir-anthology-data-collector
+	cd $(cache_path) && ([ -d ir-anthology-acquisition ] || git clone https://github.com/ir-anthology/ir-anthology-acquisition.git) && (cd ir-anthology-acquisition && git pull)
+	cd $(cache_path)/ir-anthology-acquisition && sudo docker build -t ir-anthology-acquisition .
+	sudo docker run -it --rm --mount type=bind,source=$(real_data_path),target=/home/build-user/data ir-anthology-acquisition
 	touch .cache/real-data-from-dump
 
 .PHONY: anthology

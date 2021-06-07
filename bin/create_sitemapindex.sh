@@ -1,5 +1,9 @@
 #! /bin/bash
-#
+
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+
 # Copyright 2019 Arne Köhn <arne@chark.eu
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +26,7 @@ echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
 for f in "$@"; do
 	echo '  <sitemap>'
-    echo '    <loc>https://www.aclweb.org/anthology/'$f'</loc>'
+    echo '    <loc>https://ir.webis.de/anthology/'$f'</loc>'
 	echo '  </sitemap>'
 done
 echo '</sitemapindex>'

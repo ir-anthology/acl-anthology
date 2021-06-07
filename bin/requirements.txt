@@ -1,17 +1,8 @@
 black
 docopt>=0.6.0
-filetype
-iso-639
 latexcodec>=1.0.7
 lxml>=4.2.0
-nltk
-pre-commit
-pybtex==0.22.2
-python-slugify>=2.0
 PyYAML>=3.0
-requests
-stop-words
-texsoup<=0.1.4
 tqdm
 wheel>=0.33.4
 pylatexenc

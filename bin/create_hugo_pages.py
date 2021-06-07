@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+# This file has been modified by the Webis Group 
+# to fit the needs of the IR Anthology. 
+# The original is part of the ACL Anthology. 
+
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright of the original 2019 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,13 +33,11 @@ Options:
   -h, --help               Display this helpful text.
 """
 
-from docopt import docopt
 from glob import glob
-from slugify import slugify
 from tqdm import tqdm
-import logging as log
 import os
 import shutil
+import json
 import yaml
 
 try:
@@ -42,9 +45,6 @@ try:
 except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
-
-from anthology.utils import SeverityTracker
-
 
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
@@ -54,11 +54,7 @@ def check_directory(cdir, clean=False):
     if "_index.md" in entries:
         entries.remove("_index.md")
     if entries and not clean:
-        log.critical("Directory already exists and has content files: {}".format(cdir))
-        log.info(
-            "Call this script with the -c/--clean flag to automatically DELETE existing files"
-        )
-        return False
+        raise Exception("Directory already exists and has content files: {}\nCall this script with the -c/--clean flag to automatically DELETE existing files".format(cdir))
     for entry in entries:
         entry = "{}/{}".format(cdir, entry)
         if os.path.isdir(entry):
@@ -70,15 +66,15 @@ def check_directory(cdir, clean=False):
 
 def create_papers(srcdir, clean=False):
     """Creates page stubs for all papers in the Anthology."""
-    log.info("Creating stubs for papers...")
+    print("Creating stubs for papers...")
     if not check_directory("{}/content/papers".format(srcdir), clean=clean):
         return
 
     # Go through all paper volumes
-    for yamlfile in tqdm(glob("{}/data/papers/*.yaml".format(srcdir))):
-        log.debug("Processing {}".format(yamlfile))
-        with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+    for jsonfile in tqdm(glob("{}/data/papers/*.json".format(srcdir))):
+        #print("Processing {}".format(jsonfile))
+        with open(jsonfile, "r") as f:
+            data = json.loads(f.read())
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
             paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
@@ -96,14 +92,14 @@ def create_papers(srcdir, clean=False):
 
 def create_volumes(srcdir, clean=False):
     """Creates page stubs for all proceedings volumes in the Anthology."""
-    log.info("Creating stubs for volumes...")
+    print("Creating stubs for volumes...")
     if not check_directory("{}/content/volumes".format(srcdir), clean=clean):
         return
 
-    yamlfile = "{}/data/volumes.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    jsonfile = "{}/data/volumes.json".format(srcdir)
+    #print("Processing {}".format(jsonfile))
+    with open(jsonfile, "r") as f:
+        data = json.loads(f.read())
     # Create a paper stub for each proceedings volume
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
@@ -127,14 +123,14 @@ def create_volumes(srcdir, clean=False):
 
 def create_people(srcdir, clean=False):
     """Creates page stubs for all authors/editors in the Anthology."""
-    log.info("Creating stubs for people...")
+    print("Creating stubs for people...")
     if not check_directory("{}/content/people".format(srcdir), clean=clean):
         return
 
-    for yamlfile in tqdm(glob("{}/data/people/*.yaml".format(srcdir))):
-        log.debug("Processing {}".format(yamlfile))
-        with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+    for jsonfile in tqdm(glob("{}/data/people/*.json".format(srcdir))):
+        #print("Processing {}".format(jsonfile))
+        with open(jsonfile, "r") as f:
+            data = json.loads(f.read())
         # Create a page stub for each person
         for name, entry in data.items():
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
@@ -152,12 +148,12 @@ def create_people(srcdir, clean=False):
 
 def create_venues_and_events(srcdir, clean=False):
     """Creates page stubs for all venues and events in the Anthology."""
-    yamlfile = "{}/data/venues.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    jsonfile = "{}/data/venues.json".format(srcdir)
+    #print("Processing {}".format(jsonfile))
+    with open(jsonfile, "r") as f:
+        data = json.loads(f.read())
 
-    log.info("Creating stubs for venues...")
+    print("Creating stubs for venues...")
     if not check_directory("{}/content/venues".format(srcdir), clean=clean):
         return
     # Create a paper stub for each venue (e.g. ACL)
@@ -169,7 +165,7 @@ def create_venues_and_events(srcdir, clean=False):
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
-    log.info("Creating stubs for events...")
+    print("Creating stubs for events...")
     if not check_directory("{}/content/events".format(srcdir), clean=clean):
         return
     # Create a paper stub for each event (= venue + year, e.g. ACL 2018)
@@ -191,12 +187,12 @@ def create_venues_and_events(srcdir, clean=False):
 
 def create_sigs(srcdir, clean=False):
     """Creates page stubs for all SIGs in the Anthology."""
-    yamlfile = "{}/data/sigs.yaml".format(srcdir)
-    log.debug("Processing {}".format(yamlfile))
-    with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+    jsonfile = "{}/data/sigs.json".format(srcdir)
+    #print("Processing {}".format(jsonfile))
+    with open(jsonfile, "r") as f:
+        data = json.loads(f.read())
 
-    log.info("Creating stubs for SIGs...")
+    print("Creating stubs for SIGs...")
     if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
         return
     # Create a paper stub for each SIGS (e.g. SIGMORPHON)
@@ -216,23 +212,11 @@ def create_sigs(srcdir, clean=False):
             print("---", file=f)
 
 
-if __name__ == "__main__":
-    args = docopt(__doc__)
-    scriptdir = os.path.dirname(os.path.abspath(__file__))
-    if "{scriptdir}" in args["--dir"]:
-        args["--dir"] = args["--dir"].format(scriptdir=scriptdir)
-    dir_ = os.path.abspath(args["--dir"])
+dir_ = "./build"
 
-    log_level = log.DEBUG if args["--debug"] else log.INFO
-    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
-    tracker = SeverityTracker()
-    log.getLogger().addHandler(tracker)
+create_papers(dir_, clean=True)
+create_volumes(dir_, clean=True)
+create_people(dir_, clean=True)
+create_venues_and_events(dir_, clean=True)
+create_sigs(dir_, clean=True)
 
-    create_papers(dir_, clean=args["--clean"])
-    create_volumes(dir_, clean=args["--clean"])
-    create_people(dir_, clean=args["--clean"])
-    create_venues_and_events(dir_, clean=args["--clean"])
-    create_sigs(dir_, clean=args["--clean"])
-
-    if tracker.highest >= log.ERROR:
-        exit(1)

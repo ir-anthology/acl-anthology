@@ -6,13 +6,12 @@
   
 */}}
 {{ define "main" }}
+{{ $venue := index .Site.Data.venues .Params.venue }}
 <section id="main" class="col-12">
   <h2 id="title">
-    {{ .Params.venue }}
+    {{ $venue.name }}
   </h2>
   <hr />
-
-  {{ $venue := index .Site.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}

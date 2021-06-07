@@ -124,8 +124,16 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
 
+.PHONY: data 
+data: data/ir-anthology.bib
+
+data/ir-anthology.bib: 
+	rm -f data/ir-anthology.bib
+	mkdir -p data
+	cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib
+
 .PHONY: json
-yaml: build/.json
+json: build/.json
 
 build/.json: build/.basedirs venv/bin/activate
 	rm 
@@ -159,6 +167,7 @@ build/.hugo: build/.static build/.pages
 .PHONY: clean
 clean:
 	rm -rf build
+	rm -rf data
 
 .PHONY: serve
 serve:

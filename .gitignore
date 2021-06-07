@@ -27,3 +27,4 @@ Icon
 # generated website
 /build/
 data
+venv

@@ -136,4 +136,4 @@ def outputType(src_file, head, booktitle):
     raise Exception("unkown type")
 
 #expand2json("testdata/ir-anthology.small.bib", "testdata/final", "testdata/temp")
-expand2json("bin/testdata/ir-anthology.bib", "bin/testdata/final", "bin/testdata/temp")
+expand2json("data/ir-anthology.bib", "data/final", "data/temp")

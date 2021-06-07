@@ -67,7 +67,7 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo sitemap
+site: json hugo sitemap
 
 
 # Split the file sitemap into Google-ingestible chunks.
@@ -136,9 +136,10 @@ data/ir-anthology.bib:
 json: build/.json
 
 build/.json: build/.basedirs venv/bin/activate
-	rm 
+	rm -rf data/temp data/final
+	mkdir -p build/data
 	@echo "INFO     Deserialize BIBTEX file..."
-	. $(VENV) && && python3 bin/bibanthology.py && python3 bin/bibanthology_to_hugo.py
+	@. $(VENV) && python3 bin/bibanthology.py && python3 bin/bibanthology_to_hugo_json.py
 	@touch build/.json
 
 .PHONY: hugo_pages
@@ -154,7 +155,6 @@ build/.pages: build/.basedirs build/.json venv/bin/activate
 hugo: build/.hugo
 
 build/.hugo: build/.static build/.pages
-	exit 1
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \

@@ -124,55 +124,29 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
 
-.PHONY: yaml
-yaml: build/.yaml
+.PHONY: json
+yaml: build/.json
 
-build/.yaml: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Generating YAML files for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
-	@touch build/.yaml
+build/.json: build/.basedirs venv/bin/activate
+	rm 
+	@echo "INFO     Deserialize BIBTEX file..."
+	. $(VENV) && && python3 bin/bibanthology.py && python3 bin/bibanthology_to_hugo.py
+	@touch build/.json
 
 .PHONY: hugo_pages
 hugo_pages: build/.pages
 
-build/.pages: build/.basedirs build/.yaml venv/bin/activate
+build/.pages: build/.basedirs build/.json venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_pages.py --clean
+	. $(VENV) && python3 bin/create_hugo_pages.py
 	@touch build/.pages
 
-.PHONY: bibtex
-bibtex:	build/.bibtex
-
-build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/create_bibtex.py --clean
-	@touch build/.bibtex
-
-.PHONY: mods
-mods: build/.mods
-
-build/.mods: build/.bibtex
-	@echo "INFO     Converting BibTeX files to MODS XML..."
-	@find build/data-export -name '*.bib' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
-	@touch build/.mods
-
-.PHONY: endnote
-endnote: build/.endnote
-
-build/.endnote: build/.mods
-	@echo "INFO     Converting MODS XML files to EndNote..."
-	@find build/data-export -name '*.xml' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
-	@touch build/.endnote
-
-%.endf: %.xml
-	xml2end $< 2>&1 > $@
 
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.pages
+	exit 1
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
@@ -182,49 +156,9 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --minify
 	@touch build/.hugo
 
-.PHONY: test
-test: hugo
-	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
-	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
-
 .PHONY: clean
 clean:
 	rm -rf build
-
-.PHONY: check
-check: venv
-	@if grep -rl '	' data/xml; then \
-	    echo "check error: found a tab character in the above XML files!"; \
-	    exit 1; \
-	fi
-	jing -c data/xml/schema.rnc data/xml/*xml
-	SKIP=no-commit-to-branch . $(VENV) \
-	  && pre-commit run --all-files \
-	  && black --check $(pysources)
-
-.PHONY: check_staged_xml
-check_staged_xml:
-	@if [ ! -z "$(xmlstaged)" ]; then \
-	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
-	 fi
-
-.PHONY: check_commit
-check_commit: check_staged_xml venv
-	@. $(VENV) && pre-commit run
-	@if [ ! -z "$(pystaged)" ]; then \
-	    . $(VENV) && black --check $(pystaged) ;\
-	 fi
-
-.PHONY: autofix
-autofix: check_staged_xml venv
-	 @. $(VENV) && \
-	 EXIT_STATUS=0 ;\
-	 pre-commit run || EXIT_STATUS=$$? ;\
-	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 black $(pysources) || EXIT_STATUS=$$? ;\
-	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
-	 [ $${EXIT_STATUS} -eq 0 ]
 
 .PHONY: serve
 serve:

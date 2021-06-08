@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import html
 
-def iterate_over_events(basedir, outputdir):
+def iterate_over_events(basedir, outputdir, wcspdir):
     venue_index = VenueIndex()
     volume_index = VolumeIndex()
     paper_index = PaperIndex()
@@ -42,7 +42,7 @@ def iterate_over_events(basedir, outputdir):
     volume_index.dump(outputdir)
     paper_index.dump(outputdir)
     people_index.dump(outputdir)
-    paper_index.dump_wcsp(outputdir, venue_index)
+    paper_index.dump_wcsp(wcspdir, venue_index)
     with open(os.path.join(outputdir, "sigs.json"), "w") as file:
         file.write("{}")
 
@@ -338,4 +338,4 @@ def extract_booktitle(lines, year):
             return title
 
 
-iterate_over_events("data/final", "build/data")
+iterate_over_events("data/final", "build/data", "build")

@@ -147,6 +147,14 @@ class PaperIndex:
                         continue
                     value_inner = value_inner.copy()
                     value_inner["anthologyId"] = key_inner
+                    if "author" in value_inner:
+                        value_inner["authors"] = value_inner["author"]
+                        del value_inner["author"]
+                        del value_inner["author_string"]
+                    if "editor" in value_inner:
+                        value_inner["editors"] = value_inner["editor"]
+                        del value_inner["editor"]
+                        del value_inner["editor_string"]
                     venue_id = key.split(".")[1]
                     value_inner["venue"] = venue_index.index[venue_id]["acronym"]
                     print(json.dumps(value_inner), file=file) 

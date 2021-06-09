@@ -77,7 +77,8 @@ class PaperIndex:
             paper_number = str(d[metacount])
             d[metacount] += 1
             paper_id = volume_id+"."+paper_number
-            paper_dict = {
+            paper_dict = paper["fields"].copy()
+            paper_dict.update({
                 "bibkey":paper["bibid"],
                 "bibtype":paper["entrytype"], 
                 "booktitle":booktitle, 
@@ -88,8 +89,8 @@ class PaperIndex:
                 "title":paper["fields"]["title"],
                 "title_html":html.escape(paper["fields"]["title"]),
                 "year":paper["fields"]["year"],
-            }
-            if "url" in paper:
+            })
+            if "url" in paper["fields"]:
                 url = paper["fields"]["url"]
                 if url.endswith(".pdf"):
                     paper_dict["pdf"] = url

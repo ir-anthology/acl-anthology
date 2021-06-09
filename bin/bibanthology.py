@@ -18,7 +18,6 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
 
                 entry = entry.as_dict()
                 key = entry["bibid"]
-                name2bucket["ecir"] = "ecir"
 
                 if key.startswith("CRITERIA:"):
                     # strip "CRITERIA:"

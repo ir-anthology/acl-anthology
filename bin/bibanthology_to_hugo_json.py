@@ -85,7 +85,6 @@ class PaperIndex:
                 "booktitle_html":html.escape(booktitle),
                 "paper_id":paper_number,
                 "parent_volume_id":volume_id,
-                "language":None,
                 "title":paper["fields"]["title"],
                 "title_html":html.escape(paper["fields"]["title"]),
                 "year":paper["fields"]["year"],

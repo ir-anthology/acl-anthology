@@ -294,34 +294,32 @@ class PeopleIndex:
         if p_id[0] not in self.index:
             self.index[p_id[0]] = {}
         if p_id not in self.index[p_id[0]]:
-            d = {"first":person.get_first(), "last":person.get_last(), "full":person.get_full(), "slug":p_id, "venues":[], "coauthors":[], "papers":[]}
+            d = {"first":person.get_first(), "last":person.get_last(), "full":person.get_full(), "slug":p_id, "venues":{}, "coauthors":{}, "papers":[]}
             self.index[p_id[0]][p_id] = d
         d = self.index[p_id[0]][p_id]
-        done = False
-        for venue in d["venues"]:
-            if venue[0] == venue_id:
-                venue[1] += 1
-                done = True
-                break
-        if not done:
-            d["venues"].append([venue_id, 1])
-        for coaut_true in persons:
-            done = False
-            coaut_id = coaut_true.get_id()
-            for coaut_check in d["coauthors"]:
-                if coaut_check[0] == coaut_id:
-                    coaut_check[1] += 1
-                    done = True
-                    break
-            if not done:
-                d["coauthors"].append([coaut_id, 1])
+
+        venues = d["venues"]
+        if venue_id not in venues:
+            venues[venue_id] = 0
+        venues[venue_id] += 1
+
+        coauthors = d["coauthors"]
+        for coauthor in persons:
+            coaut_id = coauthor.get_id()
+            if coaut_id not in coauthors:
+                coauthors[coaut_id] = 0
+            coauthors[coaut_id] += 1
+        
         d["papers"].append(paper_id)
         
     def dump(self, outputdir):
         os.makedirs(os.path.join(outputdir, "people"), exist_ok=True)
-        for key, value in self.index.items():
-            with open(os.path.join(outputdir, "people", key+".json"), "w") as file:
-                file.write(json.dumps(value)) 
+        for first_char, first_char_dict in self.index.items():
+            for pid, pdict in first_char_dict.items():
+                pdict["coauthors"] = list(pdict["coauthors"].items())
+                pdict["venues"] = list(pdict["venues"].items())
+            with open(os.path.join(outputdir, "people", first_char+".json"), "w") as file:
+                file.write(json.dumps(first_char_dict)) 
 
         
 

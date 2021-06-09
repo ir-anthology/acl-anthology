@@ -97,6 +97,9 @@ class PaperIndex:
                     paper_dict["url"] = url
                     if url.startswith("https://doi.org/"):
                         paper_dict["doi"] = url[17:]
+                    else:
+                        if url.startswith("http://doi.org/"):
+                            paper_dict["doi"] = url[16:]
             if paper["bibid"].startswith("DBLP:"):
                 paper_dict["dblp"] = paper["bibid"][5:]
             authors = []

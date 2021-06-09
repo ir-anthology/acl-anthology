@@ -41,7 +41,7 @@ def iterate_over_events(basedir, outputdir, wcspdir):
     venue_index.dump(outputdir)
     volume_index.dump(outputdir)
     paper_index.dump(outputdir)
-    people_index.dump(outputdir)
+    people_index.dump(outputdir, paper_index)
     paper_index.dump_wcsp(wcspdir, venue_index)
     with open(os.path.join(outputdir, "sigs.json"), "w") as file:
         file.write("{}")
@@ -312,12 +312,18 @@ class PeopleIndex:
         
         d["papers"].append(paper_id)
         
-    def dump(self, outputdir):
+    def dump(self, outputdir, paper_index):
+        from functools import lru_cache
+        @lru_cache(maxsize = 128)
+        def paperkey(paper_id):
+            event_id, _ = paper_id.split("-")
+            return paper_index[event_id][paper_id]["year"]
         os.makedirs(os.path.join(outputdir, "people"), exist_ok=True)
         for first_char, first_char_dict in self.index.items():
             for pid, pdict in first_char_dict.items():
-                pdict["coauthors"] = list(pdict["coauthors"].items())
-                pdict["venues"] = list(pdict["venues"].items())
+                pdict["coauthors"] = sorted(list(pdict["coauthors"].items()), key=lambda x: x[1], reverse=True)
+                pdict["venues"] = sorted(list(pdict["venues"].items()), key=lambda x: x[1], reverse=True)
+                pdict["papers"] = sorted(pdict["papers"], key=paperkey)
             with open(os.path.join(outputdir, "people", first_char+".json"), "w") as file:
                 file.write(json.dumps(first_char_dict)) 
 

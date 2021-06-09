@@ -128,8 +128,8 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 data: data/ir-anthology.bib
 
 data/ir-anthology.bib: 
-	rm -f data/ir-anthology.bib
 	mkdir -p data
+	rm -f data/ir-anthology.bib
 	cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib
 
 .PHONY: json

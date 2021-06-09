@@ -135,7 +135,7 @@ data/ir-anthology.bib:
 .PHONY: json
 json: build/.json
 
-build/.json: build/.basedirs venv/bin/activate
+build/.json: data/ir-anthology.bib build/.basedirs venv/bin/activate
 	rm -rf data/temp data/final
 	mkdir -p build/data
 	@echo "INFO     Deserialize BIBTEX file..."

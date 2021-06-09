@@ -338,4 +338,4 @@ def extract_booktitle(lines, year):
             return title
 
 
-iterate_over_events("data/final", "build/data", "build")
+iterate_over_events("data/final", "build/data", ".")

@@ -64,8 +64,8 @@
         </tr>
         {{ end }}
         {{ end }}
-        {{ range $venue := (where $.Site.Data.venues "acronym" "==" "Workshops") }}
-        {{ if (and $venue.is_toplevel $venue.is_conf) }}
+        {{ range $venue := $.Site.Data.venues }}
+        {{ if (eq $venue.name "Workshops") }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
           {{ $acronym := index $venue_page.Params "venue" }}

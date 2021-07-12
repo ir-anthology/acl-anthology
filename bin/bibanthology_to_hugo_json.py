@@ -331,7 +331,7 @@ class PeopleIndex:
         @lru_cache(maxsize = 128)
         def paperkey(paper_id):
             event_id, _ = paper_id.split("-")
-            return paper_index[event_id][paper_id]["year"]
+            return paper_index.index[event_id][paper_id]["year"]
         os.makedirs(os.path.join(outputdir, "people"), exist_ok=True)
         for first_char, first_char_dict in self.index.items():
             for pid, pdict in first_char_dict.items():

@@ -39,7 +39,7 @@ def iterate_over_events(basedir, outputdir, wcspdir):
                 venue_index.append("workshops", None, year, volume_id, "conference", acronym="Workshops", name="Workshops")
                 conference_venue_id = (generic_venue_id+"_conference")
                 if conference_venue_id in venue_index.index:
-                    venue_index.append(conference_venue_id, (basedir, generic_venue_id), year, volume_id, None)
+                    venue_index.append(conference_venue_id, (basedir, generic_venue_id), year, volume_id, event_type)
             #paper index must be served before the volume index
             paper_index.append(lines, year, volume_id, event_id, people_index, venue_id)
             volume_index.append(lines, venue_id, year, volume_id, paper_index, event_id, event_type)

@@ -16,26 +16,53 @@
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
-      <h4 class="card-title">Contents</h4>
+      <h4 class="card-title">Content</h4>
       <ul class="list-pl-responsive">
         {{ range $volumes }}
-        {{ $volume := index $.Site.Data.volumes . }}
+        {{ if (ne "workshop" (index . 1)) }}
+        {{ $volume := index $.Site.Data.volumes (index . 0) }}
         <li>
           {{ if eq hugo.Environment "development" }}
-            <span class="badge badge-light align-middle">{{ . }}</span>
+            <span class="badge badge-light align-middle">{{ (index . 0) }}</span>
           {{ end }}
-          <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
+          <a class="align-middle" href="#{{ (index . 0) | anchorize }}">{{ $volume.title }}</a>
           <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
         </li>
+        {{ end }}
         {{ end }}
       </ul>
     </div>
   </div>
+  {{ end }}
+  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) index 1) "workshop") }}
+  {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ $volumes := index $venue "volumes_by_year" .Params.year }}
+  <div class="card bg-light mb-2 mb-lg-4">
+    <div class="card-body">
+      <h4 class="card-title">Workshops</h4>
+      <ul class="list-pl-responsive">
+        {{ range $volumes }}
+        {{ if (eq "workshop" (index . 1)) }}
+        {{ $volume := index $.Site.Data.volumes (index . 0) }}
+        <li>
+          {{ if eq hugo.Environment "development" }}
+            <span class="badge badge-light align-middle">{{ (index . 0) }}</span>
+          {{ end }}
+          <a class="align-middle" href="#{{ (index . 0) | anchorize }}">{{ $volume.title }}</a>
+          <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;{{ cond (gt (len $volume.papers) 1) "papers" "paper" }}</span>
+        </li>
+        {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+  {{ end }}
+  {{ end }}
 
   {{/* Check if any of the volumes associated with this event have abstracts */}}
   {{ $with_abstracts := 0 }}
   {{ range $volumes }}
-    {{ $volume := index $.Site.Data.volumes . }}
+    {{ $volume := index $.Site.Data.volumes (index . 0) }}
     {{ if $volume.has_abstracts }}
       {{ $with_abstracts = add $with_abstracts 1 }}
     {{ end }}
@@ -46,7 +73,7 @@
   {{ end }}
 
   {{ range $volumes }}
-  {{ $volume := index $.Site.Data.volumes . }}
+  {{ $volume := index $.Site.Data.volumes (index . 0) }}
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 

@@ -8,7 +8,7 @@ def iterate_over_events(basedir, outputdir, wcspdir):
     volume_index = VolumeIndex()
     paper_index = PaperIndex()
     people_index = PeopleIndex()
-    for event_type in ["workshop", "conference", "journal"]:
+    for event_type in ["conference", "workshop", "journal"]:
         paths = map(str,Path(os.path.join(basedir, event_type)).rglob('*.jsonl'))
         for path in paths:
             year = None
@@ -35,9 +35,14 @@ def iterate_over_events(basedir, outputdir, wcspdir):
             event_id = str(year) + "." + venue_id
             volume_id = event_id + "-" + get_volume_name(path)
             venue_index.append(venue_id, (basedir, generic_venue_id), year, volume_id, event_type)
+            if event_type=="workshop":
+                venue_index.append("workshops", None, year, volume_id, "conference", acronym="Workshops", name="Workshops")
+                conference_venue_id = (generic_venue_id+"_conference")
+                if conference_venue_id in venue_index.index:
+                    venue_index.append(conference_venue_id, (basedir, generic_venue_id), year, volume_id, None)
             #paper index must be served before the volume index
             paper_index.append(lines, year, volume_id, event_id, people_index, venue_id)
-            volume_index.append(lines, venue_id, year, volume_id, paper_index, event_id)
+            volume_index.append(lines, venue_id, year, volume_id, paper_index, event_id, event_type)
     venue_index.dump(outputdir)
     volume_index.dump(outputdir)
     paper_index.dump(outputdir)
@@ -206,18 +211,41 @@ class Person:
         return self.dblp_id
     
 
+        
+def setType(d, event_type):
+    if "is_conf" in d:
+        return d
+    if event_type == "conference":
+        d["is_conf"] = True
+        d["is_journal"] = False
+        d["is_workshop"] = False
+        return d
+    if event_type == "journal":
+        d["is_conf"] = False
+        d["is_journal"] = True
+        d["is_workshop"] = False
+        return d
+    if event_type == "workshop":
+        d["is_conf"] = False
+        d["is_journal"] = False
+        d["is_workshop"] = True
+        return d
+    raise Exception("unkown type")
 
 
 class VenueIndex:
     def __init__(self):
         self.index = {}
 
-    def append(self, venue_id, get_base_venue_args, year, volume_id, event_type):
+    def append(self, venue_id, get_base_venue_args, year, volume_id, event_type, acronym="", name=""):
         if venue_id in self.index:
             d = self.index[venue_id]
         else:
-            d = get_base_venue(*get_base_venue_args)
-            d = VenueIndex.setType(d, event_type)
+            if get_base_venue_args is not None:
+                d = get_base_venue(*get_base_venue_args)
+            else:
+                d = {"is_toplevel":True, "name":name, "acronym":acronym}
+            d = setType(d, event_type)
             d["slug"] = venue_id
             d["volumes_by_year"] = {}
             d["years"] = []
@@ -225,31 +253,16 @@ class VenueIndex:
             d["years"].append(year)
         if year not in d["volumes_by_year"]:
             d["volumes_by_year"][year] = []
-        d["volumes_by_year"][year].append(volume_id)
+        d["volumes_by_year"][year].append([volume_id, event_type])
         self.index[venue_id] = d
-        
-    def setType(d, event_type):
-        if "is_conf" in d:
-            return d
-        if event_type == "conference":
-            d["is_conf"] = True
-            d["is_journal"] = False
-            d["is_workshop"] = False
-            return d
-        if event_type == "journal":
-            d["is_conf"] = False
-            d["is_journal"] = True
-            d["is_workshop"] = False
-            return d
-        if event_type == "workshop":
-            d["is_conf"] = False
-            d["is_journal"] = False
-            d["is_workshop"] = True
-            return d
-        raise Exception("unkown type")
         
     def dump(self, outputdir):
         os.makedirs(outputdir, exist_ok=True)
+        for d in self.index.values():
+            d["years"] = sorted(d["years"])
+            e = d["volumes_by_year"]
+            for year in e.keys():
+                e[year] = sorted(e[year], key=lambda x: x[0])
         with open(os.path.join(outputdir, "venues.json"), "w") as file:
             file.write(json.dumps(self.index)) 
 
@@ -257,7 +270,7 @@ class VolumeIndex:
     def __init__(self):
         self.index = {}
 
-    def append(self, lines, venue_id, year, volume_id, paper_index, event_id):
+    def append(self, lines, venue_id, year, volume_id, paper_index, event_id, event_type):
         d = {}
         d["has_abstracts"] = False
         d["meta_date"] = year
@@ -265,6 +278,7 @@ class VolumeIndex:
         d["sigs"] = []
         d["venues"] = [venue_id]
         d["papers"] = []
+        d = setType(d, event_type)
         if lines[0]["entrytype"] == "proceedings":
             proceeding = paper_index.index[event_id][volume_id+".0"]
             d_keys = list(d.keys())

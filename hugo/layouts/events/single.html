@@ -33,9 +33,9 @@
       </ul>
     </div>
   </div>
-  
+
   {{ $venue := index .Site.Data.venues .Params.venue }}
-  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) index 1) "workshop") }}
+  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) "index" "." 1) "workshop") }}
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">

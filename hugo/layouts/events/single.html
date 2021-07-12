@@ -33,7 +33,7 @@
       </ul>
     </div>
   </div>
-  {{ end }}
+  
   {{ $venue := index .Site.Data.venues .Params.venue }}
   {{ if (in (apply (index $venue "volumes_by_year" .Params.year) index 1) "workshop") }}
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
@@ -56,7 +56,6 @@
       </ul>
     </div>
   </div>
-  {{ end }}
   {{ end }}
 
   {{/* Check if any of the volumes associated with this event have abstracts */}}

@@ -41,7 +41,30 @@
         </tr>
       </thead>
       <tbody class="border-bottom">
-        {{ range $venue := ((where (sort $.Site.Data.venues "slug" "asc") "acronym" "!=" "Workshops") | append (where $.Site.Data.venues "acronym" "==" "Workshops")) }}
+        {{ range $venue := (where (sort $.Site.Data.venues "slug" "asc") "acronym" "!=" "Workshops") }}
+        {{ if (and $venue.is_toplevel $venue.is_conf) }}
+        <tr class="text-center border-left border-right">
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          {{ $acronym := index $venue_page.Params "venue" }}
+          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
+          {{ range $all_years }}
+          {{ $year := string . }}
+          {{/* this is the actual default case */}}
+          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+            {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
+              {{- with index $venue "volumes_by_year" $year -}}
+                <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              {{- end -}}
+            {{ end }}
+            {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
+              <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
+            {{ end }}
+          </td>
+          {{ end }}
+        </tr>
+        {{ end }}
+        {{ end }}
+        {{ range $venue := (where $.Site.Data.venues "acronym" "==" "Workshops") }}
         {{ if (and $venue.is_toplevel $venue.is_conf) }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}

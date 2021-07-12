@@ -34,8 +34,8 @@
     </div>
   </div>
   {{ end }}
-  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) index 1) "workshop") }}
   {{ $venue := index .Site.Data.venues .Params.venue }}
+  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) index 1) "workshop") }}
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
@@ -88,7 +88,7 @@
       <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
-    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
+    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" (index . 0)) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
       {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}

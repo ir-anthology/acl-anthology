@@ -7,12 +7,13 @@
 */}}
 {{ define "main" }}
 <section id="main" class="col-12">
+  {{ $venue := index .Site.Data.venues .Params.venue }}
+  <h2><a href="/anthology">Main</a> / <a href="/anthology/events/{{ $venue.slug }}/">{{ $venue.acronym }}</a> / </h2><br>
   <h2 id="title">
     {{ .Title }}
   </h2>
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">

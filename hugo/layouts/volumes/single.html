@@ -12,16 +12,15 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
-{{ $volume := index $.Site.Data.volumes $paper.parent_volume_id }}
+{{ $volume := $paper }}
+{{- if eq $paper nil -}}
+{{- errorf "ERROR: page is nil %#v" $paper -}}
+{{- else -}}
 <section id="main" class="col-12">
   {{- $len := (len $volume.venues) -}}
   {{- range $index, $venue := $volume.venues -}}
-    <h2><a href="/anthology">Main</a> / <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- $venue -}}</a> / <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> / </h2>
-    {{ end }}
+    <h2><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » </h2>
   {{- end -}}
-  <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
-    {{- $venue -}}
-  </a>
   <h2 id="title">
     {{ with $paper.pdf }}
       <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -235,5 +234,6 @@
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>
+{{- end -}}
 </section>
 {{ end }}

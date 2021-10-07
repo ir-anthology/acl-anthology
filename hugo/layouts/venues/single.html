@@ -8,6 +8,7 @@
 {{ define "main" }}
 {{ $venue := index .Site.Data.venues .Params.venue }}
 <section id="main" class="col-12">
+  <h2><a href="/anthology">Main</a> » </h2><br>
   <h2 id="title">
     {{ $venue.name }}
   </h2>

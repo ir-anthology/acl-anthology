@@ -50,29 +50,37 @@
 <script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
 {{ with $paper.dblp }}
   <script>
-    document.onreadystatechange = function () {
-      if (document.readyState == "complete") {
-        if (ClipboardJS.isSupported()) {
-          new ClipboardJS(".btn-clipboard", {
-            text: function(trigger) {
-              var xhttp = new XMLHttpRequest();
-              xhttp.open("GET", "https://dblp.org/rec/{{ . }}.bib?param=1", false);
-              xhttp.send();
-              if (xhttp.status === 200) {
-                return xhttp.responseText
-              }
-              throw "Error while loading the BibTex"
-            }
-          });
-          var list = document.getElementsByClassName("btn-clipboard")
-          for(i=0; i<list.length; i++){
-            list[i].classList.remove("d-none")
-          }
-        }
-      }
-    }
+  var bib_download_url = "https://dblp.org/rec/{{ . }}.bib?param=1";
   </script>
 {{ end }}
+{{ if (hasPrefix $paper.bibkey "MANUAL") }}
+  <script>
+  var bib_download_url = "https://ir.webis.de/anthology/files/{{ replace (replace $paper.bibkey "/" "_") ":" "_" }}";
+  </script>
+{{ end }}
+<script>
+document.onreadystatechange = function () {
+  if (document.readyState == "complete") {
+    if (ClipboardJS.isSupported()) {
+      new ClipboardJS(".btn-clipboard", {
+        text: function(trigger) {
+          var xhttp = new XMLHttpRequest();
+          xhttp.open("GET", bib_download_url, false);
+          xhttp.send();
+          if (xhttp.status === 200) {
+            return xhttp.responseText
+          }
+          throw "Error while loading the BibTex"
+        }
+      });
+      var list = document.getElementsByClassName("btn-clipboard")
+      for(i=0; i<list.length; i++){
+        list[i].classList.remove("d-none")
+      }
+    }
+  }
+}
+</script>
 <section id="main" class="col-12">
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -220,6 +228,21 @@
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.nt">RDF N-Triples</a>
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.rdf">RDF/XML</a>
         <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.xml">XML</a>
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+        <!--
+        {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
+          <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
+        {{ end }}
+        {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
+          <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
+        {{ end }}
+        -->
+      </dd>
+      {{ end }}
+      {{ if (hasPrefix $paper.bibkey "MANUAL") }}
+      <dt class="acl-button-row">bib files:</dt>
+      <dd class="acl-button-row">
+        <a class="btn btn-secondary btn-sm" href="https://ir.webis.de/anthology/files/{{ replace (replace $paper.bibkey "/" "_") ":" "_" }}">BibTeX</a>
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}

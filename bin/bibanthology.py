@@ -9,11 +9,12 @@ from tqdm import tqdm
 def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_temp_basefolder):
     # convert bib to jsonl files
     # one file for each event
+    os.makedirs("build/anthology/files", exist_ok=True)
     name2bucket = {}
     with open(anthology_bib_path, "r") as bib_file:
         bibstring = bib_file.read()
         with tqdm(total=bibstring.count("personids") + bibstring.count("@misc")) as pbar:
-            for entry in bibtexparser.generate(bibstring, keep_input=False):
+            for entry in bibtexparser.generate(bibstring, keep_input=True):
                 pbar.update(1)
 
                 entry = entry.as_dict()
@@ -34,6 +35,17 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                     os.makedirs(folder, exist_ok=True)
                     path = os.path.join(folder, bucket+".json")
                 else:
+                    if key.startswith("MANUAL:"):
+                        with open("build/anthology/files/"+key.replace(":", "_").replace("/", "_"), "w") as f:
+                            for line in entry["string"].split("\n"):
+                                i = 0
+                                for _ in range(0, len(line)):
+                                    if line[i] != " ":
+                                        i += 1
+                                if i+9>len(line):
+                                    break
+                                if "personids"==line[i:i+9]:
+                                    print(line, file=f)
                     start = key.find("/")+1
                     end = start+key[start:].find("/")
                     subfolder = key[:end]

@@ -14,10 +14,10 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
     with open(anthology_bib_path, "r") as bib_file:
         bibstring = bib_file.read()
         with tqdm(total=bibstring.count("personids") + bibstring.count("@misc")) as pbar:
-            for entry in bibtexparser.generate(bibstring, keep_input=True):
+            for entry_obj in bibtexparser.generate(bibstring, keep_input=True):
                 pbar.update(1)
 
-                entry = entry.as_dict()
+                entry = entry_obj.as_dict()
                 key = entry["bibid"]
 
                 if key.startswith("CRITERIA:"):
@@ -37,7 +37,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                 else:
                     if key.startswith("MANUAL:"):
                         with open("build/anthology/files/"+key.replace(":", "_").replace("/", "_"), "w") as f:
-                            for line in entry["string"].split("\n"):
+                            for line in entry_obj.string().split("\n"):
                                 i = 0
                                 for _ in range(0, len(line)):
                                     if line[i] != " ":

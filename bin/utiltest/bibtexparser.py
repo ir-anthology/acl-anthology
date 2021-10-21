@@ -5,7 +5,7 @@ from utiltest.util import find_char_after_no_error
 from utiltest.latexparser import LatexParser
 
 class BibtexEntry:
-    def __init__(self, entrytype, bibid, fields_data, string=None)):
+    def __init__(self, entrytype, bibid, fields_data, string=None):
         self.entrytype = entrytype
         self.bibid = bibid
         self.fields_data = fields_data

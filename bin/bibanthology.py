@@ -9,7 +9,7 @@ from tqdm import tqdm
 def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_temp_basefolder):
     # convert bib to jsonl files
     # one file for each event
-    os.makedirs("build/anthology/files", exist_ok=True)
+    os.makedirs("data/files", exist_ok=True)
     name2bucket = {}
     with open(anthology_bib_path, "r") as bib_file:
         bibstring = bib_file.read()
@@ -36,7 +36,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                     path = os.path.join(folder, bucket+".json")
                 else:
                     if key.startswith("MANUAL:"):
-                        with open("build/anthology/files/"+key.replace(":", "_").replace("/", "_"), "w") as f:
+                        with open("data/files/"+key.replace(":", "_").replace("/", "_"), "w") as f:
                             for line in entry_obj.string().split("\n"):
                                 i = 0
                                 for _ in range(0, len(line)):

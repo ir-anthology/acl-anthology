@@ -36,7 +36,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                     path = os.path.join(folder, bucket+".json")
                 else:
                     if key.startswith("MANUAL:"):
-                        with open("data/files/"+key.replace(":", "_").replace("/", "_"), "w") as f:
+                        with open("data/files/"+key.replace(":", "_").replace("/", "_")+".bib", "w") as f:
                             for line in entry_obj.string().split("\n"):
                                 i = 0
                                 for _ in range(0, len(line)):

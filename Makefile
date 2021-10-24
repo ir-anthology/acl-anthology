@@ -163,6 +163,7 @@ build/.hugo: build/.static build/.pages
 	         --cleanDestinationDir \
 	         --minify
 	@touch build/.hugo
+	@mv data/files build/$(ANTHOLOGYDIR)/
 
 .PHONY: clean
 clean:

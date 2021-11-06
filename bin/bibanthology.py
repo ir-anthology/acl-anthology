@@ -41,11 +41,11 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                                 i = 0
                                 for _ in range(0, len(line)):
                                     if line[i] != " ":
-                                        i += 1
-                                if i+9>len(line):
-                                    break
-                                if "personids"==line[i:i+9]:
-                                    print(line, file=f)
+                                        break
+                                    i += 1
+                                if line[i:].startswith("personids") or line[i:].startswith("xml-checksum"):
+                                    continue
+                                print(line, file=f)
                     start = key.find("/")+1
                     end = start+key[start:].find("/")
                     subfolder = key[:end]

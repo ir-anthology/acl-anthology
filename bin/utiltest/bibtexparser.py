@@ -132,6 +132,8 @@ def generate(input, skip_fields=False, keep_input=True):
     l = len(input)-1
     lastchar_index = input.rfind("}")
     while True:
+        if start > l:
+            return
         while not input[start] == "@":
             if start == l:
                 return

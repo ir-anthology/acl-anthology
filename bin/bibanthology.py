@@ -35,17 +35,18 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                     os.makedirs(folder, exist_ok=True)
                     path = os.path.join(folder, bucket+".json")
                 else:
-                    if key.startswith("MANUAL:"):
-                        with open("data/files/"+key.replace(":", "_").replace("/", "_")+".bib", "w") as f:
-                            for line in entry_obj.string().split("\n"):
-                                i = 0
-                                for _ in range(0, len(line)):
-                                    if line[i] != " ":
-                                        break
-                                    i += 1
-                                if line[i:].startswith("personids") or line[i:].startswith("xml-checksum"):
-                                    continue
-                                print(line, file=f)
+                    with open("data/files/"+entry["bibid"]+".bib", "w") as f:
+                        for line in entry_obj.string().split("\n"):
+                            i = 0
+                            for _ in range(0, len(line)):
+                                if line[i] != " ":
+                                    break
+                                i += 1
+                            line_part = line[i:]
+                            if line_part.startswith("personids") or line_part.startswith("xml-checksum") or line_part.startswith("sourceid"):
+                                continue
+                            print(line, file=f)
+                    key = entry["fields"]["sourceid"]
                     start = key.find("/")+1
                     end = start+key[start:].find("/")
                     subfolder = key[:end]
@@ -59,7 +60,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                         if "crossref" in entry["fields"]:
                             filename = entry["fields"]["crossref"]
                         else:
-                            filename = entry["bibid"]
+                            filename = entry["fields"]["sourceid"]
                     start = filename.find("/")+1
                     end = start+filename[start:].find("/")
                     filename = filename[end+1:]
@@ -84,7 +85,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
             with open(src_file, "r") as file:
                 for line in file:
                     line = json.loads(line)
-                    entries[line["bibid"]] = line
+                    entries[line["fields"]["sourceid"]] = line
                     head = line["fields"]["crossref"] if "crossref" in line["fields"] else head
                     booktitle = line["fields"]["booktitle"] if "booktitle" in line["fields"] else booktitle
             if len(entries)==1:
@@ -118,7 +119,7 @@ def entry_sort_key(entry):
     if "title" in entry["fields"]:
         title = entry["fields"]["title"]
         return title[0:round(min(20, len(title)))].ljust(20, "z")
-    return entry["bibid"].ljust(20, "z")
+    return entry["fields"]["sourceid"].ljust(20, "z")
     
 
 def outputType(src_file, head, booktitle):

@@ -14,7 +14,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
     with open(anthology_bib_path, "r") as bib_file:
         bibstring = bib_file.read()
         with tqdm(total=bibstring.count("personids") + bibstring.count("@misc")) as pbar:
-            for entry_obj in bibtexparser.generate(bibstring, keep_input=True):
+            for entry_obj in bibtexparser.loads(bibstring, keep_input=True):
                 pbar.update(1)
 
                 entry = entry_obj.as_dict()

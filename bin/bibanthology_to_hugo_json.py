@@ -42,6 +42,9 @@ def iterate_over_events(basedir, outputdir, wcspdir):
                     venue_index.append(conference_venue_id, (basedir, generic_venue_id), year, volume_id, event_type)
             #paper index must be served before the volume index
             paper_index.append(lines, year, volume_id, event_id, people_index, venue_id)
+            if "2001.ntcir_conference" in paper_index.index:
+                print(lines)
+                raise Error()
             volume_index.append(lines, venue_id, year, volume_id, paper_index, event_id, event_type)
     venue_index.dump(outputdir)
     volume_index.dump(outputdir)
@@ -85,6 +88,7 @@ class PaperIndex:
             paper_dict = paper["fields"].copy()
             paper_dict.update({
                 "bibkey":paper["bibid"],
+                "sourceid":paper["fields"]["sourceid"],
                 "bibtype":paper["entrytype"], 
                 "booktitle":booktitle, 
                 "booktitle_html":html.escape(booktitle),
@@ -105,8 +109,8 @@ class PaperIndex:
                     else:
                         if url.startswith("http://doi.org/"):
                             paper_dict["doi"] = url[15:]
-            if paper["bibid"].startswith("DBLP:"):
-                paper_dict["dblp"] = paper["bibid"][5:]
+            if paper["fields"]["sourceid"].startswith("DBLP:"):
+                paper_dict["dblp"] = paper["fields"]["sourceid"][5:]
             authors = []
             persons = Person.authors_of_paper(paper)
             for person in persons:

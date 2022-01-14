@@ -16,7 +16,7 @@ class BibtexEntry:
         if self.fields_data_cache is None:
             self.fields_data_cache = self.fields_data()
         return self.fields_data_cache
-
+            
     def as_dict(self):
         d = {}
         d["entrytype"] = self.entrytype()
@@ -83,7 +83,7 @@ def raise_(ex):
 
 def loads_entry(input, skip_fields=False, keep_input=True):
     lastchar_index = input.rfind("}")
-    start = 1
+    start = input.find("@")+1
     end = find_char_after(input, "{", 1)
     entrytype = input[start:end]
     start = end+1
@@ -125,18 +125,3 @@ def loads(input, skip_fields=False, keep_input=True):
     return output
 
 
-
-
-def generate(input, skip_fields=False, keep_input=True):
-    start = 0
-    l = len(input)-1
-    lastchar_index = input.rfind("}")
-    while True:
-        while not input[start] == "@":
-            if start == l:
-                return
-            start += 1
-        temp = find_char_after(input, "{", start)+1
-        end = find_char_after_mirrorchar(input, "}", temp, "{", "}")+1
-        yield loads_entry(input[start:end], skip_fields, keep_input)
-        start = end

@@ -48,16 +48,9 @@
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
-{{ with $paper.dblp }}
   <script>
-  var bib_download_url = "https://dblp.org/rec/{{ . }}.bib?param=1";
+  var bib_download_url = "/anthology/files/{{ $paper.bibkey }}.bib";
   </script>
-{{ end }}
-{{ if (hasPrefix $paper.bibkey "MANUAL") }}
-  <script>
-  var bib_download_url = "https://ir.webis.de/anthology/files/{{ replace (replace $paper.bibkey "/" "_") ":" "_" }}";
-  </script>
-{{ end }}
 <script>
 document.onreadystatechange = function () {
   if (document.readyState == "complete") {
@@ -119,7 +112,7 @@ document.onreadystatechange = function () {
     for this list is defined in assets/css/_papers.scss -->
     <dl>
       <dt>Anthology ID:</dt>
-      <dd>{{ $anthology_id }}</dd>
+      <dd>{{ $paper.sourceid }}</dd>
 
       {{ range $paper.revision }}
         {{ if eq .id "1" }}
@@ -226,29 +219,9 @@ document.onreadystatechange = function () {
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      {{ with $paper.dblp }}
-      <dt class="acl-button-row">DBLP bib files:</dt>
-      <dd class="acl-button-row">
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.bib?param=1">BibTeX</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.ris">RIS</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.nt">RDF N-Triples</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.rdf">RDF/XML</a>
-        <a class="btn btn-secondary btn-sm" href="https://dblp.org/rec/{{ . }}.xml">XML</a>
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
-        <!--
-        {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
-          <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
-        {{ end }}
-        {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
-          <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
-        {{ end }}
-        -->
-      </dd>
-      {{ end }}
-      {{ if (hasPrefix $paper.bibkey "MANUAL") }}
       <dt class="acl-button-row">bib files:</dt>
       <dd class="acl-button-row">
-        <a class="btn btn-secondary btn-sm" href="https://ir.webis.de/anthology/files/{{ replace (replace $paper.bibkey "/" "_") ":" "_" }}">BibTeX</a>
+        <a class="btn btn-secondary btn-sm" href="/anthology/files/{{ $paper.bibkey }}.bib">BibTeX</a>
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
@@ -259,7 +232,6 @@ document.onreadystatechange = function () {
         {{ end }}
         -->
       </dd>
-      {{ end }}
 
       {{ range $paper.attachment }}
       <dt class="acl-button-row">{{ humanize .type }}:</dt>
@@ -288,7 +260,7 @@ document.onreadystatechange = function () {
         </a>
         {{ end }}
       {{ end }}
-      <a class="btn btn-secondary" href="https://dblp.org/rec/{{ $paper.dblp }}.bib?param=1" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      <a class="btn btn-secondary" href="/anthology/files/{{ $paper.bibkey }}.bib" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">

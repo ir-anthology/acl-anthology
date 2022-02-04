@@ -266,8 +266,8 @@ document.onreadystatechange = function () {
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Google Scholar</span>
       </a>
-      <a class="btn btn-secondary" href="https://academic.microsoft.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Microsoft Academic Search">
-        <img style="max-width:20px" src="/anthology/images/microsoftacademic-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Microsoft Academic</span>
+      <a class="btn btn-secondary" href="https://scholar.archive.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Internet Archive Scholar">
+        <img style="max-width:20px" src="/anthology/images/internet-archive-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Internet Archive Scholar</span>
       </a>
       <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
         <img style="max-width:20px" src="/anthology/images/sematicscholar-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Semantic Scholar</span>

@@ -49,24 +49,39 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
   <script>
-  var bib_download_url = "/anthology/files/{{ $paper.bibkey }}.bib";
+    var bib_download_url = "/anthology/files/{{ $paper.bibkey }}.bib";
+    var bibkey = "{{ $paper.bibkey }}";
   </script>
 <script>
 document.onreadystatechange = function () {
   if (document.readyState == "complete") {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", bib_download_url, false);
+    xhttp.send();
+    if (xhttp.status === 200) {
+      var bibtex_content = xhttp.responseText;
+    }
+    else {
+      throw "Error while loading the BibTex";
+    }
+    document.getElementById("citeBibtexContent").innerHTML = bibtex_content;
+    citeBibtexContent
     if (ClipboardJS.isSupported()) {
-      new ClipboardJS(".btn-clipboard", {
+      new ClipboardJS(".btn-clipboard-bib", {
         text: function(trigger) {
-          var xhttp = new XMLHttpRequest();
-          xhttp.open("GET", bib_download_url, false);
-          xhttp.send();
-          if (xhttp.status === 200) {
-            return xhttp.responseText
-          }
-          throw "Error while loading the BibTex"
+          return bibtex_content;
         }
       });
-      var list = document.getElementsByClassName("btn-clipboard")
+      new ClipboardJS(".btn-clipboard-bibkey", {
+        text: function(trigger) {
+          return bibkey;
+        }
+      });
+      var list = document.getElementsByClassName("btn-clipboard-bib")
+      for(i=0; i<list.length; i++){
+        list[i].classList.remove("d-none")
+      }
+      var list = document.getElementsByClassName("btn-clipboard-bibkey")
       for(i=0; i<list.length; i++){
         list[i].classList.remove("d-none")
       }
@@ -219,10 +234,12 @@ document.onreadystatechange = function () {
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      <dt class="acl-button-row">bib files:</dt>
+      <dt class="acl-button-row">BibTeX:</dt>
       <dd class="acl-button-row">
-        <a class="btn btn-secondary btn-sm" href="/anthology/files/{{ $paper.bibkey }}.bib">BibTeX</a>
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+        <a class="btn btn-secondary btn-sm" href="/anthology/files/{{ $paper.bibkey }}.bib">Download</a>
+        <button type="button" class="btn btn-clipboard-bib btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+        <button type="button" class="btn btn-clipboard-bibkey btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>{{ $paper.bibkey }}</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">Show</button>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
           <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
@@ -281,5 +298,41 @@ document.onreadystatechange = function () {
     </div>
   </div>
   <hr />
+
+
+
+  <!-- Derived from the ACL-Anthology - the content has been changed -->
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
+          <button class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="true">BibTeX</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="citeFormatsContent">
+            <div class="tab-pane active" id="citeBibtex" role="tabpanel">
+              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="/anthology/files/{{ $paper.bibkey }}.bib"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button class="btn btn-clipboard-bib btn-primary d-none"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end derive -->
+
 </section>
 {{ end }}

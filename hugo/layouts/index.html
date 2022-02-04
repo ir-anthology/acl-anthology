@@ -12,7 +12,7 @@
 {{ end }}
 
 {{ define "main" }}
-{{ $event_exists_but_not_index := dict "airs_conference" (slice "2021" "2007") "cikm_conference" (slice "2021") "dir_conference" (slice "2000" "2001" "2002" "2003" "2005" "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2015" "2016" "2017" "2018" "2019" "2020" "2021") "ecir_conference" (slice "2000" "2001") "fire_conference" (slice "2012" "2021") "ictir_conference" (slice "2007" "2014") "ntcir_conference" (slice "2020") "trec_conference" (slice "2021") "www_conference" (slice "2021") "sigirjournals_journal" (slice "2021") "tist_journal" (slice "2021") "tois_journal" (slice "2021")}}
+{{ $event_exists_but_not_index := dict "airs_conference" (slice "2021" "2007") "cikm_conference" (slice "2021") "dir_conference" (slice "2000" "2001" "2002" "2003" "2005" "2006" "2007" "2008" "2009" "2010" "2011" "2012" "2015" "2016" "2017" "2019" "2020" "2021") "ecir_conference" (slice "2000" "2001") "fire_conference" (slice "2012" "2021") "ictir_conference" (slice "2007" "2014") "ntcir_conference" (slice "2020") "trec_conference" (slice "2021") "www_conference" (slice "2021") "sigirjournals_journal" (slice "2021") "tist_journal" (slice "2021") "tois_journal" (slice "2021")}}
 <div class="justify-content-left">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}

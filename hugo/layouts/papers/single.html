@@ -200,14 +200,14 @@ document.onreadystatechange = function () {
       {{ end }}
       {{ with $paper.doi }}
       <dt>DOI:</dt>
-      <dd><a href="https://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a></dd>
+      <dd><a target="_blank" href="https://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a></dd>
       {{ end }}
       {{ with $paper.dblp }}
       <dt>DBLP:</dt>
-      <dd><a href="https://dblp.org/rec/{{ . }}.html" title="DBLP paper page">{{ . }}</a></dd>
+      <dd><a target="_blank" href="https://dblp.org/rec/{{ . }}.html" title="DBLP paper page">{{ . }}</a></dd>
       {{ end }}
       {{ with $paper.pdf }}
-      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
+      <dt>PDF:</dt><dd><a target="_blank" href="{{ . }}">{{ . }}</a></dd>
       {{ end }}
       {{ range $paper.award }}
       <dt>Award:</dt>
@@ -235,7 +235,7 @@ document.onreadystatechange = function () {
 
       {{ range $paper.attachment }}
       <dt class="acl-button-row">{{ humanize .type }}:</dt>
-      <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
+      <dd class="acl-button-row"><a target="_blank" href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
       {{ end }}
     </dl>
     </div>
@@ -244,18 +244,18 @@ document.onreadystatechange = function () {
     <div class="acl-paper-link-block">
       {{ if isset $paper "revision" }}
         {{ range last 1 $paper.revision }}
-        <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+        <a target="_blank" class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
         {{ range first 1 $paper.revision }}
-        <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+        <a target="_blank" class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
       {{ else }}
         {{ with $paper.pdf }}
-        <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <a target="_blank" class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
         {{ end }}
@@ -263,13 +263,13 @@ document.onreadystatechange = function () {
       <a class="btn btn-secondary" href="/anthology/files/{{ $paper.bibkey }}.bib" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
-      <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
+      <a target="_blank" class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Google Scholar</span>
       </a>
-      <a class="btn btn-secondary" href="https://scholar.archive.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Internet Archive Scholar">
+      <a target="_blank" class="btn btn-secondary" href="https://scholar.archive.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Internet Archive Scholar">
         <img style="max-width:20px" src="/anthology/images/internet-archive-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Internet Archive Scholar</span>
       </a>
-      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
+      <a target="_blank" class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
         <img style="max-width:20px" src="/anthology/images/sematicscholar-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Semantic Scholar</span>
       </a>
       {{ range $paper.attachment }}

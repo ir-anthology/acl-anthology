@@ -10,17 +10,17 @@
 <p class="d-sm-flex align-items-stretch">
   <span class="d-block mr-2 text-nowrap list-button-row">
     {{- with $paper.pdf -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
+    <a target="_blank" class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
     {{- end -}}
     {{- with $paper.doi -}}
-    <a class="badge badge-primary align-middle mr-1" href="https://dx.doi.org/{{ . }}" data-toggle="tooltip" data-placement="top" title="Open at doi.org">
+    <a target="_blank" class="badge badge-primary align-middle mr-1" href="https://dx.doi.org/{{ . }}" data-toggle="tooltip" data-placement="top" title="Open at doi.org">
       doi
     </a>
     {{- end -}}
     {{- with $paper.dblp -}}
-    <a class="badge badge-secondary align-middle mr-1" href="https://dblp.org/rec/{{ . }}.html" data-toggle="tooltip" data-placement="top" title="Open at dblp.org">
+    <a target="_blank" class="badge badge-secondary align-middle mr-1" href="https://dblp.org/rec/{{ . }}.html" data-toggle="tooltip" data-placement="top" title="Open at dblp.org">
       dblp
     </a>
     {{- end -}}
@@ -32,7 +32,7 @@
     <span data-toggle=tooltip data-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
     {{- end -}}
       {{- range $paper.attachment -}}
-        <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
+        <a target="_blank" class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
       {{- end -}}
   </span>
   <span class="d-block">

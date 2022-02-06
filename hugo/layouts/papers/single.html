@@ -13,6 +13,10 @@
   {{ $first_letter := slicestr .id 0 1 }}
   <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
 {{ end }}
+{{ range $paper.editor }}
+  {{ $first_letter := slicestr .id 0 1 }}
+  <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_editor" >
+{{ end }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index $.Site.Data.volumes . }}
   {{ if isset $volume "meta_journal_title" }}
@@ -88,7 +92,9 @@ document.onreadystatechange = function () {
       {{ $paper.title_html | safeHTML }}
     {{ end }}
   </h2>
-  {{ with $paper.author }}
+  <!-- proceedings often contain no authors but editors - these should be displayed instead  -->
+  {{ $author_array := cond (eq (len $paper.author) 0) $paper.editor $paper.author }}
+  {{ with $author_array }}
   <p class="lead">
     {{ $len := (len .) }}
     {{ range $index, $person := . }}

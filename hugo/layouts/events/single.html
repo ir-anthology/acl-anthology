@@ -15,7 +15,20 @@
   <hr />
 
   {{ $volumes := index $venue "volumes_by_year" .Params.year }}
-  <div class="card bg-light mb-2 mb-lg-4">
+
+  <!-- for some reason where $volumes 1 "!=" "workshop" does not work here -->
+  <!-- since variables can not be easily written to inside ranges we cant just count them with add -->
+  <!-- so this is a hack in js -->
+  {{ if (ne (sub (len $volumes) (len (intersect (apply $volumes "index" "." 1) (slice "workshop")))) 1) }}
+  <div id="content-panel" class="card bg-light mb-2 mb-lg-4">
+    <script>
+      var str = "{{ apply $volumes "index" "." 1 }}";
+      var num_items = str.split(" ").length;
+      var num_workshops = str.split("workshop").length-1;
+      if( (num_items-num_workshops) == 1){
+        document.getElementById("content-panel").style.display="none";
+      }
+    </script>
     <div class="card-body">
       <h4 class="card-title">Content</h4>
       <ul class="list-pl-responsive">
@@ -34,10 +47,9 @@
       </ul>
     </div>
   </div>
+  {{ end }}
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
-  {{ if (in (apply (index $venue "volumes_by_year" .Params.year) "index" "." 1) "workshop") }}
-  {{ $volumes := index $venue "volumes_by_year" .Params.year }}
+  {{ if (in (apply $volumes "index" "." 1) "workshop") }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
       <h4 class="card-title">Workshops</h4>
@@ -74,7 +86,7 @@
 
   {{ range $volumes }}
   {{ $volume := index $.Site.Data.volumes (index . 0) }}
-  <div id="{{ . | anchorize }}">
+  <div id="{{ (index . 0) | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
     <h4 class="d-sm-flex pb-2 border-bottom">

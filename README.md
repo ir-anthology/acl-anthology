@@ -35,6 +35,8 @@ The project has been initiated by the [Webis Group](https://webis.de/).
 
 Contributions from the IR community and beyond are welcome.
 
++ Marti Hearst (University of California, Berkeley)
+
 ### Sponsors
 
 We welcome sponsorships to support future maintenance, development, and improvement of the IR Anthology. Please get in touch.

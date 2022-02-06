@@ -25,6 +25,8 @@ The IR Anthology is a grassroots initative run entirely by contributions from vo
 
 Contributions from the IR community and beyond are welcome.
 
++ Marti Hearst (University of California, Berkeley)
+
 ### Sponsors
 
 We welcome sponsorships to support future maintenance, development, and improvement of the IR Anthology. Please get in touch.

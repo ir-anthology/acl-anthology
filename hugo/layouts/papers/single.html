@@ -69,7 +69,6 @@ document.onreadystatechange = function () {
       throw "Error while loading the BibTex";
     }
     document.getElementById("citeBibtexContent").innerHTML = bibtex_content;
-    citeBibtexContent
     if (ClipboardJS.isSupported()) {
       new ClipboardJS(".btn-clipboard-bib", {
         text: function(trigger) {
@@ -292,7 +291,7 @@ document.onreadystatechange = function () {
         <img style="max-width:20px" src="/anthology/images/sematicscholar-logo.svg"></img><span class="pl-sm-2 d-none d-sm-inline">Semantic Scholar</span>
       </a>
       {{ range $paper.attachment }}
-      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
+      <a target="_blank" class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "attachment_repr.html" . -}}</span>
         <span class="px-1">{{ humanize .type }}</span>
       </a>

@@ -60,7 +60,7 @@ document.onreadystatechange = function () {
 <section id="main" class="col-12">
   {{- $len := (len $volume.venues) -}}
   {{- range $index, $venue := $volume.venues -}}
-    <h2><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » </h2>
+    <small><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » </small>
   {{- end -}}
   <h2 id="title">
     {{ with $paper.pdf }}

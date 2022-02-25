@@ -97,7 +97,7 @@ document.onreadystatechange = function () {
   {{- $len := (len $volume.venues) -}}
   {{- range $index, $venue := $volume.venues -}}
     {{ $volume_page := printf "/volumes/%s.md" $paper.parent_volume_id }}
-    <h2><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » <a href="{{ relref $ $volume_page }}">{{ $volume.title }} </a> »</h2>
+    <small><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » <a href="{{ relref $ $volume_page }}">{{ $volume.title }} </a> »</small>
   {{- end -}}
   <h2 id="title">
     {{ with $paper.pdf }}

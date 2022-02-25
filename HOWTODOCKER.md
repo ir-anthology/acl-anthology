@@ -22,7 +22,8 @@ docker run -d --rm -it -p 8000:8000 -v $(pwd):/ir-anthology --name ir-anthology-
 
 ### Spawning new shell inside the container
 Now you can run as many additional commands in that container. Try it. Spawn a new shell inside the container:
-bash
+
+```bash
 docker exec -it ir-anthology-dev bash
 ```
 

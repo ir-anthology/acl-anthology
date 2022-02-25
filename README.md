@@ -2,13 +2,13 @@ We present the IR Anthology, a corpus of information retrieval publications acce
 
 This repository contains the code for the build of the static website. To deploy the website you need to extract the meta data first. 
 
-To build and serve the IR Anthology on localhost:8000 follow these steps:
+To build and serve the IR Anthology on http://localhost:8000/anthology follow these steps:
 ```bash
+apt-get install -y hugo python3-pip python3-venv wget git
 git clone https://github.com/ir-anthology/ir-anthology.git
-cd ir-anthology/devops-scripts
-make real-data anthology local-server
+make site serve
 ```
-A more detailed description is provided  in [the README.MD of the devops-scripts folder](https://github.com/ir-anthology/ir-anthology/tree/master/devops-scripts/).
+A more detailed description for docker builds is provided in the [HOWTODOCKER.md](https://github.com/ir-anthology/ir-anthology/blob/master/HOWTODOCKER.md).
 ## Credits
 
 The IR Anthology is a grassroots initative run entirely by contributions from volunteers.

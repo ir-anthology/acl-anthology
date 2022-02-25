@@ -54,7 +54,6 @@ The user inside the container will mostlikely have a different userid than you o
 (Inside the container, see above if you don't you how to spawn a shell inside the container.)
 
 ```bash
-#due to issues with overwritting files on some systems we have to delete some folders first:
 cp -rf /ir-anthology/* /tmp/ir-anthology
 cd /tmp/ir-anthology
 make site serve

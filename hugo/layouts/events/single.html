@@ -19,6 +19,7 @@
   <!-- for some reason where $volumes 1 "!=" "workshop" does not work here -->
   <!-- since variables can not be easily written to inside ranges we cant just count them with add -->
   <!-- so this is a hack in js -->
+  <!-- for reference https://github.com/ir-anthology/ir-anthology/issues/20 -->
   {{ if (ne (sub (len $volumes) (len (intersect (apply $volumes "index" "." 1) (slice "workshop")))) 1) }}
   <div id="content-panel" class="card bg-light mb-2 mb-lg-4">
     <script>

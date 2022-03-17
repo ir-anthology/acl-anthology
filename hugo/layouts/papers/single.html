@@ -97,7 +97,7 @@ document.onreadystatechange = function () {
   {{- $len := (len $volume.venues) -}}
   {{- range $index, $venue := $volume.venues -}}
     {{ $volume_page := printf "/volumes/%s.md" $paper.parent_volume_id }}
-    <h2><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » <a href="{{ relref $ $volume_page }}">{{ $volume.title }} </a> »</h2>
+    <small><a href="/anthology">Main</a> » <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">{{- (index $.Site.Data.venues $venue "acronym") -}}</a> » <a href="/anthology/events/{{ index $.Site.Data.venues $venue "slug" }}-{{ $paper.year }}">{{ $paper.year }}</a> » <a href="{{ relref $ $volume_page }}">{{ $volume.title }} </a> »</small>
   {{- end -}}
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -244,6 +244,7 @@ document.onreadystatechange = function () {
         <a class="btn btn-secondary btn-sm" href="/anthology/files/{{ $paper.bibkey }}.bib">Download</a>
         <button type="button" class="btn btn-clipboard-bib btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
         <button type="button" class="btn btn-clipboard-bibkey btn-secondary btn-sm d-none"><i class="far fa-clipboard pr-2"></i>Copy Bibkey "{{ $paper.bibkey }}" to Clipboard</button>
+        <pre id="citeBibtexContent" class="bg-light border p-2" style="font-size: small;"></pre>
         <!--
         {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
           <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
@@ -299,38 +300,5 @@ document.onreadystatechange = function () {
     </div>
   </div>
   <hr />
-
-
-
-  <!-- Derived from the ACL-Anthology - the content has been changed -->
-  <div>
-    <div>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
-        </div>
-        <div class="modal-body">
-          <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="true">BibTeX</a>
-            </li>
-          </ul>
-
-          <div class="tab-content" id="citeFormatsContent">
-            <div class="tab-pane active" id="citeBibtex" role="tabpanel">
-              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
-              </pre>
-              <div class="modal-footer pb-1">
-                <a class="btn btn-secondary" href="/anthology/files/{{ $paper.bibkey }}.bib"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button class="btn btn-clipboard-bib btn-primary d-none"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end derive -->
-
 </section>
 {{ end }}

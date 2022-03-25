@@ -7,6 +7,14 @@ docker run -it --rm -p 8000:8000 ubuntu:20.04 bash
 ```
 Then follow the instructions in the [README](https://github.com/ir-anthology/ir-anthology/blob/master/README.md).
 
+### Common errors
+
+The docker image of `ubuntu:20.04` is stripped of the apt cache, which means that no `apt-get install <something>` commands can be executed. This results in the error `<package> not found`. This can be fixed by running `apt-get update`.
+
+- `make` might not be installed.
+- You might encounter `failed building 'bdist_wheel'`. (See also: [What is the meaning of "Failed building wheel for X" in pip install?](https://stackoverflow.com/questions/53204916/what-is-the-meaning-of-failed-building-wheel-for-x-in-pip-install) on stackoverflow.) I could it fix by installing they python3 package `wheel` manually. I used the command `python3 -m pip install wheel`.
+
+
 ## For developers
 This is just one way how you could setup a development environment to rapidly build the entire ir-anthology.
 
@@ -19,6 +27,8 @@ The following command will:
 ```bash
 docker run -d --rm -it -p 8000:8000 -v $(pwd):/ir-anthology --name ir-anthology-dev ubuntu:20.04 bash -c "tail -f /dev/null"
 ```
+
+
 
 ### Spawning new shell inside the container
 Now you can run as many additional commands in that container. Try it. Spawn a new shell inside the container:
@@ -59,6 +69,15 @@ cp -rf /ir-anthology/* /tmp/ir-anthology
 cd /tmp/ir-anthology
 make site serve
 ```
+
+### Results
+
+- The html files of the site are generated into `ir-anthology/build/anthology`. In this directory, `python3 -m http.server` is run during `make serve`.
+
+### Opening the site
+
+Open `localhost:8000/anthology` in a browser to see the site. Note that `localhost:8000` redirects to `ir.webis.de/anthology` and is *not* the local instance.
+
 
 ### Advanced: Partial builds
 You might find yourself in a situation where you only made changes to the hugo folder. In that case you can build anthology once like it is described in the previous section. For all subsequent alterations you copy the anthology from the mount to the tmp folder, like before. Then open `/tmp/ir-anthology/Makefile` in your prefered editor and comment out the following lines: (caution: exact positions might differ, always compare the code) 

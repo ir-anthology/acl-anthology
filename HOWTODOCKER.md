@@ -24,7 +24,7 @@ The following command will:
 - map your local port 8000 to the port 8000 inside the docker container
 - mount your current working folder (which is assumed to be the ir-anthology folder) into the container at /ir-anthology
 - assign the name `ir-anthology-dev` to the container
-- the options `-d` and `--rm` simultanously cause the container to be deleted when the daemon exits (which happens e.g. when the host computer shuts down). I found it convenient to remove the `--rm` option to use the same docker container over multiple sessions.
+- the options `-d` and `--rm` simultanously cause the container to be deleted when the daemon exits (which happens e.g. when the host computer shuts down). I found it convenient to remove the `--rm` option to use the same docker container over multiple sessions. In the new session, the container can be restarted using `docker start ir-anthology-dev`
 ```bash
 docker run -d --rm -it -p 8000:8000 -v $(pwd):/ir-anthology --name ir-anthology-dev ubuntu:20.04 bash -c "tail -f /dev/null"
 ```
@@ -58,6 +58,7 @@ exit
 ### Setup the container
 If you don't already have one spawn a shell inside the container (see above) and install the dependencies.
 ```bash
+apt-get update
 apt-get install -y hugo python3-pip python3-venv wget git
 ```
 

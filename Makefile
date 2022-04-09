@@ -69,6 +69,8 @@ VENV := "venv/bin/activate"
 .PHONY: site
 site: json hugo sitemap
 
+.PHONY: hugo_only
+hugo_only: hugo sitemap
 
 # Split the file sitemap into Google-ingestible chunks.
 # Also build the PDF sitemap, and split it.

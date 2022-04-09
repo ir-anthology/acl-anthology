@@ -88,7 +88,5 @@ Open `localhost:8000/anthology` in a browser to see the site. Note that `localho
 
 
 ### Advanced: Partial builds
-You might find yourself in a situation where you only made changes to the hugo folder. In that case you can build anthology once like it is described in the previous section. For all subsequent alterations you copy the anthology from the mount to the tmp folder, like before. Then open `/tmp/ir-anthology/Makefile` in your prefered editor and comment out the following lines: (caution: exact positions might differ, always compare the code) 
-https://github.com/ir-anthology/ir-anthology/blob/989f63184cd8ff345db7c09e6cd51fa4b5921637/Makefile#L132-L133
-https://github.com/ir-anthology/ir-anthology/blob/989f63184cd8ff345db7c09e6cd51fa4b5921637/Makefile#L139-L142
+You might find yourself in a situation where you only made changes to the hugo folder. In that case you can build anthology once like it is described in the previous section. For all subsequent alterations you run `make hugo_only`.
 

@@ -86,7 +86,26 @@ make site serve
 
 Open `localhost:8000/anthology` in a browser to see the site. Note that `localhost:8000` redirects to `ir.webis.de/anthology` and is *not* the local instance.
 
+### Advanced: Not redownloading every build.
 
-### Advanced: Partial builds
+In the `Makefile`, in the target `data/ir-anthology.bib`, put a `#` (the line comment symbol in makefiles) in front of the lines saying:
+- `rm -f data/ir-anthology.bib` and
+- `cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib`
+
+### Advanced: Switching between different .bib files
+Redownload manually by either undoing the changes or running `make clean` and afterwards putting your new `.bib` file in `data/` and rename it to `ir-anthology.bib`.
+
+
+### Advanced: Hugo only build
 You might find yourself in a situation where you only made changes to the hugo folder. In that case you can build anthology once like it is described in the previous section. For all subsequent alterations you run `make hugo_only`.
 
+### Advanced: Using the sample .bib
+There is a smaller file, the `minimal-sample.bib`. Use it by:
+
+1. Follow the steps in "Advanced: Not redownloading every build" (This is necessary! Otherwise all your changes will be undone during a `make site`.)
+2. If having build before with a different `.bib` file, run `make clean`
+3. Run `make sampledata`. This will download the sampledata bib file
+4. Run `make site` to build everything.
+5. Run `make serve` so you can visit the page in your browser.
+
+(Tip: You can run steps 2-5 using `make clean sampledata site serve`.)

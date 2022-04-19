@@ -88,13 +88,13 @@ Open `localhost:8000/anthology` in a browser to see the site. Note that `localho
 
 ### Advanced: Not redownloading every build.
 
-In the `Makefile`, in the target `data/ir-anthology.bib`, put a `#` (the line comment symbol in makefiles) in front of the lines saying:
-- `rm -f data/ir-anthology.bib` and
-- `cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib`
+Run `make <your_targets> DOWNLOAD=false`.
 
-### Advanced: Switching between different .bib files
+Note that when you want to download again (a different .bib file) `make` might think the file is new, so doesn't need to be replaced. Force the target `sampledata` or `data` to be run by using the flag `-B`. (`make -B data`)
+
+
+### Advanced: Manually switching between different .bib files
 Redownload manually by either undoing the changes or running `make clean` and afterwards putting your new `.bib` file in `data/` and rename it to `ir-anthology.bib`.
-
 
 ### Advanced: Hugo only build
 You might find yourself in a situation where you only made changes to the hugo folder. In that case you can build anthology once like it is described in the previous section. For all subsequent alterations you run `make hugo_only`.

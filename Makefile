@@ -30,6 +30,9 @@ ANTHOLOGYHOST := "https://ir.webis.de"
 ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
+#flag set to no download by running "make <target> DOWNLOAD=false"
+DOWNLOAD := true
+
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
 pysources=$(shell git ls-files | egrep "\.pyi?$$")
@@ -130,18 +133,21 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 data: data/ir-anthology.bib
 
 data/ir-anthology.bib: 
-	mkdir -p data
-	rm -f data/ir-anthology.bib
-	cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib
+	if $(DOWNLOAD); then \
+        mkdir -p data; \
+        rm -f data/ir-anthology.bib; \
+		cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib; \
+	fi
 
 .PHONY: sampledata
 sampledata: sampledata/ir-anthology.bib
 
 sampledata/ir-anthology.bib:
-	mkdir -p data
-	rm -f data/ir-anthology.bib
-	cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib
-	mv data/minimal-sample.bib data/ir-anthology.bib
+	if $(DOWNLOAD); then \
+        mkdir -p data; \
+        rm -f data/ir-anthology.bib; \
+        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib; \
+	fi
 
 .PHONY: json
 json: build/.json

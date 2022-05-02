@@ -25,6 +25,9 @@ The following command will:
 - mount your current working folder (which is assumed to be the ir-anthology folder) into the container at /ir-anthology
 - assign the name `ir-anthology-dev` to the container
 - the options `-d` and `--rm` simultanously cause the container to be deleted when the daemon exits (which happens e.g. when the host computer shuts down). I found it convenient to remove the `--rm` option to use the same docker container over multiple sessions. In the new session, the container can be restarted using `docker start ir-anthology-dev`
+
+Run this command from within the `ir-anthology` folder to make it a shared directory (to be found as `/ir-anthology` in the docker).
+
 ```bash
 docker run -d --rm -it -p 8000:8000 -v $(pwd):/ir-anthology --name ir-anthology-dev ubuntu:20.04 bash -c "tail -f /dev/null"
 ```

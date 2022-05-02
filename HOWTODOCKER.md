@@ -75,8 +75,7 @@ I found it most convinient to copy the entire anthology folder from `/ir-antholo
 (Inside the container, see above if you don't you how to spawn a shell inside the container.)
 
 ```bash
-mkdir /tmp/ir-anthology
-cp -rf /ir-anthology/* /tmp/ir-anthology
+cp -rf /ir-anthology /tmp/
 cd /tmp/ir-anthology
 make site serve
 ```

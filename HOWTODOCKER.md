@@ -12,6 +12,7 @@ Then follow the instructions in the [README](https://github.com/ir-anthology/ir-
 The docker image of `ubuntu:20.04` is stripped of the apt cache, which means that no `apt-get install <something>` commands can be executed. This results in the error `<package> not found`. This can be fixed by running `apt-get update`.
 
 - `make` might not be installed.
+- If the error `/bin/bash: venv/bin/activate: No such file or directory` happens, delete the directory `venv` and rerun the commands.
 - You might encounter `failed building 'bdist_wheel'`. (See also: [What is the meaning of "Failed building wheel for X" in pip install?](https://stackoverflow.com/questions/53204916/what-is-the-meaning-of-failed-building-wheel-for-x-in-pip-install) on stackoverflow.) I could it fix by installing they python3 package `wheel` manually. I used the command `python3 -m pip install wheel`.
 
 
@@ -24,7 +25,7 @@ The following command will:
 - map your local port 8000 to the port 8000 inside the docker container
 - mount your current working folder (which is assumed to be the ir-anthology folder) into the container at /ir-anthology
 - assign the name `ir-anthology-dev` to the container
-- the options `-d` and `--rm` simultanously cause the container to be deleted when the daemon exits (which happens e.g. when the host computer shuts down). I found it convenient to remove the `--rm` option to use the same docker container over multiple sessions. In the new session, the container can be restarted using `docker start ir-anthology-dev`
+- the options `-d` and `--rm` simultanously cause the container to be deleted when the daemon exits (which happens e.g. when the host computer shuts down). I found it convenient to remove both options to use the same docker container over multiple sessions. In the new session, the container can be restarted using `docker start ir-anthology-dev`
 
 Run this command from within the `ir-anthology` folder to make it a shared directory (to be found as `/ir-anthology` in the docker).
 

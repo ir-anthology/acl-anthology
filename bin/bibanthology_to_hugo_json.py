@@ -72,6 +72,7 @@ def get_base_venue(basedir, generic_venue_id):
 class PaperIndex:
     def __init__(self):
         self.index = {}
+        self.idmap = {}
 
     def append(self, lines, year, volume_id, event_id, people_index, venue_id):
         if event_id not in self.index:
@@ -140,6 +141,7 @@ class PaperIndex:
             paper_dict["editor"] = editors
             paper_dict["editor_string"] = paper["fields"]["editor"].replace(" and ", ", ") if "editor" in paper["fields"] else None
             d[paper_id] = paper_dict
+            self.idmap[paper["bibid"]] = paper_id
         
     def dump(self, outputdir):
         os.makedirs(os.path.join(outputdir, "papers"), exist_ok=True)
@@ -149,7 +151,9 @@ class PaperIndex:
                 if key_inner.startswith("prefix---@"):
                     del value[key_inner]
             with open(os.path.join(outputdir, "papers", key+".json"), "w") as file:
-                file.write(json.dumps(value)) 
+                file.write(json.dumps(value))
+        with open(os.path.join(outputdir, "idmap.json"), "w") as file:
+            file.write(json.dumps(self.idmap))
     
     def dump_wcsp(self, outputdir, venue_index):
         with open(os.path.join(outputdir, "wcsp.ldjson"), "w") as file:

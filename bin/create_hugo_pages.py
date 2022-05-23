@@ -101,7 +101,7 @@ def create_volumes(srcdir, clean=False):
     with open(jsonfile, "r") as f:
         data = json.loads(f.read())
     # Create a paper stub for each proceedings volume
-    for anthology_id, entry in data.items():
+    for anthology_id, entry in tqdm(data.items()):
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
             paper_dir = "/papers/{}/{}/".format(anthology_id.split("-")[0], anthology_id)
@@ -119,6 +119,34 @@ def create_volumes(srcdir, clean=False):
             print("---", file=f)
 
     return data
+
+
+def create_shared_tasks(srcdir, clean=False):
+    """"Creates page stubs for all proceedings volumes in the Anthology."""
+    print("Creating stubs for all shared tasks...")
+    if not check_directory("{}/content/shared-tasks".format(srcdir), clean=clean):
+        return
+
+    jsonfile = "{}/../data/sharedtask.json".format(srcdir)
+    #print("Processing {}".format(jsonfile))
+    # Create a paper stub for each proceedings volume
+    with open(jsonfile, "r") as f:
+        data = json.load(f)
+
+    for years in tqdm(data["year"]):
+        year = years["year"]
+        conferences = years["conference"]
+        with open("{}/content/shared-tasks/{}.md".format(srcdir, str(year)), "w") as f:
+            print("---", file=f)
+            yaml.dump(
+                {
+                    "year": year,
+                    "conferences": conferences,
+                },
+                default_flow_style=False,
+                stream=f,
+            )
+            print("---", file=f)
 
 
 def create_people(srcdir, clean=False):
@@ -214,9 +242,11 @@ def create_sigs(srcdir, clean=False):
 
 dir_ = "./build"
 
+create_shared_tasks(dir_, clean=True)
 create_papers(dir_, clean=True)
 create_volumes(dir_, clean=True)
 create_people(dir_, clean=True)
 create_venues_and_events(dir_, clean=True)
 create_sigs(dir_, clean=True)
+
 

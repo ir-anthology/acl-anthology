@@ -146,7 +146,7 @@ sampledata/ir-anthology.bib:
 	if $(DOWNLOAD); then \
         mkdir -p data; \
         rm -f data/ir-anthology.bib; \
-        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib; \
+        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json;\
 	fi
 
 .PHONY: json

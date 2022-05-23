@@ -1,0 +1,65 @@
+{{/*
+
+# This file has been modified by the Webis Group
+# to fit the needs of the IR Anthology.
+# The original is part of the ACL Anthology.
+
+*/}}
+{{ define "title" }}
+  Shared Tasks  ({{ .Params.year }})
+{{end}}
+{{ define "main" }}
+<section id="main" class="col-12">
+    <small><a href="/anthology">Main</a> » </small>
+    <br>
+    <h2 id="title">
+        Shared Tasks ({{ .Params.year }})
+    </h2>
+    <hr />
+    <div id="content-panel" class="card bg-light mb-2 mb-lg-4">
+        <div class="card-body">
+            <h4 class="card-title">Content</h4>
+            <ul class="list-pl-responsive">
+                {{ range .Params.conferences }}
+                <li>
+                    <a class="align-middle" href="#{{.name}}">{{ .name }}</a>
+                    <br>
+                    {{range .tasks }}
+                    <ul>
+                        <li><a class="align-right"  href="#{{.name}}">{{.name}}</a></li>
+                    </ul>
+
+                    {{end}}
+                </li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+    {{ range .Params.conferences }}
+      <div id="{{ .name }}">
+      <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
+      <h4 class="d-sm-flex pb-2 border-bottom">
+      {{ $lower := lower .name }}
+      {{ $url := printf "/anthology/venues/%s_conference" $lower }}
+      <span class="d-block mr-2 list-button-row"></span>
+      <a style="text-align:center;">
+          <a class=align-middle href="{{ $url }}" > {{ .name }}<br><br></a>
+      </a>
+      </h4>
+      {{ range .tasks }}
+        <div id="{{ .name }}">
+            <h4><a> {{ .name }} </a></h4>
+        {{ range .sharedtasks }}
+          <ul>
+              <li>
+                  <a> {{ .name }} </a>
+                  <p> {{ .description }} </p>
+              </li>
+          </ul>
+        {{end}}
+        </div>
+      {{ end }}
+      </div>
+    {{ end }}
+</section>
+{{ end }}

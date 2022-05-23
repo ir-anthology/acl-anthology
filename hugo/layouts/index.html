@@ -26,14 +26,14 @@
     <h4>Conferences</h4>
     {{/* Conferences */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2022 -1 1971 }}
+    {{ $all_years := seq 2021 -1 1971 }}
     {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+    {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
     <table class="table table-hover table-sm table-responsive small text-nowrap mb-4">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="3">2020+</th>
+          <th class="border-left" scope="col" colspan="2">2020+</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
@@ -87,6 +87,26 @@
         </tr>
         {{ end }}
         {{ end }}
+
+        {{/* Shared Tasks */}}
+        {{/* Hardcoded range of years because the table layout depends on it */}}
+        {{ $all_years := seq 2021 -1 1971 }}
+        {{/* Years that should have a border on their left-hand side */}}
+        {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
+        <tr class="text center border-left border-right">
+          <th  class="text-center" scope="row">Shared Tasks</th>
+            {{ $allyears := seq 2020 -1 2020}}
+            {{ range $all_years }}
+            {{ $year := string . }}
+            <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+              {{ if (in $allyears . ) }}
+                {{ $url := printf "shared-tasks/%s" $year}}
+                <a href={{ $url}}>{{ slicestr $year 2 4 }}</a>
+              {{ end }}
+            </td>
+          {{ end }}
+        </tr>
+
         {{/* Societies */}}
         <tr class="border-left border-right">
           <th class="text-center" scope="row">Societies</th>
@@ -111,8 +131,7 @@
         <tr class="border-left border-right">
           <th  class="text-center" scope="row">Schools</th>
           <td class="border-left border-right" colspan="{{ len $all_years }}">
-            <a target="_blank" href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a> |
-            <a target="_blank" href="https://goassia.github.io/ ">ASSIA</a> |
+            <a target="_blank" href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a> | 
             <a target="_blank" href="http://www.asso-aria.org/earia/">EARIA</a> | 
             <a target="_blank" href="http://ims.dei.unipd.it/websites/essir/home.html">ESSIR</a> | 
             <a target="_blank" href="http://russir.org/">RUSSIR</a>
@@ -124,15 +143,15 @@
     <h4>Journals</h4>
     {{/* Journals */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2022 -1 1963 }}
+    {{ $all_years := seq 2021 -1 1963 }}
     {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+    {{ $border_years := slice "2021" "2019" "2009" "1999" "1989" }}
 
     <table class="table table-hover table-sm table-responsive small text-nowrap">
       <thead>
         <tr class="text-center border-left border-right">
           <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="3">2020+</th>
+          <th class="border-left" scope="col" colspan="2">2020+</th>
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>

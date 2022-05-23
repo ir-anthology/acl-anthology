@@ -9,6 +9,9 @@ git clone https://github.com/ir-anthology/ir-anthology.git
 make site serve
 ```
 A more detailed description for docker builds is provided in the [HOWTODOCKER.md](https://github.com/ir-anthology/ir-anthology/blob/master/HOWTODOCKER.md).
+
+See more documentation in the [docs](https://github.com/ir-anthology/ir-anthology/blob/master/docs/).
+
 ## Credits
 
 The IR Anthology is a grassroots initative run entirely by contributions from volunteers.

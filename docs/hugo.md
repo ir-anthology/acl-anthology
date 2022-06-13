@@ -1,0 +1,1 @@
+This project uses extended hugo features (namely Sass/SCSS). Therefore the default installation might not suffice. See more [in the official installation guide](https://gohugo.io/getting-started/installing/).

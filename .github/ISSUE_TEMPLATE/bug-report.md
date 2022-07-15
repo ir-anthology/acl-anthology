@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: File a bug report with the Anthology
+about: File a bug report with the IR Anthology
 title: Bug report
 labels: bug
 ---

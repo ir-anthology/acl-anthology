@@ -2,7 +2,7 @@
 name: File a Correction
 about: Correcting paper data in the IR Anthology
 title: Correction to XYZ
-labels: correction
+labels: data
 
 ---
 

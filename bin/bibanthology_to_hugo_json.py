@@ -327,6 +327,8 @@ class PeopleIndex:
 
         coauthors = d["coauthors"]
         for coauthor in persons:
+            if coauthor == person:
+                continue # the person is not a coauthor of themself
             coaut_id = coauthor.get_id()
             if coaut_id not in coauthors:
                 coauthors[coaut_id] = 0

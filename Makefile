@@ -136,7 +136,7 @@ data/ir-anthology.bib:
 	if $(DOWNLOAD); then \
         mkdir -p data; \
         rm -f data/ir-anthology.bib; \
-		cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json; \
+		cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/retreats.json; \
 	fi
 
 .PHONY: sampledata
@@ -146,7 +146,7 @@ sampledata/ir-anthology.bib:
 	if $(DOWNLOAD); then \
         mkdir -p data; \
         rm -f data/ir-anthology.bib; \
-        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json;\
+        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/retreats.json;\
 	fi
 
 .PHONY: json

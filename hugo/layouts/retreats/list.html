@@ -3,9 +3,9 @@
 {{ end }}
 
 {{ define "main" }}
-<small><a href="/anthology">Main</a> » <a href="/anthology/retreats">Retreats</a> » 
+<small><a href="/anthology">Main</a> » 
 {{ if isset .Params "year" }}
-    <a href="/anthology/retreats/{{ .Params.year }} ">{{ .Params.year }}</a> »
+<a href="/anthology/retreats">Retreats</a> » 
 {{ end }}
 </small>
 

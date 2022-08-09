@@ -33,7 +33,9 @@ Options:
   -h, --help               Display this helpful text.
 """
 
+from asyncore import write
 from glob import glob
+from operator import index
 from tqdm import tqdm
 import os
 import shutil
@@ -149,6 +151,38 @@ def create_shared_tasks(srcdir, clean=False):
             print("---", file=f)
 
 
+def create_retreats(srcdir, clean=False):
+    print("Creating stubs for all retreats...")
+    if not check_directory("{}/content/retreats".format(srcdir), clean=clean):
+        return
+
+    jsonfile = "{}/../data/retreats.json".format(srcdir)
+    #print("Processing {}".format(jsonfile))
+    # Create a paper stub for each proceedings volume
+    with open(jsonfile, "r") as f:
+        data = json.load(f)
+
+    for retreat in tqdm(data):
+        if not os.path.exists(os.path.join('{}/content/retreats/{}'.format(srcdir, retreat['year']))):
+            os.makedirs(os.path.join('{}/content/retreats/{}'.format(srcdir, retreat['year'])), exist_ok=True)
+            with open(os.path.join('{}/content/retreats/{}/_index.md'.format(srcdir, retreat['year'])), 'w') as index_file:
+                index_file.write('''---
+title: List of all Retreats in ''' + str(retreat['year']) + '''
+year: ''' + str(retreat['year']) + '''
+---''')
+
+
+        retreat['external_url'] = retreat['url']
+        del retreat['url']
+        with open('{}/content/retreats/{}/{}.md'.format(srcdir, retreat['year'], retreat['acronym']), 'w') as f:
+            print('---', file=f)
+            yaml.dump(
+                retreat,
+                default_flow_style=False,
+                stream=f
+            )
+            print('---', file=f)
+
 def create_people(srcdir, clean=False):
     """Creates page stubs for all authors/editors in the Anthology."""
     print("Creating stubs for people...")
@@ -243,6 +277,7 @@ def create_sigs(srcdir, clean=False):
 dir_ = "./build"
 
 create_shared_tasks(dir_, clean=True)
+create_retreats(dir_, clean=True)
 create_papers(dir_, clean=True)
 create_volumes(dir_, clean=True)
 create_people(dir_, clean=True)

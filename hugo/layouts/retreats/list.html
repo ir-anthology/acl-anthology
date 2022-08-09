@@ -1,0 +1,22 @@
+{{ define "title "}}
+    {{ .Params.title }}
+{{ end }}
+
+{{ define "main" }}
+<small><a href="/anthology">Main</a> » 
+{{ if isset .Params "year" }}
+<a href="/anthology/retreats">Retreats</a> » 
+{{ end }}
+</small>
+
+<br>
+<h2>{{ .Params.title }}</h2>
+<hr />
+
+<ul>
+{{ range .Pages }}
+    <li><a href="{{ .RelPermalink }}">{{ .Params.title }}</a></li>
+{{ end }}
+</ul>
+
+{{ end }}

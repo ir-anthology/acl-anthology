@@ -107,6 +107,25 @@
           {{ end }}
         </tr>
 
+        {{/* Retreats */}}
+        {{/* Hardcoded range of years because the table layout depends on it */}}
+        {{ $all_years := seq 2022 -1 1971 }}
+        {{/* Years that should have a border on their left-hand side */}}
+        {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+        <tr class="text center border-left border-right">
+          <th  class="text-center" scope="row"><a href="retreats">Retreats</a></th>
+            {{ $allyears := seq 2019 -6 2013}} {{/* TODO calc this var in program! */}}
+            {{ range $all_years }}
+            {{ $year := string . }}
+            <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+              {{ if (in $allyears . ) }}
+                {{ $url := printf "retreats/%s" $year}}
+                <a href={{ $url }}>{{ slicestr $year 2 4 }}</a>
+              {{ end }}
+            </td>
+          {{ end }}
+        </tr>
+
         {{/* Societies */}}
         <tr class="border-left border-right">
           <th class="text-center" scope="row">Societies</th>

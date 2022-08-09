@@ -23,9 +23,13 @@ Icon
 
 #######################################
 **/__pycache__
+.vscode/
 
 # generated website
 /build/
 data
 venv
 wcsp.ldjson
+
+
+

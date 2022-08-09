@@ -10,3 +10,8 @@ staticDir = ["static", "data-export"]
 
 [permalinks]
   papers = "/:filename/"
+
+[taxonomies]
+  series = "series"
+
+#https://sam.hooke.me/note/2018/03/hugo-tag-and-category-pages/

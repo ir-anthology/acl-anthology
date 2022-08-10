@@ -54,7 +54,7 @@
             <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
               {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
               {{- with index $venue "volumes_by_year" $year -}}
-              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
               {{ end }}
               {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
@@ -77,7 +77,7 @@
             <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
               {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
               {{- with index $venue "volumes_by_year" $year -}}
-              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
               {{ end }}
               {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
@@ -204,7 +204,7 @@
             {{ $year := string . }}
             <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1963" $year) "border-right" "" }}">
               {{- with index $venue "volumes_by_year" $year -}}
-              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
               {{ if (not (isset (index $venue "volumes_by_year") $year)) }}
               {{ if (isset $event_exists_but_not_index $venue.slug) }}

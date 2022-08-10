@@ -1,8 +1,8 @@
-{{/* 
+{{/*
 
-# This file has been modified by the Webis Group 
-# to fit the needs of the IR Anthology. 
-# The original is part of the ACL Anthology. 
+# This file has been modified by the Webis Group
+# to fit the needs of the IR Anthology.
+# The original is part of the ACL Anthology.
 
 */}}
 {{ define "javascript" }}
@@ -16,209 +16,223 @@
 <div class="justify-content-left">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
-    {{ $.Scratch.Add "paper_count" (len .) }}
+  {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
   <div class="col-12 px-0 px-sm-3">
     <main aria-role="main">
-    <p class="mb-4">The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of information retrieval.</p>
+      <p class="mb-4">The IR Anthology currently contains {{ $.Scratch.Get "paper_count" }} papers on the study of
+        information retrieval.</p>
 
-    <h4>Conferences</h4>
-    {{/* Conferences */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2022 -1 1971 }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
-    <table class="table table-hover table-sm table-responsive small text-nowrap mb-4">
-      <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="3">2020+</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left border-right" scope="col" colspan="19">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
-        {{ range $venue := (where (sort $.Site.Data.venues "slug" "asc") "acronym" "!=" "Workshops") }}
-        {{ if (and $venue.is_toplevel $venue.is_conf) }}
-        <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "venue" }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
-            {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
+      <h4>Conferences</h4>
+      {{/* Conferences */}}
+      {{/* Hardcoded range of years because the table layout depends on it */}}
+      {{ $all_years := seq 2022 -1 1971 }}
+      {{/* Years that should have a border on their left-hand side */}}
+      {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+      <table class="table table-hover table-sm table-responsive small text-nowrap mb-4">
+        <thead>
+          <tr class="text-center border-left border-right">
+            <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+            <th class="border-left" scope="col" colspan="3">2020+</th>
+            <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
+            <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
+            <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
+            <th class="border-left border-right" scope="col" colspan="19">1989 and older</th>
+          </tr>
+        </thead>
+        <tbody class="border-bottom">
+          {{ range $venue := (where (sort $.Site.Data.venues "slug" "asc") "acronym" "!=" "Workshops") }}
+          {{ if (and $venue.is_toplevel $venue.is_conf) }}
+          <tr class="text-center border-left border-right">
+            {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+            {{ $acronym := index $venue_page.Params "venue" }}
+            <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
+            {{ range $all_years }}
+            {{ $year := string . }}
+            {{/* this is the actual default case */}}
+            <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+              {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
               {{- with index $venue "volumes_by_year" $year -}}
-                <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
-            {{ end }}
-            {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
+              {{ end }}
+              {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
               <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
+              {{ end }}
+            </td>
             {{ end }}
-          </td>
+          </tr>
           {{ end }}
-        </tr>
-        {{ end }}
-        {{ end }}
-        {{ range $venue := $.Site.Data.venues }}
-        {{ if (eq $venue.name "Workshops") }}
-        <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "venue" }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          {{/* this is the actual default case */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
-            {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
+          {{ end }}
+          {{ range $venue := $.Site.Data.venues }}
+          {{ if (eq $venue.name "Workshops") }}
+          <tr class="text-center border-left border-right">
+            {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+            {{ $acronym := index $venue_page.Params "venue" }}
+            <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
+            {{ range $all_years }}
+            {{ $year := string . }}
+            {{/* this is the actual default case */}}
+            <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+              {{ if (or (not (isset $event_exists_but_not_index $venue.slug)) (not (in (index $event_exists_but_not_index $venue.slug) $year)) ) }}
               {{- with index $venue "volumes_by_year" $year -}}
-                <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
-            {{ end }}
-            {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
+              {{ end }}
+              {{ if (and (isset $event_exists_but_not_index $venue.slug) (in (index $event_exists_but_not_index $venue.slug) $year)) }}
               <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
+              {{ end }}
+            </td>
             {{ end }}
-          </td>
+          </tr>
           {{ end }}
-        </tr>
-        {{ end }}
-        {{ end }}
+          {{ end }}
 
-        {{/* Shared Tasks */}}
-        {{/* Hardcoded range of years because the table layout depends on it */}}
-        {{ $all_years := seq 2022 -1 1971 }}
-        {{/* Years that should have a border on their left-hand side */}}
-        {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
-        <tr class="text center border-left border-right">
-          <th  class="text-center" scope="row">Shared Tasks</th>
+          {{/* Shared Tasks */}}
+          {{/* Hardcoded range of years because the table layout depends on it */}}
+          {{ $all_years := seq 2022 -1 1971 }}
+          {{/* Years that should have a border on their left-hand side */}}
+          {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+          <tr class="text center border-left border-right">
+            <th class="text-center" scope="row">Shared Tasks</th>
             {{ $allyears := seq 2020 -1 2020}}
             {{ range $all_years }}
             {{ $year := string . }}
-            <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+            <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
               {{ if (in $allyears . ) }}
-                {{ $url := printf "shared-tasks/%s" $year}}
-                <a href={{ $url}}>{{ slicestr $year 2 4 }}</a>
+              {{ $url := printf "shared-tasks/%s" $year}}
+              <a href={{ $url}}>{{ slicestr $year 2 4 }}</a>
               {{ end }}
             </td>
-          {{ end }}
-        </tr>
+            {{ end }}
+          </tr>
 
-        {{/* Retreats */}}
-        {{/* Hardcoded range of years because the table layout depends on it */}}
-        {{ $all_years := seq 2022 -1 1971 }}
-        {{/* Years that should have a border on their left-hand side */}}
-        {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
-        <tr class="text center border-left border-right">
-          <th  class="text-center" scope="row"><a href="retreats">Retreats</a></th>
+          {{/* Retreats */}}
+          {{/* Hardcoded range of years because the table layout depends on it */}}
+          {{ $all_years := seq 2022 -1 1971 }}
+          {{/* Years that should have a border on their left-hand side */}}
+          {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+          <tr class="text center border-left border-right">
+            <th class="text-center" scope="row"><a href="retreats">Retreats</a></th>
             {{ $allyears := seq 2019 -6 2013}} {{/* TODO calc this var in program! */}}
             {{ range $all_years }}
             {{ $year := string . }}
-            <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
+            <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">
               {{ if (in $allyears . ) }}
-                {{ $url := printf "retreats/%s" $year}}
-                <a href={{ $url }}>{{ slicestr $year 2 4 }}</a>
+              {{ $url := printf "retreats/%s" $year}}
+              <a href={{ $url }}>{{ slicestr $year 2 4 }}</a>
               {{ end }}
             </td>
-          {{ end }}
-        </tr>
-
-        {{/* Societies */}}
-        <tr class="border-left border-right">
-          <th class="text-center" scope="row">Societies</th>
-          <td class="border-left border-right" colspan="{{ len $all_years }}">
-            <a target="_blank" href="https://sigir.org/">ACM SIGIR</a> | 
-            <a target="_blank" href="https://sigir.jp/">ACM SIGIR Tokyo</a> | 
-            <a target="_blank" href="http://www.asso-aria.org/">ARIA</a> | 
-            <a target="_blank" href="https://www.asist.org/">ASIS&amp;T</a> | 
-            <a target="_blank" href="https://irsg.bcs.org/">BCS IRSG</a> | 
-            <a target="_blank" href="http://www.clef-initiative.eu/">CLEF Initiative</a> | 
-            <a target="_blank" href="https://fg-retrieval.gi.de/">GI FGIR</a> | 
-            <a target="_blank" href="https://htai.org/interest-groups/information-retrieval/">HTAi</a> |
-            <a target="_blank" href="http://irsi.res.in">IRSI</a> | 
-            <a target="_blank" href="https://www.ismir.net/">ISMIR</a> | 
-            <a target="_blank" href="http://www.mirsociety.org/">MIR</a> | 
-            <a target="_blank" href="https://pecamp.org/">PECAMP</a> | 
-            <a target="_blank" href="http://romip.ru/">ROMIP</a> | 
-            <a target="_blank" href="https://www.informatiewetenschap.org/">WGI</a>
-          </td>
-        </tr>
-        {{/* Schools */}}
-        <tr class="border-left border-right">
-          <th  class="text-center" scope="row">Schools</th>
-          <td class="border-left border-right" colspan="{{ len $all_years }}">
-            <a target="_blank" href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a> | 
-            <a target="_blank" href="http://www.asso-aria.org/earia/">EARIA</a> | 
-            <a target="_blank" href="http://ims.dei.unipd.it/websites/essir/home.html">ESSIR</a> | 
-            <a target="_blank" href="http://russir.org/">RUSSIR</a>
-          </td>
-        </tr>
-        {{/* Social Media */}}
-        <tr class="border-left border-right">
-          <th  class="text-center" scope="row">Social Media</th>
-          <td class="border-left border-right" colspan="{{ len $all_years }}">
-            Mailing Lists: 
-            <a target="_blank" href="https://sigir.org/sig-irlist/">SIG-IRList</a> |
-            <a target="_blank" href="https://www.jiscmail.ac.uk/">JISC</a> |
-            <a target="_blank" href="https://list.uva.nl/mailman/listinfo/clef">CLEF</a> |
-            <a target="_blank" href="https://research.nii.ac.jp/ntcir/ml-en.html">NTCIR</a> |
-            Reddit: 
-            <a target="_blank" href="https://www.reddit.com/r/informationretrieval/">r/informationretrieval</a> |
-            <a target="_blank" href="https://www.reddit.com/r/musicir/">r/musicir</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h4>Journals</h4>
-    {{/* Journals */}}
-    {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2022 -1 1963 }}
-    {{/* Years that should have a border on their left-hand side */}}
-    {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
-
-    <table class="table table-hover table-sm table-responsive small text-nowrap">
-      <thead>
-        <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
-          <th class="border-left" scope="col" colspan="3">2020+</th>
-          <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
-          <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
-          <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left border-right" scope="col" colspan="27">1989 and older</th>
-        </tr>
-      </thead>
-      <tbody class="border-bottom">
-        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
-        {{ if (and $venue.is_toplevel $venue.is_journal) }}
-        <tr class="text-center border-left border-right">
-          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "venue" }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
-          {{ range $all_years }}
-          {{ $year := string . }}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }} {{ cond (eq "1963" $year) "border-right" "" }}">
-            {{- with index $venue "volumes_by_year" $year -}}
-            <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
-            {{- end -}}
-            {{ if (not (isset (index $venue "volumes_by_year") $year)) }}
-              {{ if (isset $event_exists_but_not_index $venue.slug) }}
-                {{ if (in (index $event_exists_but_not_index $venue.slug) $year) }}
-                  <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
-                {{ end }}
-              {{ end }}
             {{ end }}
-          </td>
+          </tr>
+
+          {{/* Societies */}}
+          <tr class="border-left border-right">
+            <th class="text-center" scope="row">Societies</th>
+            <td class="border-left border-right" colspan="{{ len $all_years }}">
+              <a target="_blank" href="https://sigir.org/">ACM SIGIR</a> |
+              <a target="_blank" href="https://sigir.jp/">ACM SIGIR Tokyo</a> |
+              <a target="_blank" href="http://www.asso-aria.org/">ARIA</a> |
+              <a target="_blank" href="https://www.asist.org/">ASIS&amp;T</a> |
+              <a target="_blank" href="https://irsg.bcs.org/">BCS IRSG</a> |
+              <a target="_blank" href="http://www.clef-initiative.eu/">CLEF Initiative</a> |
+              <a target="_blank" href="https://fg-retrieval.gi.de/">GI FGIR</a> |
+              <a target="_blank" href="https://htai.org/interest-groups/information-retrieval/">HTAi</a> |
+              <a target="_blank" href="http://irsi.res.in">IRSI</a> |
+              <a target="_blank" href="https://www.ismir.net/">ISMIR</a> |
+              <a target="_blank" href="http://www.mirsociety.org/">MIR</a> |
+              <a target="_blank" href="https://pecamp.org/">PECAMP</a> |
+              <a target="_blank" href="http://romip.ru/">ROMIP</a> |
+              <a target="_blank" href="https://www.informatiewetenschap.org/">WGI</a>
+            </td>
+          </tr>
+          {{/* Schools */}}
+          <tr class="border-left border-right">
+            <th class="text-center" scope="row">Schools</th>
+            <td class="border-left border-right" colspan="{{ len $all_years }}">
+              <a target="_blank" href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a>
+              |
+              <a target="_blank" href="http://www.asso-aria.org/earia/">EARIA</a> |
+              <a target="_blank" href="http://ims.dei.unipd.it/websites/essir/home.html">ESSIR</a> |
+              <a target="_blank" href="http://russir.org/">RUSSIR</a>
+            </td>
+          </tr>
+          {{/* Social Media */}}
+          <tr class="border-left border-right">
+            <th class="text-center" scope="row">Social Media</th>
+            <td class="border-left border-right" colspan="{{ len $all_years }}">
+              Mailing Lists:
+              <a target="_blank" href="https://sigir.org/sig-irlist/">SIG-IRList</a> |
+              <a target="_blank" href="https://www.jiscmail.ac.uk/">JISC</a> |
+              <a target="_blank" href="https://list.uva.nl/mailman/listinfo/clef">CLEF</a> |
+              <a target="_blank" href="https://research.nii.ac.jp/ntcir/ml-en.html">NTCIR</a> |
+              Reddit:
+              <a target="_blank" href="https://www.reddit.com/r/informationretrieval/">r/informationretrieval</a> |
+              <a target="_blank" href="https://www.reddit.com/r/musicir/">r/musicir</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Journals</h4>
+      {{/* Journals */}}
+      {{/* Hardcoded range of years because the table layout depends on it */}}
+      {{ $all_years := seq 2022 -1 1963 }}
+      {{/* Years that should have a border on their left-hand side */}}
+      {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
+
+      <table class="table table-hover table-sm table-responsive small text-nowrap">
+        <thead>
+          <tr class="text-center border-left border-right">
+            <th class="border-left" scope="col" style="min-width:6rem;">Venue</th>
+            <th class="border-left" scope="col" colspan="3">2020+</th>
+            <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
+            <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
+            <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
+            <th class="border-left border-right" scope="col" colspan="27">1989 and older</th>
+          </tr>
+        </thead>
+        <tbody class="border-bottom">
+          {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
+          {{ if (and $venue.is_toplevel $venue.is_journal) }}
+          <tr class="text-center border-left border-right">
+            {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+            {{ $acronym := index $venue_page.Params "venue" }}
+            <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
+            {{ range $all_years }}
+            {{ $year := string . }}
+            <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1963" $year) "border-right" "" }}">
+              {{- with index $venue "volumes_by_year" $year -}}
+              <a href="{{ relref $ (printf " /events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+              {{- end -}}
+              {{ if (not (isset (index $venue "volumes_by_year") $year)) }}
+              {{ if (isset $event_exists_but_not_index $venue.slug) }}
+              {{ if (in (index $event_exists_but_not_index $venue.slug) $year) }}
+              <span style="color:lightgrey">{{ slicestr $year 2 4 }}</span>
+              {{ end }}
+              {{ end }}
+              {{ end }}
+            </td>
+            {{ end }}
+          </tr>
           {{ end }}
-        </tr>
+          {{ end }}
+        </tbody>
+      </table>
+
+
+      <h4>Book Series</h4>
+      <ul>
+        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
+        {{ if (and $venue.is_toplevel $venue.is_series) }}
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          <li><a href="{{ $venue_page.RelPermalink }}">{{ $venue.name }}</a></li>
         {{ end }}
-      {{ end }}
-      </tbody>
-    </table>
-  </main>
+        {{ end }}
+      </ul>
+
+    </main>
   </div>
 </div>
 {{ end }}

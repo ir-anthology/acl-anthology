@@ -87,9 +87,6 @@ def create_papers(srcdir, clean=False):
                 print("---", file=f)
                 entry_to_dump = {"anthology_id": anthology_id, "title": entry["title"]}
 
-                if "series" in entry:
-                    series_name = entry['series'] # urlize is done in hugo
-                    entry_to_dump['series'] = series_name
 
                 yaml.dump(
                     entry_to_dump,

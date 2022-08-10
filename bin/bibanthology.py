@@ -6,6 +6,12 @@ from pathlib import Path
 import shutil
 from tqdm import tqdm
 
+#Input: ir-anthology.bib
+#Output: in data/final
+
+#afterwards (in the makefile) usually bin/bibanthology_to_hugo_json.py is run
+
+
 def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_temp_basefolder):
     # convert bib to jsonl files
     # one file for each event
@@ -145,6 +151,8 @@ def outputType(src_file, head, booktitle):
         return "journal"
     if "/workshop/" in src_file:
         return "workshop"
+    if "/series/" in src_file:
+        return "series"
     raise Exception("unkown type")
 
 #expand2json("testdata/ir-anthology.small.bib", "testdata/final", "testdata/temp")

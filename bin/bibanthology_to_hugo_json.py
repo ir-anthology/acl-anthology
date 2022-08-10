@@ -8,7 +8,7 @@ def iterate_over_events(basedir, outputdir, wcspdir):
     volume_index = VolumeIndex()
     paper_index = PaperIndex()
     people_index = PeopleIndex()
-    for event_type in ["conference", "workshop", "journal"]:
+    for event_type in ["conference", "workshop", "journal","series"]:
         paths = map(str,Path(os.path.join(basedir, event_type)).rglob('*.jsonl'))
         for path in paths:
             year = None
@@ -40,11 +40,12 @@ def iterate_over_events(basedir, outputdir, wcspdir):
                 conference_venue_id = (generic_venue_id+"_conference")
                 if conference_venue_id in venue_index.index:
                     venue_index.append(conference_venue_id, (basedir, generic_venue_id), year, volume_id, event_type)
+
             #paper index must be served before the volume index
             paper_index.append(lines, year, volume_id, event_id, people_index, venue_id)
             if "2001.ntcir_conference" in paper_index.index:
                 print(lines)
-                raise Error()
+                raise Exception()
             volume_index.append(lines, venue_id, year, volume_id, paper_index, event_id, event_type)
     venue_index.dump(outputdir)
     volume_index.dump(outputdir)
@@ -227,18 +228,27 @@ def setType(d, event_type):
         d["is_conf"] = True
         d["is_journal"] = False
         d["is_workshop"] = False
+        d["is_series"] = False
         return d
     if event_type == "journal":
         d["is_conf"] = False
         d["is_journal"] = True
         d["is_workshop"] = False
+        d["is_series"] = False
         return d
     if event_type == "workshop":
         d["is_conf"] = False
         d["is_journal"] = False
         d["is_workshop"] = True
+        d["is_series"] = False
         return d
-    raise Exception("unkown type")
+    if event_type == "series":
+        d["is_conf"] = False
+        d["is_journal"] = False
+        d["is_workshop"] = False
+        d["is_series"] = True
+        return d
+    raise Exception("unkown type: " + str(event_type))
 
 
 class VenueIndex:

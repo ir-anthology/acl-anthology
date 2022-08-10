@@ -72,6 +72,7 @@ def create_papers(srcdir, clean=False):
     if not check_directory("{}/content/papers".format(srcdir), clean=clean):
         return
 
+
     # Go through all paper volumes
     for jsonfile in tqdm(glob("{}/data/papers/*.json".format(srcdir))):
         #print("Processing {}".format(jsonfile))
@@ -84,12 +85,17 @@ def create_papers(srcdir, clean=False):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
+                entry_to_dump = {"anthology_id": anthology_id, "title": entry["title"]}
+
+
                 yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    entry_to_dump,
                     default_flow_style=False,
                     stream=f,
                 )
                 print("---", file=f)
+
+            
 
 
 def create_volumes(srcdir, clean=False):

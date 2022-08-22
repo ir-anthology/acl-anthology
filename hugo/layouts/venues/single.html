@@ -16,13 +16,15 @@
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
+
     <div class="row">
+
       <div class="col-sm-1">
         <h4><a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>
       </div>
       <div class="col-sm">
         <ul>
-          {{ range $volumes }}
+          {{ range $volumes}}
           {{ $volume := index $.Site.Data.volumes (index . 0) }}
           <li>
             {{ if eq hugo.Environment "development" }}

@@ -11,11 +11,17 @@ def iterate_over_events(basedir, outputdir, wcspdir):
     for event_type in ["conference", "workshop", "journal","series"]:
         paths = map(str,Path(os.path.join(basedir, event_type)).rglob('*.jsonl'))
         for path in paths:
+            volume_nr = None
             year = None
             lines = []
             with open(path, "r") as file:
                 for line in file:
                     line = json.loads(line)
+                    if 'volume' in line['fields']:
+                        if volume_nr == None:
+                            volume_nr = line['fields']['volume']
+                        elif line['fields']['volume'] != volume_nr:
+                            print('Volume Number error!')
                     lines.append(line)
                     this_year = int(line["fields"]["year"]) if "year" in line["fields"] else None
                     if year is None:
@@ -34,7 +40,7 @@ def iterate_over_events(basedir, outputdir, wcspdir):
             #where volume_id := <year>.<venue_id>-<volume_name>
             event_id = str(year) + "." + venue_id
             volume_id = event_id + "-" + get_volume_name(path)
-            venue_index.append(venue_id, (basedir, generic_venue_id), year, volume_id, event_type)
+            venue_index.append(venue_id, (basedir, generic_venue_id), year, volume_id, event_type, volume_nr = volume_nr)
             if event_type=="workshop":
                 venue_index.append("workshops", None, year, volume_id, "conference", acronym="Workshops", name="Workshops")
                 conference_venue_id = (generic_venue_id+"_conference")
@@ -255,7 +261,7 @@ class VenueIndex:
     def __init__(self):
         self.index = {}
 
-    def append(self, venue_id, get_base_venue_args, year, volume_id, event_type, acronym="", name=""):
+    def append(self, venue_id, get_base_venue_args, year, volume_id, event_type, acronym="", name="", volume_nr=None):
         if venue_id in self.index:
             d = self.index[venue_id]
         else:
@@ -271,7 +277,10 @@ class VenueIndex:
             d["years"].append(year)
         if year not in d["volumes_by_year"]:
             d["volumes_by_year"][year] = []
-        d["volumes_by_year"][year].append([volume_id, event_type])
+        if volume_nr:
+            d["volumes_by_year"][year].append([volume_id, event_type, volume_nr])
+        else:
+            d["volumes_by_year"][year].append([volume_id, event_type, '0'])
         self.index[venue_id] = d
         
     def dump(self, outputdir):
@@ -280,7 +289,7 @@ class VenueIndex:
             d["years"] = sorted(d["years"])
             e = d["volumes_by_year"]
             for year in e.keys():
-                e[year] = sorted(e[year], key=lambda x: x[0])
+                e[year] = sorted(e[year], key=lambda x: (x[2], x[0]), reverse=True)
         with open(os.path.join(outputdir, "venues.json"), "w") as file:
             file.write(json.dumps(self.index)) 
 

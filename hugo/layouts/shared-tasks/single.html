@@ -6,7 +6,7 @@
 
 */}}
 {{ define "title" }}
-  Shared Tasks  ({{ .Params.year }})
+Shared Tasks  ({{ .Params.year }})
 {{end}}
 {{ define "main" }}
 <section id="main" class="col-12">
@@ -15,18 +15,18 @@
     <h2 id="title">
         Shared Tasks ({{ .Params.year }})
     </h2>
-    <hr />
+    <hr/>
     <div id="content-panel" class="card bg-light mb-2 mb-lg-4">
         <div class="card-body">
             <h4 class="card-title">Content</h4>
             <ul class="list-pl-responsive">
                 {{ range .Params.conferences }}
                 <li>
-                    <a class="align-middle" href="#{{.name}}">{{ .name }}</a>
+                    <a class="align-middle" >{{ .label }}</a>
                     <br>
                     {{range .tasks }}
                     <ul>
-                        <li><a class="align-right"  href="#{{.name}}">{{.name}}</a></li>
+                        <li><a class="align-right"  href="#{{.id}}">{{.label}}</a></li>
                     </ul>
 
                     {{end}}
@@ -36,30 +36,54 @@
         </div>
     </div>
     {{ range .Params.conferences }}
-      <div id="{{ .name }}">
-      <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
-      <h4 class="d-sm-flex pb-2 border-bottom">
-      {{ $lower := lower .name }}
-      {{ $url := printf "/anthology/venues/%s_conference" $lower }}
-      <span class="d-block mr-2 list-button-row"></span>
-      <a style="text-align:center;">
-          <a class=align-middle href="{{ $url }}" > {{ .name }}<br><br></a>
-      </a>
-      </h4>
-      {{ range .tasks }}
-        <div id="{{ .name }}">
-            <h4><a> {{ .name }} </a></h4>
-        {{ range .sharedtasks }}
-          <ul>
-              <li>
-                  <a> {{ .name }} </a>
-                  <p> {{ .description }} </p>
-              </li>
-          </ul>
-        {{end}}
+        {{ $conf := .label }}
+        {{ range .tasks }}
+            <div id="{{ .label }}">
+            <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
+            <h3 class="d-sm-flex pb-2 border-bottom">
+                {{ $label := .label}}
+                {{ $task := printf "%s: %s" $conf $label }}
+                <span class="d-block mr-2 list-button-row"></span>
+                <a class=align-middle id="{{.id}}"> {{ $task }}</a>
+            </h3>
+            <p class="d-sm-flex pb-2 border-bottom">
+                <br>
+                {{$len := (len .sharedtasks)}}
+                <span class="d-block mr-2 list-button-row"></span>
+                <b class=align-middle>Tasks:</b>
+                {{range $index, $st := .sharedtasks}}
+                  {{$st}}
+                  {{ if ne (add $index 1) $len }} | {{ end }}
+                {{ end }}
+                <br><br>
+            </p>
+            <p class="d-sm-flex pb-2 border-bottom">
+                <span class="d-block mr-2 list-button-row"></span>
+                {{ if (not (eq (len .overviewpapers) 0))}}
+                  <b class=align-middle>Overview papers:</b>
+                {{end}}
+            </p>
+            {{ range .overviewpapers }}
+              {{ with index $.Site.Data.idmap . }}
+                {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+                {{ ($.Site.GetPage $page).Render "list-entry" }}
+              {{ end }}
+            {{ end }}
+            <hr/>
+            <p class="d-sm-flex pb-2 border-bottom">
+                <span class="d-block mr-2 list-button-row"></span>
+                {{ if (not (eq (len .participantpapers) 0))}}
+                  <b class=align-middle>Participant papers:</b>
+                {{end}}
+            </p>
+            {{ range .participantpapers }}
+              {{ with index $.Site.Data.idmap . }}
+                {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+                {{ ($.Site.GetPage $page).Render "list-entry" }}
+              {{ end }}
+            {{ end }}
         </div>
-      {{ end }}
-      </div>
+        {{ end }}
     {{ end }}
 </section>
 {{ end }}

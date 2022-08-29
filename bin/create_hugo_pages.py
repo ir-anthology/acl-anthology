@@ -48,6 +48,12 @@ except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
+def safe_open_w(path):
+    ''' Open "path" for writing, creating any parent directories as needed.
+    '''
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return open(path, 'w', encoding='utf-8')
+
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
         os.mkdir(cdir)
@@ -130,7 +136,6 @@ def create_volumes(srcdir, clean=False):
 
 
 def create_shared_tasks(srcdir, clean=False):
-    """"Creates page stubs for all proceedings volumes in the Anthology."""
     print("Creating stubs for all shared tasks...")
     if not check_directory("{}/content/shared-tasks".format(srcdir), clean=clean):
         return
@@ -141,9 +146,8 @@ def create_shared_tasks(srcdir, clean=False):
     with open(jsonfile, "r") as f:
         data = json.load(f)
 
-    for years in tqdm(data["year"]):
-        year = years["year"]
-        conferences = years["conference"]
+    for year in tqdm(data.keys()):
+        conferences = data[year]["conferences"]
         with open("{}/content/shared-tasks/{}.md".format(srcdir, str(year)), "w") as f:
             print("---", file=f)
             yaml.dump(

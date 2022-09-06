@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 import shutil
 from tqdm import tqdm
+import pathlib
 
 #Input: ir-anthology.bib
 #Output: in data/final
@@ -17,7 +18,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
     # one file for each event
     os.makedirs("data/files", exist_ok=True)
     name2bucket = {}
-    with open(anthology_bib_path, "r") as bib_file:
+    with open(pathlib.Path(anthology_bib_path).resolve(), "r") as bib_file:
         bibstring = bib_file.read()
         with tqdm(total=bibstring.count("personids") + bibstring.count("@misc")) as pbar:
             for entry_obj in bibtexparser.loads(bibstring, keep_input=True):

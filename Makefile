@@ -30,8 +30,6 @@ ANTHOLOGYHOST := "https://ir.webis.de"
 ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
-#flag set to no download by running "make <target> DOWNLOAD=false"
-DOWNLOAD := true
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
@@ -70,16 +68,13 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: json hugo sitemap
+site: build/.json build/.hugo build/.sitemap
 
 .PHONY: hugo_only
-hugo_only: hugo sitemap
+hugo_only: build/.hugo build/.sitemap
 
 # Split the file sitemap into Google-ingestible chunks.
 # Also build the PDF sitemap, and split it.
-.PHONY: sitemap
-sitemap: build/.sitemap
-
 build/.sitemap: venv/bin/activate build/.hugo
 	if ((. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml) | grep -v "no need to split"); then \
 		rm -f build/anthology/sitemap_*.xml.gz; \
@@ -97,12 +92,9 @@ venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
 	@python3 -c "from yaml import CLoader" 2> /dev/null || ( \
-	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
-	    echo "            see the README on GitHub for more information")
+		echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
+		echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
-
-.PHONY: all
-all: clean check site
 
 .PHONY: basedirs
 basedirs:
@@ -115,9 +107,6 @@ build/.basedirs:
 
 # copies all files that are not automatically generated
 # and creates empty directories as needed.
-.PHONY: static
-static: build/.static
-
 build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
 	@cp -r hugo/* build
@@ -129,38 +118,53 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
 
-.PHONY: data 
-data: data/ir-anthology.bib
+data:
+	mkdir -p data
 
-data/ir-anthology.bib: 
-	if $(DOWNLOAD); then \
-        mkdir -p data; \
-        rm -f data/ir-anthology.bib; \
-		cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/retreats.json; \
+data/real.bib: | data #pipe symbol to signify order of dependencies (?). It prevents random re-downloads
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/ir-anthology.bib
+
+data/minimal-sample.bib: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib
+
+data/.real-picked: data/real.bib | data
+	rm -f data/ir-anthology.bib
+	rm -f data/.sample-picked
+	ln -s real.bib data/ir-anthology.bib
+	touch $@
+
+data/.sample-picked: data/minimal-sample.bib | data
+	rm -f data/ir-anthology.bib
+	rm -f data/.real-picked
+	ln -s minimal-sample.bib data/ir-anthology.bib
+	touch $@
+
+
+data/retreats.json: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/retreats.json
+
+data/sharedtask.json: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json
+
+
+#run "make all_data" or "make all_data SAMPLE=True"
+.PHONY: all_data
+all_data: data/retreats.json data/sharedtask.json | data
+	@if [ $(SAMPLE) ]; then \
+		$(MAKE) data/.sample-picked; \
+	else \
+		$(MAKE) data/.real-picked; \
 	fi
 
-.PHONY: sampledata
-sampledata: sampledata/ir-anthology.bib
 
-sampledata/ir-anthology.bib:
-	if $(DOWNLOAD); then \
-        mkdir -p data; \
-        rm -f data/ir-anthology.bib; \
-        cd data && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/minimal-sample.bib && mv minimal-sample.bib ir-anthology.bib && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json && wget https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/retreats.json;\
-	fi
 
-.PHONY: json
-json: build/.json
-
-build/.json: data/ir-anthology.bib build/.basedirs venv/bin/activate
+build/.json: all_data build/.basedirs venv/bin/activate
 	rm -rf data/temp data/final
 	mkdir -p build/data
 	@echo "INFO     Deserialize BIBTEX file..."
 	@. $(VENV) && python3 bin/bibanthology.py && python3 bin/bibanthology_to_hugo_json.py
 	@touch build/.json
 
-.PHONY: hugo_pages
-hugo_pages: build/.pages
 
 build/.pages: build/.basedirs build/.json venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
@@ -168,17 +172,14 @@ build/.pages: build/.basedirs build/.json venv/bin/activate
 	@touch build/.pages
 
 
-.PHONY: hugo
-hugo: build/.hugo
-
 build/.hugo: build/.static build/.pages
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
-	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
-	         -d $(ANTHOLOGYDIR) \
+		hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
+		 -d $(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
-	         --cleanDestinationDir \
-	         --minify
+			 --cleanDestinationDir \
+			 --minify
 	@touch build/.hugo
 	@cp -r data/files build/$(ANTHOLOGYDIR)/files
 
@@ -197,9 +198,9 @@ serve:
 .PHONY: upload
 upload:
 	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
-            exit 1; \
-        fi
+			echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
+			exit 1; \
+		fi
 	@echo "INFO     Running rsync..."
   # main site
 	@rsync -azve ssh --delete build/anthology/ aclwebor@50.87.169.12:anthology-static

@@ -131,20 +131,9 @@
           <tr class="border-left border-right">
             <th class="text-center" scope="row">Societies</th>
             <td class="border-left border-right" colspan="{{ len $all_years }}">
-              <a target="_blank" href="https://sigir.org/">ACM SIGIR</a> |
-              <a target="_blank" href="https://sigir.jp/">ACM SIGIR Tokyo</a> |
-              <a target="_blank" href="http://www.asso-aria.org/">ARIA</a> |
-              <a target="_blank" href="https://www.asist.org/">ASIS&amp;T</a> |
-              <a target="_blank" href="https://irsg.bcs.org/">BCS IRSG</a> |
-              <a target="_blank" href="http://www.clef-initiative.eu/">CLEF Initiative</a> |
-              <a target="_blank" href="https://fg-retrieval.gi.de/">GI FGIR</a> |
-              <a target="_blank" href="https://htai.org/interest-groups/information-retrieval/">HTAi</a> |
-              <a target="_blank" href="http://irsi.res.in">IRSI</a> |
-              <a target="_blank" href="https://www.ismir.net/">ISMIR</a> |
-              <a target="_blank" href="https://web.archive.org/web/20160406110537/http://www.mirsociety.org/home/visitorpage.php">MIR</a> |
-              <a target="_blank" href="https://pecamp.org/">PECAMP</a> |
-              <a target="_blank" href="http://romip.ru/">ROMIP</a> |
-              <a target="_blank" href="https://www.informatiewetenschap.org/">WGI</a>
+              {{ range $.Site.Data.societies }}
+                <a target="_blank" href="{{ .url }}">{{ .label }}</a> |
+              {{ end }}
             </td>
           </tr>
           {{/* Schools */}}
@@ -221,7 +210,7 @@
         </tbody>
       </table>
 
-      
+
       <h4>Teaching Material</h4>
       <table class="table table-hover table-sm table-responsive small text-nowrap">
         <tbody class="border-bottom">

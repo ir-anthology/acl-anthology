@@ -130,35 +130,32 @@
           {{/* Societies */}}
           <tr class="border-left border-right">
             <th class="text-center" scope="row">Societies</th>
-            <td class="border-left border-right" colspan="{{ len $all_years }}">
+            <td class="border-left border-right linkbag" colspan="{{ len $all_years }}">
               {{ range $.Site.Data.societies }}
-                <a target="_blank" href="{{ .url }}">{{ .label }}</a> |
+                <span><a target="_blank" href="{{ .url }}">{{ .label }}</a></span>
               {{ end }}
             </td>
           </tr>
           {{/* Schools */}}
           <tr class="border-left border-right">
             <th class="text-center" scope="row">Schools</th>
-            <td class="border-left border-right" colspan="{{ len $all_years }}">
-              <a target="_blank" href="https://www.dagstuhl.de/en/program/calendar/?catchword=autumn%20school">ASIRF</a>
-              |
-              <a target="_blank" href="http://www.asso-aria.org/earia/">EARIA</a> |
-              <a target="_blank" href="http://ims.dei.unipd.it/websites/essir/home.html">ESSIR</a> |
-              <a target="_blank" href="http://russir.org/">RUSSIR</a>
+            <td class="border-left border-right linkbag" colspan="{{ len $all_years }}">
+              {{ range $.Site.Data.schools }}
+                <span><a target="_blank" href="{{ .url }}">{{ .label }}</a></span>
+              {{ end }}
             </td>
           </tr>
           {{/* Social Media */}}
           <tr class="border-left border-right">
             <th class="text-center" scope="row">Social Media</th>
             <td class="border-left border-right" colspan="{{ len $all_years }}">
-              Mailing Lists:
-              <a target="_blank" href="https://sigir.org/sig-irlist/">SIG-IRList</a> |
-              <a target="_blank" href="https://www.jiscmail.ac.uk/">JISC</a> |
-              <a target="_blank" href="https://list.uva.nl/mailman/listinfo/clef">CLEF</a> |
-              <a target="_blank" href="https://research.nii.ac.jp/ntcir/ml-en.html">NTCIR</a> |
-              Reddit:
-              <a target="_blank" href="https://www.reddit.com/r/informationretrieval/">r/informationretrieval</a> |
-              <a target="_blank" href="https://www.reddit.com/r/musicir/">r/musicir</a>
+              {{ range $type, $entries := $.Site.Data.socialmedia }}
+                {{ $type | title }}: <span class="linkbag">
+                  {{ range $entries }}
+                    <span><a href="{{ .url }}">{{ .label }}</a></span>
+                  {{ end }}
+                </span>
+              {{ end }}
             </td>
           </tr>
         </tbody>
@@ -214,14 +211,16 @@
       <h4>Teaching Material</h4>
       <table class="table table-hover table-sm table-responsive small text-nowrap">
         <tbody class="border-bottom">
+          {{ range $type, $entries := $.Site.Data.teachingmaterial }}
           <tr class="text-center border-left border-right">
-            <th scope="row">Lecture Notes</th>
-            <td class="border-left"><a href="https://webis.de/lecturenotes.html">Webis</a></td>
+            <th scope="row">{{ $type | title }}</th>
+              <td class="border-left linkbag">
+              {{ range $entries }}
+                <span><a href="{{ .url }}">{{ .label }}</a></span>
+              {{ end }}
+              </td>
           </tr>
-          <tr class="text-center border-left border-right">
-            <th scope="row">Videos</th>
-            <td class="border-left"><a href="https://www.youtube.com/c/webis">Webis</a></td>
-          </tr>
+          {{ end }}
         </tbody>
       </table>
 

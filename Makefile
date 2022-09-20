@@ -83,8 +83,6 @@ build/.sitemap: venv/bin/activate build/.hugo
 		touch build/.sitemap; \
 	fi
 
-.PHONY: venv
-venv: venv/bin/activate
 
 # installs dependencies if requirements.txt have been updated.
 # checks whether libyaml is enabled to ensure fast build times.

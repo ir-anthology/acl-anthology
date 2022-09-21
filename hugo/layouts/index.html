@@ -132,7 +132,7 @@
             <th class="text-center" scope="row">Societies</th>
             <td class="border-left border-right linkbag" colspan="{{ len $all_years }}">
               {{ range $.Site.Data.societies }}
-                {{ if index . "wayback_url" }}
+                {{ if isset . "wayback_url" }}
                   <span><a target="_blank" href="{{ .wayback_url }}">{{ .label }} (wayback machine) </a></span>
                 {{ else }}
                   <span><a target="_blank" href="{{ .url }}">{{ .label }} </a></span>

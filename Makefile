@@ -83,8 +83,6 @@ build/.sitemap: venv/bin/activate build/.hugo
 		touch build/.sitemap; \
 	fi
 
-.PHONY: venv
-venv: venv/bin/activate
 
 # installs dependencies if requirements.txt have been updated.
 # checks whether libyaml is enabled to ensure fast build times.
@@ -146,10 +144,22 @@ data/retreats.json: | data
 data/sharedtask.json: | data
 	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/sharedtask.json
 
+data/teachingmaterial.json: | data #hugo can't deal with data files whose name contain a '-'
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/teaching-material.json
+
+data/societies.json: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/societies.json
+
+data/schools.json: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/schools.json
+
+data/socialmedia.json: | data
+	wget -O $@ https://raw.githubusercontent.com/ir-anthology/ir-anthology-data/master/social-media.json
+
 
 #run "make all_data" or "make all_data SAMPLE=True"
 .PHONY: all_data
-all_data: data/retreats.json data/sharedtask.json | data
+all_data: data/retreats.json data/sharedtask.json data/teachingmaterial.json data/societies.json data/schools.json data/socialmedia.json | data
 	@if [ $(SAMPLE) ]; then \
 		$(MAKE) data/.sample-picked; \
 	else \
@@ -163,6 +173,9 @@ build/.json: all_data build/.basedirs venv/bin/activate
 	mkdir -p build/data
 	@echo "INFO     Deserialize BIBTEX file..."
 	@. $(VENV) && python3 bin/bibanthology.py && python3 bin/bibanthology_to_hugo_json.py
+	for statfile in data/schools.json data/socialmedia.json data/societies.json data/teachingmaterial.json ; do \
+		cp $$statfile build/data/ ; \
+	done
 	@touch build/.json
 
 

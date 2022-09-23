@@ -133,9 +133,9 @@
             <td class="border-left border-right linkbag" colspan="{{ len $all_years }}">
               {{ range $.Site.Data.societies }}
                 {{ if isset . "wayback_url" }}
-                  <span><a target="_blank" href="{{ .wayback_url }}">{{ .label }} (wayback machine) </a></span>
+                  <span><a target="_blank" href="{{ .wayback_url }}">{{ .label }} (archived)</a></span>
                 {{ else }}
-                  <span><a target="_blank" href="{{ .url }}">{{ .label }} </a></span>
+                  <span><a target="_blank" href="{{ .url }}">{{ .label }}</a></span>
                 {{ end }}
               {{ end }}
             </td>

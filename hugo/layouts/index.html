@@ -153,13 +153,13 @@
           <tr class="border-left border-right">
             <th class="text-center" scope="row">Social Media</th>
             <td class="border-left border-right" colspan="{{ len $all_years }}">
+              <span class="linkbag">
               {{ range $type, $entries := $.Site.Data.socialmedia }}
-                {{ $type | title }}: <span class="linkbag">
                   {{ range $entries }}
                     <span><a href="{{ .url }}">{{ .label }}</a></span>
                   {{ end }}
-                </span>
-              {{ end }}
+                {{ end }}
+              </span>
             </td>
           </tr>
         </tbody>

@@ -40,18 +40,26 @@
   <div class="row">
     <div class="col-lg-9">
       {{ .Scratch.Set "current_year" "" }}
-      {{ range $person.papers }}
+
+      {{ $slice := $person.papers }}
+      {{ $len := len $slice }} <!-- get length of list -->
+      {{ range (seq $len) }} <!-- see docs -->
+        {{ $i := sub $len . }} <!-- $i at first iteration will be (len - 1), then (len - 2) etc -->
+        {{ $pi := index $slice $i }} <!-- get list element at $i -->
+
         {{/* Generate a heading per year -- assumes that papers are already sorted by year,
-             which the YAML exporter should take care of */}}
-        {{ $paper := index (index $.Site.Data.papers (index (split . "-") 0)) . }}
+         which the YAML exporter should take care of */}}
+        {{/* https://discourse.gohugo.io/t/how-to-reverse-sort-frontmatter-list/23442/8 */}}
+        {{ $paper := index (index $.Site.Data.papers (index (split $pi "-") 0)) $pi }}
         {{ if ne $paper.year ($.Scratch.Get "current_year") }}
           <h4>{{ $paper.year }}</h4>
           {{ $.Scratch.Set "current_year" $paper.year }}
         {{ end }}
-
-        {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
-        {{ ($.Site.GetPage $page).Render "list-entry-author" }}
+     
+        {{ $page := printf "/papers/%s/%s.md" (index (split $pi "-") 0) $pi }}
+        {{ ($.Site.GetPage $page).Render "list-entry-author" }}     
       {{ end }}
+
     </div>
 
     <div class="col-lg-3">

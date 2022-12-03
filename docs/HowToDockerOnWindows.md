@@ -49,8 +49,8 @@ Pull the IR-Anthology Git
 
 *  `git pull` ir-anthology and ir-anthology data 
 	* copy the links from the Git
-		* __ir-anthology:__ [Link](https://github.com/ir-anthology/ir-anthology) -> click on `Code`and copy the HTTPS-Link
-		* __ir-anthology data:__ [Link](https://github.com/ir-anthology/ir-anthology-data) -> click on `Code`and copy the HTTPS-Link
+		* __ir-anthology [Link](https://github.com/ir-anthology/ir-anthology):__-> click on `Code`and copy the HTTPS-Link
+		* __ir-anthology data [Link](https://github.com/ir-anthology/ir-anthology-data):__ -> click on `Code`and copy the HTTPS-Link
 
   
 
@@ -66,7 +66,7 @@ __Example:__ ``` "shared-tasks updated"```
 
 * `git push`
 
-__->__ Now you pulled the git
+__->__ Now you pushed the git
 
   
 

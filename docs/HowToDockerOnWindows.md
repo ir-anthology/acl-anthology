@@ -74,6 +74,7 @@ __->__ Now you pushed the git
 
 + click into the downloaded `ir-anthology` folder and copy the path, mark it and tipe `wsl` (click Enter) 
 	+ commandline should open with your rootname and the path to ir-anthology -> you are in docker
+----> __Input:__ ```docker build -t ir-anthology-docker .```
 
 ----> __Input:__  ```docker run -v $(pwd):/anthology -v $(pwd)/../ir-anthology-data:/anthology-data -it --rm -p 8000:8000 ir-anthology-docker```
 

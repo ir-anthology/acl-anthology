@@ -41,46 +41,46 @@ Shared Tasks  ({{ .Params.year }})
             <div id="{{ .label }}">
             <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
             <h3 class="d-sm-flex pb-2 border-bottom">
-                {{ $label := .label}}
+                {{ $label := .label }}
+                {{ $link := .link }}
                 {{ $task := printf "%s: %s" $conf $label }}
                 <span class="d-block mr-2 list-button-row"></span>
-                <a class=align-middle id="{{.id}}"> {{ $task }}</a>
+                <a class=align-middle id="{{.id}}">{{ $task }}</a>
             </h3>
+            {{ $link := .link }}
+            {{ if (not (eq $link "")) }}
             <p class="d-sm-flex pb-2 border-bottom">
-                <br>
-                {{$len := (len .sharedtasks)}}
                 <span class="d-block mr-2 list-button-row"></span>
-                <b class=align-middle>Tasks:</b>
-                {{range $index, $st := .sharedtasks}}
-                  {{$st}}
-                  {{ if ne (add $index 1) $len }} | {{ end }}
-                {{ end }}
-                <br><br>
+                    <a class=align-middle href="{{ $link }}">Shared Task Website</a>
             </p>
+            {{end}}
+            {{ if (not (eq (len .overviewpapers) 0)) }}
             <p class="d-sm-flex pb-2 border-bottom">
                 <span class="d-block mr-2 list-button-row"></span>
-                {{ if (not (eq (len .overviewpapers) 0))}}
                   <b class=align-middle>Overview papers:</b>
-                {{end}}
             </p>
+            {{end}}
             {{ range .overviewpapers }}
               {{ with index $.Site.Data.idmap . }}
                 {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
                 {{ ($.Site.GetPage $page).Render "list-entry" }}
               {{ end }}
             {{ end }}
-            <hr/>
+            {{ if (not (eq (len .overviewpapers) 0)) }}
+                <hr/>
+            {{ end }}
             <p class="d-sm-flex pb-2 border-bottom">
                 <span class="d-block mr-2 list-button-row"></span>
                 {{ if (not (eq (len .participantpapers) 0))}}
                   <b class=align-middle>Participant papers:</b>
                 {{end}}
             </p>
+
             {{ range .participantpapers }}
-              {{ with index $.Site.Data.idmap . }}
-                {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
-                {{ ($.Site.GetPage $page).Render "list-entry" }}
-              {{ end }}
+                {{ with index $.Site.Data.idmap . }}
+                  {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
+                  {{ ($.Site.GetPage $page).Render "list-entry" }}
+                {{ end }}
             {{ end }}
         </div>
         {{ end }}

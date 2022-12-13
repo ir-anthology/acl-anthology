@@ -50,7 +50,7 @@ def expand2json(anthology_bib_path, anthology_json_basefolder, anthology_json_te
                                     break
                                 i += 1
                             line_part = line[i:]
-                            if line_part.startswith("personids") or line_part.startswith("xml-checksum") or line_part.startswith("sourceid"):
+                            if line_part=='' or line_part.startswith("personids") or line_part.startswith("xml-checksum") or line_part.startswith("sourceid") or line_part.startswith('crossref'):
                                 continue
                             print(line, file=f)
                     key = entry["fields"]["sourceid"]

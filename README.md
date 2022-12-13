@@ -27,6 +27,7 @@ The project has been initiated by the [Webis Group](https://webis.de/).
 + Christian Kahmann (Leipzig University)
 + Andreas Niekler (Leipzig University)
 + Michael Völske (Bauhaus-Universität Weimar)
++ Anouk Duyster (Martin-Luther-Universität Halle-Wittenberg)
 
 ### Directors
 

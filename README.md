@@ -27,7 +27,11 @@ The project has been initiated by the [Webis Group](https://webis.de/).
 + Christian Kahmann (Leipzig University)
 + Andreas Niekler (Leipzig University)
 + Michael Völske (Bauhaus-Universität Weimar)
+<<<<<<< HEAD
 + Anouk Duyster (Martin-Luther-Universität Halle-Wittenberg)
+=======
++ Ahmad Dawar Hakimi (Leipzig University)
+>>>>>>> 1c41219a8047ca25239a6b10063b8692014533e5
 
 ### Directors
 

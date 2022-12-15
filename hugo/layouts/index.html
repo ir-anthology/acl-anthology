@@ -96,7 +96,7 @@
           {{ $border_years := slice "2022" "2019" "2009" "1999" "1989" }}
           <tr class="text center border-left border-right">
             <th class="text-center" scope="row">Shared Tasks</th>
-            {{ $allyears := seq 2020 -1 2018}}
+            {{ $allyears := seq 2020 -1 2015}}
             {{ range $all_years }}
             {{ $year := string . }}
             <td class="{{ cond (in $border_years $year) " border-left" "" }} {{ cond (eq "1971" $year) "border-right" "" }}">

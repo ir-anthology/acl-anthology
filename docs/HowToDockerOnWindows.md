@@ -82,11 +82,13 @@ __->__ Now you pushed the git
 
 #### __After everything is downloaded:__
 
+* ```cd bash run.sh ```
+
 *  ```cd tmp``` (a folder where you can work without destroying anythong)
 
 ----> with ```ls``` You can see whats inside
 
-__should see:__ ```hugo_cache ir-anthology```
+__should see:__ ```exithugo_cache ir-anthology```
 
 *  ```cd ir-anthology```
 

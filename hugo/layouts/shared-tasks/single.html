@@ -38,20 +38,20 @@ Shared Tasks  ({{ .Params.year }})
     {{ range .Params.conferences }}
         {{ $conf := .label }}
         {{ range .tasks }}
-            <div id="{{ .label }}">
+        <div id="{{ .label }}">
             <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
             <h3 class="d-sm-flex pb-2 border-bottom">
                 {{ $label := .label }}
-                {{ $link := .link }}
+                {{ $url := .url }}
                 {{ $task := printf "%s: %s" $conf $label }}
                 <span class="d-block mr-2 list-button-row"></span>
                 <a class=align-middle id="{{.id}}">{{ $task }}</a>
             </h3>
-            {{ $link := .link }}
-            {{ if (not (eq $link "")) }}
+            {{ $url := .url }}
+            {{ if (not (eq $url "")) }}
             <p class="d-sm-flex pb-2 border-bottom">
                 <span class="d-block mr-2 list-button-row"></span>
-                    <a class=align-middle href="{{ $link }}">Shared Task Website</a>
+                    <a class=align-middle href="{{ $url }}">Shared Task Website</a>
             </p>
             {{end}}
             {{ if (not (eq (len .overviewpapers) 0)) }}
@@ -69,13 +69,12 @@ Shared Tasks  ({{ .Params.year }})
             {{ if (not (eq (len .overviewpapers) 0)) }}
                 <hr/>
             {{ end }}
-            <p class="d-sm-flex pb-2 border-bottom">
-                <span class="d-block mr-2 list-button-row"></span>
-                {{ if (not (eq (len .participantpapers) 0))}}
-                  <b class=align-middle>Participant papers:</b>
-                {{end}}
-            </p>
-
+            {{ if (not (eq (len .participantpapers) 0))}}
+                <p class="d-sm-flex pb-2 border-bottom">
+                    <span class="d-block mr-2 list-button-row"></span>
+                    <b class=align-middle>Participant papers:</b>
+                </p>
+            {{ end }}
             {{ range .participantpapers }}
                 {{ with index $.Site.Data.idmap . }}
                   {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}

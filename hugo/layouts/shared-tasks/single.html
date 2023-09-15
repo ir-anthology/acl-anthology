@@ -47,7 +47,11 @@ Shared Tasks  ({{ .Params.year }})
                 <span class="d-block mr-2 list-button-row"></span>
                 <a class=align-middle id="{{.id}}">{{ $task }}</a>
             </h3>
-            {{ $url := .url }}
+            {{ if (or (not (eq .archived_url "")) (le .Params.year 2020))}}
+                {{ $url := .archived_url }}
+            {{ else  }}
+                {{ $url := .url }}
+            {{ end }}
             {{ if (not (eq $url "")) }}
             <p class="d-sm-flex pb-2 border-bottom">
                 <span class="d-block mr-2 list-button-row"></span>
